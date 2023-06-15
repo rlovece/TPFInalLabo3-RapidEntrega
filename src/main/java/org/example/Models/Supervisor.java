@@ -1,5 +1,5 @@
 package org.example.Models;
-import org.example.enums.Zonas;
+import org.example.Enums.Zonas;
 
 import java.util.ArrayList;
 

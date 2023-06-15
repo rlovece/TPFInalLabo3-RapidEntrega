@@ -1,6 +1,5 @@
 package org.example.Recursos;
-import org.example.Enums.TiposPaquete;
-import org.example.Enums.Zonas;
+import org.example.Enums.*;
 import org.example.Exceptiones.EdadInvalida;
 
 import javax.swing.*;

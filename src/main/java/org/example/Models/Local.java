@@ -1,6 +1,6 @@
 package org.example.Models.*;
 
-import org.example.enums.Areas;
+import org.example.Enums.Areas;
 
 import java.util.ArrayList;
 import java.util.TreeMap;
