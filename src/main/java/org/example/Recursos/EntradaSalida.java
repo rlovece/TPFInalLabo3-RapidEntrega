@@ -97,6 +97,32 @@ public class EntradaSalida {
         } while (!continuar);
         return  null;
     }
+
+    public static Zonas entradaZona2 (){
+        boolean continuar = false;
+        Zonas[] zonas = Zonas.values();
+
+        JComboBox<Zonas> comboBox = new JComboBox<>(zonas);
+
+        int seleccion = JOptionPane.showOptionDialog(
+                null,
+                comboBox,
+                "Seleccione una zona",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                null,
+                zonas[0]);
+
+        Zonas zonaEntrada = zonas[0];;
+        if (seleccion != JOptionPane.CLOSED_OPTION) {
+             zonaEntrada = (Zonas) comboBox.getSelectedItem();
+            System.out.println("Opción seleccionada: " + zonaEntrada);
+        } else {
+            System.out.println("Diálogo cerrado sin selección.");
+        }
+        return zonaEntrada;
+    }
     public static String entradaString (String msj){
         return showInputDialog(msj);
     }

@@ -9,7 +9,7 @@ import javax.swing.*;
 public class Main {
     public static void main(String[] args) {
 
-        Zonas entrada = EntradaSalida.entradaZona();
+        Zonas entrada = EntradaSalida.entradaZona2();
         JOptionPane.showMessageDialog(null, entrada, "", JOptionPane.WARNING_MESSAGE);
     }
 }
