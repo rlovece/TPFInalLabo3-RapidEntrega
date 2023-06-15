@@ -1,4 +1,4 @@
-package org.example.clases;
+package org.example.Models;
 
 public class EmpleadoLocal extends Empleado {
     private Supervisor supervisor;

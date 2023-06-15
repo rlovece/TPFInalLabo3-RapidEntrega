@@ -1,4 +1,4 @@
-package org.example.clases;
+package org.example.Models;
 import org.example.enums.TiposPaquete;
 import org.example.enums.Zonas;
 

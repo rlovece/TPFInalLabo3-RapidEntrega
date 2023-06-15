@@ -1,4 +1,4 @@
-package org.example.clases;
+package org.example.Models.*;
 
 import org.example.enums.Areas;
 
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class Local {
-    private int id;
+    private String id;
     private Areas area;
     private ArrayList<Empleado> empleados;
     private TreeMap<Integer,Paquete> paquetes;
@@ -15,7 +15,7 @@ public class Local {
     public Local() {
     }
 
-    public Local(int id, Areas area, ArrayList<Empleado> empleados, TreeMap<Integer, Paquete> paquetes) {
+    public Local(String id, Areas area, ArrayList<Empleado> empleados, TreeMap<Integer, Paquete> paquetes) {
         this.id = id;
         this.area = area;
         this.empleados = empleados;
@@ -24,11 +24,11 @@ public class Local {
 
     //region Getters and Setters
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
