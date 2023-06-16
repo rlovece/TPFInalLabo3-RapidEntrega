@@ -1,6 +1,6 @@
-package org.example.Models;
+package org.example.models;
 
-import org.example.Enums.Zonas;
+import org.example.enums.Zonas;
 
 import java.time.LocalDateTime;
 

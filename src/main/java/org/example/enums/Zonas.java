@@ -1,4 +1,4 @@
-package org.example.Enums;
+package org.example.enums;
 
 /**
  * <h1> Enumerador Zona</h1>
@@ -20,5 +20,9 @@ public enum Zonas {
     private final String descripcion;
     Zonas(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
     }
 }

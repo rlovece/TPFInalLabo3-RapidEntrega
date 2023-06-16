@@ -1,7 +1,7 @@
-package org.example.Recursos;
-import org.example.Enums.TiposPaquete;
-import org.example.Enums.Zonas;
-import org.example.Exceptiones.EdadInvalida;
+package org.example.recursos;
+import org.example.enums.TiposPaquete;
+import org.example.enums.Zonas;
+import org.example.excepciones.EdadInvalida;
 
 import javax.swing.*;
 import java.util.EnumSet;

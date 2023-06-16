@@ -1,15 +1,13 @@
 package org.example;
 
-import org.example.Enums.TiposPaquete;
-import org.example.Enums.Zonas;
-import org.example.Recursos.EntradaSalida;
-
-import javax.swing.*;
+import org.example.enums.Zonas;
+import org.example.recursos.EntradaSalida;
 
 public class Main {
     public static void main(String[] args) {
 
+        int nro = EntradaSalida.entradaInt("HOLA");
         Zonas entrada = EntradaSalida.entradaZona2();
-        JOptionPane.showMessageDialog(null, entrada, "", JOptionPane.WARNING_MESSAGE);
+        EntradaSalida.SalidaInformacion(entrada.getDescripcion(), "Usted eligio...");
     }
 }
