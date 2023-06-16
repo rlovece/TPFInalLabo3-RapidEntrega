@@ -1,6 +1,6 @@
-package org.example.Models;
+package org.example.models;
 
-public class EmpleadoLocal extends Empleado {
+public class EmpleadoLocal {
     private Supervisor supervisor;
 
     //constructor

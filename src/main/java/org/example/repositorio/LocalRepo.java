@@ -1,9 +1,9 @@
-package org.example.Repositorio;
+package org.example.repositorio;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import org.example.Exceptiones.InexistenteException;
-import org.example.Models.Local;
+import org.example.models.Local;
 
 import java.io.File;
 import java.io.IOException;

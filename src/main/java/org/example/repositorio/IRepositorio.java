@@ -1,4 +1,4 @@
-package org.example.Repositorio;
+package org.example.repositorio;
 
 import org.example.Exceptiones.InexistenteException;
 
@@ -10,7 +10,7 @@ public interface IRepositorio <T> {
     void guardar();
     ArrayList<T> listar();
     void agregar(T... objeto);
-    void eliminar(String id);
-    void modificar(String id);
-    T buscar (String id) throws InexistenteException;
+    void eliminar(int id);
+    void modificar(T objeto);
+
 }
