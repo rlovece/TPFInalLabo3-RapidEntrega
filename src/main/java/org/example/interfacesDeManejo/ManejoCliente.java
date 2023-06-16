@@ -4,7 +4,7 @@ import org.example.models.Cliente;
 
 public interface ManejoCliente {
 
-    Cliente modificarCliente (String dni);
+    boolean modificarCliente (String dni);
 
     Cliente buscarCliente (String dni);
 

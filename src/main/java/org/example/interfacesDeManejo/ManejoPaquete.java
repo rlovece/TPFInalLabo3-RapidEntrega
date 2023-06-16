@@ -5,7 +5,7 @@ import org.example.models.Paquete;
 
 public interface ManejoPaquete {
 
-    Paquete modificarPaquete (int id);
+    boolean modificarPaquete (int id);
 
     Paquete buscarPaquete (int id);
 
