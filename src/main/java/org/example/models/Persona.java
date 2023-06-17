@@ -1,5 +1,7 @@
 package org.example.models;
 
+import org.example.enums.EstadosEmpleado;
+
 import java.util.Objects;
 
 public class Persona {
@@ -7,6 +9,8 @@ public class Persona {
     // <editor-fold defaultstate="collapsed" desc="Atributos">
     private int Id;
     private String nombre, apellido, dni, telefono, mail, username, password;
+
+    private EstadosEmpleado estado;
 //    </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Constructores">
@@ -19,6 +23,7 @@ public class Persona {
         this.mail = mail;
         this.username = username;
         this.password = password;
+        this.estado= EstadosEmpleado.DISPONIBLE;
     }
     public Persona() {
     }
@@ -72,6 +77,13 @@ public class Persona {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+    public EstadosEmpleado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadosEmpleado estado) {
+        this.estado = estado;
     }
 //    </editor-fold>
 
