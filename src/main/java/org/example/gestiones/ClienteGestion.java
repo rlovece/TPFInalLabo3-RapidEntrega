@@ -2,6 +2,7 @@ package org.example.gestiones;
 
 import org.example.enums.EstadosEmpleado;
 import org.example.excepciones.Excepciones;
+import org.example.interfacesDeManejo.ManejoCliente;
 import org.example.models.Cliente;
 import org.example.repositorio.ClientesRepo;
 
@@ -148,11 +149,12 @@ public class ClienteGestion {
 
         repoClientes.cargar();
         for (Cliente cliente : listaClientes) {
-            if (cliente.getDni().equals(dato))){
+            if (cliente.getDni().equals(dato)){
                 return true;
             }
         }
         return false;
     }
+
     //</editor-fold>
 }

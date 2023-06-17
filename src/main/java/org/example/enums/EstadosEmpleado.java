@@ -4,7 +4,7 @@ public enum EstadosEmpleado {
 
     DISPONIBLE ("Disponible"),
     BAJA ("Dado de Baja"),
-    VACACIONES ("De vacaciones"),
+    VACACIONES ("De vacaciones");
     private final String descripcion;
 
     EstadosEmpleado(String descripcion) {
