@@ -19,7 +19,6 @@ public class Cliente extends Persona {
     public String getDomicilio() {
         return domicilio;
     }
-
     public void setDomicilio(String domicilio) {
         this.domicilio = domicilio;
     }
