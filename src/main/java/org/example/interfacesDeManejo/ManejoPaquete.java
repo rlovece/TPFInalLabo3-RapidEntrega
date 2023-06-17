@@ -7,7 +7,5 @@ public interface ManejoPaquete {
 
     boolean modificarPaquete (int id);
 
-    Paquete buscarPaquete (int id);
-
     void registroPaquete();
 }

@@ -69,5 +69,15 @@ public class EmpleadoLocalRepo implements IRepositorio<EmpleadoLocal> {
 
     }
 
+    @Override
+    public EmpleadoLocal buscar(String dni) {
+        return null;
+    }
+
+    @Override
+    public int buscarUltimoID() {
+        return 0;
+    }
+
 
 }

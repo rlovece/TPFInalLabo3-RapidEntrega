@@ -65,4 +65,14 @@ public class LocalRepo implements IRepositorio<Local>{
 
     }
 
+    @Override
+    public Local buscar(String dni) {
+        return null;
+    }
+
+    @Override
+    public int buscarUltimoID() {
+        return 0;
+    }
+
 }

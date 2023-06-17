@@ -11,6 +11,7 @@ public interface IRepositorio <T> {
     void agregar(T... objeto);
     void eliminar(int id);
     void modificar(T objeto);
-
+    T buscar(String dni);
+    int buscarUltimoID();
 
 }
