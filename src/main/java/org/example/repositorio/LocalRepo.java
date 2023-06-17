@@ -29,7 +29,7 @@ public class LocalRepo implements IRepositorio<Local>{
     @Override
     public void guardar() {
         try{
-            mapper.writerWithDefaultPrettyPrinter(archivo,this.locales);
+            mapper.writerWithDefaultPrettyPrinter().writeValue(archivo,this.locales);
         }catch (IOException e){
             throw new RuntimeException(e);
         }
@@ -57,7 +57,6 @@ public class LocalRepo implements IRepositorio<Local>{
 
                 //break;
             }
-        }
         guardar();
     }
 
@@ -65,6 +64,8 @@ public class LocalRepo implements IRepositorio<Local>{
     public void modificar(Local objeto) {
 
     }
+
+    // EN LOCAL ID ES STRING VER COMO CORREGIR
 
     @Override
     public Local buscar(String dni) {

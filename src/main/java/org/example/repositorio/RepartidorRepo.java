@@ -3,6 +3,7 @@ package org.example.repositorio;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import org.example.models.Repartidor;
+import org.example.models.Supervisor;
 
 import java.io.File;
 import java.io.IOException;
@@ -82,5 +83,26 @@ public class RepartidorRepo implements IRepositorio<Repartidor> {
             }
         }
         guardar();
+    }
+
+    @Override
+    public Repartidor buscar(String dni) {
+        this.listaRepartidores= listar();
+        for(Repartidor r: listaRepartidores)
+        {
+            if(r.getDni().equals(dni))
+            {
+                return r;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public int buscarUltimoID() {
+        this.listaRepartidores= listar();
+
+        Repartidor buscado= this.listaRepartidores.get(this.listaRepartidores.size() -1 );
+        return buscado.getId();
     }
 }

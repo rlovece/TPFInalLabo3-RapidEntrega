@@ -8,6 +8,7 @@ public class Paquete {
 
     private enum Tamanios {GRANDE, MEDIANO, PEQUEÑO};
     private int id;
+    private String codigoIdentificacion;
     private LocalDateTime fechaIngreso;
     private Cliente remitente;
     private Tamanios tamanio;
@@ -99,6 +100,15 @@ public class Paquete {
     public void setRepatidorAsignado(Persona repatidorAsignado) {
         this.repatidorAsignado = repatidorAsignado;
     }
+
+    public String getCodigoIdentificacion() {
+        return codigoIdentificacion;
+    }
+
+    public void setCodigoIdentificacion(String codigoIdentificacion) {
+        this.codigoIdentificacion = codigoIdentificacion;
+    }
+
 
     ///endregion
 }

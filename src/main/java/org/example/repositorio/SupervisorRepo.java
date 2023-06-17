@@ -2,6 +2,7 @@ package org.example.repositorio;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
+import org.example.models.EmpleadoLocal;
 import org.example.models.Supervisor;
 
 import java.io.File;
@@ -81,6 +82,27 @@ public class SupervisorRepo implements IRepositorio<Supervisor> {
             }
         }
         guardar();
+    }
+
+    @Override
+    public Supervisor buscar(String dni) {
+        this.listaSupervisores= listar();
+        for(Supervisor s: listaSupervisores)
+        {
+            if(s.getDni().equals(dni))
+            {
+                return s;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public int buscarUltimoID() {
+        this.listaSupervisores= listar();
+
+        Supervisor buscado= this.listaSupervisores.get(this.listaSupervisores.size() -1 );
+        return buscado.getId();
     }
 }
 

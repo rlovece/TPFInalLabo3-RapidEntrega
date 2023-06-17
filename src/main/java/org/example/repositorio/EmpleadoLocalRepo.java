@@ -69,5 +69,27 @@ public class EmpleadoLocalRepo implements IRepositorio<EmpleadoLocal> {
 
     }
 
+    @Override
+    public EmpleadoLocal buscar(String dni) {
 
+        this.empleadosLocal= listar();
+        for(EmpleadoLocal e: empleadosLocal)
+        {
+            if(e.getDni().equals(dni))
+            {
+                return e;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public int buscarUltimoID() {
+
+        this.empleadosLocal= listar();
+
+        EmpleadoLocal buscado= this.empleadosLocal.get(this.empleadosLocal.size() -1 );
+        return buscado.getId();
+
+    }
 }

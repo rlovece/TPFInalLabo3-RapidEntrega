@@ -66,6 +66,16 @@ public class RepoClientes implements IRepositorio<Cliente>, Serializable {
     }
 
     @Override
+    public Cliente buscar(String dni) {
+        return null;
+    }
+
+    @Override
+    public int buscarUltimoID() {
+        return 0;
+    }
+
+    @Override
     public boolean existe(String dato) {
         cargar();
         for (Cliente cliente : listadoClientes) {
