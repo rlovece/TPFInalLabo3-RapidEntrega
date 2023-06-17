@@ -65,6 +65,8 @@ public class LocalRepo implements IRepositorio<Local>{
 
     }
 
+    // EN LOCAL ID ES STRING VER COMO CORREGIR
+
     @Override
     public Local buscar(String dni) {
         return null;

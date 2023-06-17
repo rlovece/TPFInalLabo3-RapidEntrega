@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 public class Paquete {
 
     private int id;
+    private String codigoIdentificacion;
     private LocalDateTime fechaIngreso;
     private Cliente remitente;
     private TiposPaquete tiposPaquete;
@@ -103,6 +104,15 @@ public class Paquete {
     public void setRepatidorAsignado(Persona repatidorAsignado) {
         this.repatidorAsignado = repatidorAsignado;
     }
+
+    public String getCodigoIdentificacion() {
+        return codigoIdentificacion;
+    }
+
+    public void setCodigoIdentificacion(String codigoIdentificacion) {
+        this.codigoIdentificacion = codigoIdentificacion;
+    }
+
 
     ///endregion
 }

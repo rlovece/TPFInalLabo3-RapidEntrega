@@ -20,18 +20,6 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
 
     /// region Metodos Supervisor
 
-    public Supervisor altaSupervisor ()
-    {
-        Supervisor nuevo= new Supervisor();
-
-        nuevo.setNombreYApellido(EntradaSalida.entradaString("     NUEVO SUPERVISOR  \nIngrese el nombre y apellido:"));
-        nuevo.setDni(EntradaSalida.entradaString("Ingrese el DNI"));
-        nuevo.setTelefono(EntradaSalida.entradaString("Ingrese el numero de telefono"));
-        nuevo.setLegajo(EntradaSalida.entradaInt("Ingrese el numero de legajo"));
-        dni, telefono, username, password
-
-        return nuevo;
-    }
 
     ///endregion
 
@@ -39,11 +27,6 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
     @Override
     public boolean modificarCliente(String dni) {
         return false;
-    }
-
-    @Override
-    public Cliente buscarCliente(String dni) {
-        return null;
     }
 
     @Override
@@ -60,10 +43,6 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
         return false;
     }
 
-    @Override
-    public Paquete buscarPaquete(int id) {
-        return null;
-    }
 
     @Override
     public void registroPaquete() {
