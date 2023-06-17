@@ -4,13 +4,14 @@ public class Persona {
 
     // <editor-fold defaultstate="collapsed" desc="Atributos">
     private int Id;
-    private String nombreYApellido, dni, telefono, username, password;
+    private String nombre, apellido, dni, telefono, username, password;
 //    </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Constructores">
-    public Persona(int id, String nombreYApellido, String dni, String telefono, String username, String password) {
+    public Persona(int id, String nombre,String apellido, String dni, String telefono, String username, String password) {
         this.Id = id;
-        this.nombreYApellido = nombreYApellido;
+        this.nombre = nombre;
+        this.apellido = apellido;
         this.dni = dni;
         this.telefono = telefono;
         this.username = username;
@@ -30,12 +31,21 @@ public class Persona {
         Id = id;
     }
 
-    public String getNombreYApellido() {
-        return nombreYApellido;
+    public String getNombre()
+    {
+        return nombre;
     }
 
-    public void setNombreYApellido(String nombreYApellido) {
-        this.nombreYApellido = nombreYApellido;
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getDni() {
@@ -77,7 +87,8 @@ public class Persona {
     @Override
     public String toString() {
         return "Id = " + Id
-                + "\nNombre y Apellido = " + nombreYApellido
+                + "\nNombre o = " + nombre
+                + "\nApellido = " + apellido
                 + "\nDni = " + dni
                 + "\nTelefono = " + telefono
                 + "\nUsername = " + username

@@ -2,7 +2,7 @@ package org.example.gestiones;
 
 import org.example.excepciones.Excepciones;
 import org.example.models.Cliente;
-import org.example.repositorio.RepoClientes;
+import org.example.repositorio.ClientesRepo;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class ClienteGestion {
 
     // <editor-fold defaultstate="collapsed" desc="Atributos">
-    RepoClientes repoClientes = new RepoClientes();
+    ClientesRepo repoClientes = new ClientesRepo();
     Cliente cliente = new Cliente();
     Scanner scan = new Scanner(System.in);
     ArrayList<Cliente> listaClientes = new ArrayList<>();
