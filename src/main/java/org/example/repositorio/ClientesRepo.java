@@ -63,6 +63,7 @@ public class ClientesRepo implements IRepositorio<Cliente>{
                     user.setDni(nuevo.getDni());
                     user.setTelefono(nuevo.getTelefono());
                     user.setDomicilio(nuevo.getDomicilio());
+                    user.setMail(nuevo.getMail());
                     user.setUsername(nuevo.getUsername());
                     user.setPassword(nuevo.getPassword());
                 }

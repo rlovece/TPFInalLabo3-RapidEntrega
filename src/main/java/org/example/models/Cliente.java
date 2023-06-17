@@ -7,8 +7,8 @@ public class Cliente extends Persona {
 //    </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Constructores">
-    public Cliente(int id, String nombre, String apellido, String dni, String telefono, String username, String password, String domicilio) {
-        super(id, nombre,apellido, dni, telefono, username, password);
+    public Cliente(int id, String nombre, String apellido, String dni, String telefono, String email, String username, String password, String domicilio) {
+        super(id, nombre, apellido, dni, telefono, email, username, password);
         this.domicilio = domicilio;
     }
     public Cliente() {
