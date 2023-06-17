@@ -127,6 +127,17 @@ public class EntradaSalida {
         return showInputDialog(msj);
     }
 
+    public static String entradaMail (String msj){
+        return showInputDialog(msj);
+    }
+
+    public static String entradaDNI (String msj){
+        return showInputDialog(msj);
+    }
+
+    public static String entradaUsermane (String msj){
+        return showInputDialog(msj);
+    }
     ///endRegion
 
     ///region Salidas
