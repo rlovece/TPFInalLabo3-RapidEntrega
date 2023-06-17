@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 //</editor-fold>
 
-public class RepoClientes implements IRepository<Cliente>, Serializable {
+public class RepoClientes implements IRepositorio<Cliente>, Serializable {
 
     // <editor-fold defaultstate="collapsed" desc="Atributos">
     String ruta = "src/main/java/org/example/archivos/clientes.json";
@@ -36,7 +36,12 @@ public class RepoClientes implements IRepository<Cliente>, Serializable {
         cargar();
         return this.listadoClientes;
     }
-    
+
+    @Override
+    public void agregar(Cliente... objeto) {
+
+    }
+
     @Override
     public void eliminar(int dato) {
         cargar();
@@ -53,6 +58,11 @@ public class RepoClientes implements IRepository<Cliente>, Serializable {
         }
         listadoClientes.remove(aux);
         guardar();
+    }
+
+    @Override
+    public void modificar(Cliente objeto) {
+
     }
 
     @Override

@@ -2,7 +2,7 @@ package org.example.repositorio;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
-import org.example.Exceptiones.InexistenteException;
+import org.example.excepciones.InexistenteException;
 import org.example.models.EmpleadoLocal;
 
 import java.io.File;
@@ -40,7 +40,7 @@ public class EmpleadoLocalRepo implements IRepositorio<EmpleadoLocal> {
     @Override
     public ArrayList<EmpleadoLocal> listar() {
         cargar();
-        return this.empleadosLocal;
+        return (ArrayList<EmpleadoLocal>)this.empleadosLocal;
     }
 
     @Override

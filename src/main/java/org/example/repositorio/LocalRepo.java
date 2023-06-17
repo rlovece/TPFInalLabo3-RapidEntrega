@@ -2,7 +2,7 @@ package org.example.repositorio;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
-import org.example.Exceptiones.InexistenteException;
+import org.example.excepciones.InexistenteException;
 import org.example.models.Local;
 
 import java.io.File;
@@ -64,6 +64,16 @@ public class LocalRepo implements IRepositorio<Local>{
     @Override
     public void modificar(Local objeto) {
 
+    }
+
+    @Override
+    public Local buscar(String dni) {
+        return null;
+    }
+
+    @Override
+    public int buscarUltimoID() {
+        return 0;
     }
 
 }
