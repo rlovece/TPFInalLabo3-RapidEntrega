@@ -1,4 +1,4 @@
-package org.example.models.*;
+package org.example.models;
 
 
 import org.example.enums.Zonas;

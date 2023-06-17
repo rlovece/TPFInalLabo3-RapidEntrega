@@ -1,33 +1,34 @@
 package org.example.models;
 
+import org.example.enums.EstadosPaquete;
+import org.example.enums.TiposPaquete;
 import org.example.enums.Zonas;
 
 import java.time.LocalDateTime;
 
 public class Paquete {
 
-    private enum Tamanios {GRANDE, MEDIANO, PEQUEÑO};
     private int id;
     private String codigoIdentificacion;
     private LocalDateTime fechaIngreso;
     private Cliente remitente;
-    private Tamanios tamanio;
+    private TiposPaquete tiposPaquete;
     private Zonas zonaEntrega;
     private String destinatario;
     private String domicilioEntrega;
-    private boolean estadoEntregado;
+    private EstadosPaquete estado;
     private Persona repatidorAsignado; /// Tipo persona Hasta que esté clase Repartidor
 
     ///region Constructores
-    public Paquete(int id, LocalDateTime fechaIngreso, Cliente remitente, Tamanios tamanio, Zonas zonaEntrega, String destinatario, String domicilioEntrega) {
+    public Paquete(int id, LocalDateTime fechaIngreso, Cliente remitente, TiposPaquete tipoPaquete, Zonas zonaEntrega, String destinatario, String domicilioEntrega) {
         this.id = id;
         this.fechaIngreso = fechaIngreso;
         this.remitente = remitente;
-        this.tamanio = tamanio;
+        this.tiposPaquete = tipoPaquete;
         this.zonaEntrega = zonaEntrega;
         this.destinatario = destinatario;
         this.domicilioEntrega = domicilioEntrega;
-        this.estadoEntregado = false;
+        this.estado = EstadosPaquete.EN_CORREO;
         this.repatidorAsignado = null;
     }
     ///endregion
@@ -37,6 +38,9 @@ public class Paquete {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
     public LocalDateTime getFechaIngreso() {
         return fechaIngreso;
     }
@@ -53,12 +57,12 @@ public class Paquete {
         this.remitente = remitente;
     }
 
-    public Tamanios getTamanio() {
-        return tamanio;
+    public TiposPaquete getTiposPaquete() {
+        return tiposPaquete;
     }
 
-    public void setTamanio(Tamanios tamanio) {
-        this.tamanio = tamanio;
+    public void setTiposPaquete(TiposPaquete tiposPaquete) {
+        this.tiposPaquete = tiposPaquete;
     }
 
     public Zonas getZonaEntrega() {
@@ -85,12 +89,12 @@ public class Paquete {
         this.domicilioEntrega = domicilioEntrega;
     }
 
-    public boolean isEstadoEntregado() {
-        return estadoEntregado;
+    public EstadosPaquete getEstado() {
+        return estado;
     }
 
-    public void setEstadoEntregado(boolean estadoEntregado) {
-        this.estadoEntregado = estadoEntregado;
+    public void setEstado(EstadosPaquete estado) {
+        this.estado = estado;
     }
 
     public Persona getRepatidorAsignado() {

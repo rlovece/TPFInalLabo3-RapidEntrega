@@ -77,7 +77,7 @@ public class RepartidorRepo implements IRepositorio<Repartidor> {
         {
             if(r.getId() == nuevo.getId())
             {
-                r.setNombreYApellido(nuevo.getNombreYApellido());
+                r.setNombre(nuevo.getNombre());
                 // ATRIBUTOS
                 break;
             }

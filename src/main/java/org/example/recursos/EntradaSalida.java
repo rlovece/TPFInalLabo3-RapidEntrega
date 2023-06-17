@@ -28,8 +28,6 @@ public class EntradaSalida {
         }
         return  nro;
     }
-
-
     public static float entradafloat (String mensaje){
         boolean continuar = false;
         float nro = 0;
@@ -45,7 +43,6 @@ public class EntradaSalida {
         } while (continuar);
         return  nro;
     }
-
     public static float entradaEdad (String mensaje){
         boolean continuar = false;
         int nro = 0;
@@ -65,7 +62,6 @@ public class EntradaSalida {
         } while (continuar);
         return  nro;
     }
-
     public static TiposPaquete entradaTipoPaquete (){
         boolean continuar = false;
         EnumSet<TiposPaquete> tiposPaquetes = EnumSet.allOf(TiposPaquete.class);
@@ -81,7 +77,6 @@ public class EntradaSalida {
         } while (!continuar);
         return  null;
     }
-
     public static Zonas entradaZona (){
         boolean continuar = false;
         EnumSet<Zonas> tiposPaquetes = EnumSet.allOf(Zonas.class);
@@ -97,7 +92,6 @@ public class EntradaSalida {
         } while (!continuar);
         return  null;
     }
-
     public static Zonas entradaZona2 (){
         boolean continuar = false;
         Zonas[] zonas = Zonas.values();
@@ -126,6 +120,13 @@ public class EntradaSalida {
     public static String entradaString (String msj){
         return showInputDialog(msj);
     }
+    public static String entradaMail (String msj){
+        return showInputDialog(msj);
+    }
+    public static String entradaDNI (String msj){
+        return showInputDialog(msj);
+    }
+    public static String entradaUsermane (String msj){return showInputDialog(msj);}
 
     ///endRegion
 

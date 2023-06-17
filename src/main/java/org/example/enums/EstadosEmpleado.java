@@ -10,4 +10,6 @@ public enum EstadosEmpleado {
     EstadosEmpleado(String descripcion) {
         this.descripcion = descripcion;
     }
+
 }
+

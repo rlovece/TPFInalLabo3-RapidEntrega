@@ -29,7 +29,7 @@ public class LocalRepo implements IRepositorio<Local>{
     @Override
     public void guardar() {
         try{
-            mapper.writerWithDefaultPrettyPrinter().writeValue(archivo,this.locales);
+            mapper.writerWithDefaultPrettyPrinter().writeValue(archivo, this.locales);
         }catch (IOException e){
             throw new RuntimeException(e);
         }

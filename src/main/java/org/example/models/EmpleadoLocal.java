@@ -1,14 +1,15 @@
 package org.example.models;
 
+
 public class EmpleadoLocal extends Empleado{
+
     private Supervisor supervisor;
 
     //constructor
     public EmpleadoLocal() {
     }
 
-    public EmpleadoLocal(Supervisor supervisor) {
-        this.supervisor = supervisor;
+    public EmpleadoLocal(Supervisor supervisor) {this.supervisor = supervisor;
     }
 
     //region Getters and Setters

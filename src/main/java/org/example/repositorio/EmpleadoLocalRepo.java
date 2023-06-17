@@ -40,7 +40,7 @@ public class EmpleadoLocalRepo implements IRepositorio<EmpleadoLocal> {
     @Override
     public ArrayList<EmpleadoLocal> listar() {
         cargar();
-        return (ArrayList<EmpleadoLocal>)this.empleadosLocal;
+        return (ArrayList<EmpleadoLocal>) this.empleadosLocal;
     }
 
     @Override
