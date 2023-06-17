@@ -219,7 +219,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
                 EntradaSalida.SalidaError("Numero ingresado incorrecto", "ERROR");
                 break;
 
-        }continuar=EntradaSalida.entradaInt(" Continuar  \n 1 - Seguir modificando Repartidor \n 2 - Finalizar")
+        }continuar=EntradaSalida.entradaInt(" Continuar  \n 1 - Seguir modificando Repartidor \n 2 - Finalizar");
 
         }while(continuar==1);
 
@@ -258,7 +258,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
                     EntradaSalida.SalidaError("Numero ingresado incorrecto", "ERROR");
                     break;
                 }
-            continuar=EntradaSalida.entradaInt(" Continuar  \n 1 - Seguir modificando empleado del local \n 2 - Finalizar")
+            continuar=EntradaSalida.entradaInt(" Continuar  \n 1 - Seguir modificando empleado del local \n 2 - Finalizar");
 
         }while(continuar==1);
 
