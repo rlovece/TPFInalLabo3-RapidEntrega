@@ -7,8 +7,7 @@ public class EmpleadoLocal {
     public EmpleadoLocal() {
     }
 
-    public EmpleadoLocal(Supervisor supervisor) {
-        this.supervisor = supervisor;
+    public EmpleadoLocal(Supervisor supervisor) {this.supervisor = supervisor;
     }
 
     //region Getters and Setters

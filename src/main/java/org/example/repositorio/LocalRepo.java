@@ -2,7 +2,7 @@ package org.example.repositorio;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
-import org.example.Exceptiones.InexistenteException;
+import org.example.excepciones.InexistenteException;
 import org.example.models.Local;
 
 import java.io.File;
@@ -29,7 +29,7 @@ public class LocalRepo implements IRepositorio<Local>{
     @Override
     public void guardar() {
         try{
-            mapper.writerWithDefaultPrettyPrinter(archivo,this.locales);
+            mapper.writerWithDefaultPrettyPrinter().writeValue(archivo, this.locales);
         }catch (IOException e){
             throw new RuntimeException(e);
         }
@@ -57,7 +57,6 @@ public class LocalRepo implements IRepositorio<Local>{
 
                 //break;
             }
-        }
         guardar();
     }
 
