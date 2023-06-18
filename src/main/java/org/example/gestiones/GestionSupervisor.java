@@ -1,5 +1,6 @@
 package org.example.gestiones;
 
+import org.example.excepciones.InexistenteException;
 import org.example.interfacesDeManejo.ManejoCliente;
 import org.example.interfacesDeManejo.ManejoPaquete;
 import org.example.models.*;
@@ -9,12 +10,14 @@ import org.example.repositorio.PaqueteRepo;
 import org.example.repositorio.RepartidorRepo;
 import org.example.repositorio.SupervisorRepo;
 
+import javax.swing.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
 
 
+    ///region Atributos
     PaqueteRepo repoPaquete = new PaqueteRepo();
     ArrayList<Paquete> listadoPaquetes;
     RepartidorRepo repoRepartidor = new RepartidorRepo();
@@ -25,6 +28,8 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
     ArrayList<Supervisor> listadoSupervisores;
 
     ArrayList<Empleado> empleadosAcargo;
+
+    /// endregion
 
     /// region Metodos Supervisor
 
@@ -77,6 +82,10 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
         }
         return null;
     }
+
+    ///endregion
+
+    /// region Metodos Empleados a cargo
     public ArrayList<EmpleadoLocal> empLocalAcargo(Supervisor supervisor)
     {
         ArrayList<EmpleadoLocal> aCargo = new ArrayList<>();
@@ -120,9 +129,11 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
         }
     }
 
-    public Empleado buscarEmpleadoAcargo (Supervisor supervisor, int legajo)
+
+    public Empleado buscarEmpleadoAcargo (Supervisor supervisor)
     {
         this.empleadosAcargo = empleadosAcargo(supervisor);
+        int legajo = EntradaSalida.entradaInt("Ingrese el numero de legajo");
         for (Empleado e: this.empleadosAcargo)
         {
             if (e.getLegajo()==legajo)
@@ -133,17 +144,23 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
         return null;
     }
 
-    public boolean modificarEmpleadoAcargo (Supervisor supervisor, int legajo)
-    {
+    public boolean modificarEmpleadoAcargo (Supervisor supervisor) throws InexistenteException {
         this.empleadosAcargo = empleadosAcargo(supervisor);
-        Empleado aModificar = buscarEmpleadoAcargo(supervisor,legajo);
-        if(aModificar.getClass()==EmpleadoLocal.class)
-        {
+        Empleado aModificar = buscarEmpleadoAcargo(supervisor);
 
-        }else
+        if(aModificar!=null)
         {
-
+            if(aModificar.getClass()==EmpleadoLocal.class)
+            {
+                aModificar = modificarEmpleadoLocal((EmpleadoLocal) aModificar);
+            }else if(aModificar.getClass()==Repartidor.class)
+            {
+                aModificar = modificarRepartidor((Repartidor) aModificar);
+            }
+        }else {
+            throw new InexistenteException("El legajo ingresado no corresponde a un empleado a cargo");
         }
+
         return false;
 
     }
@@ -163,7 +180,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
         return p;
     }
 
-    Empleado modificarEmpleado(Empleado e)
+    Empleado modificarAtributosEmpleado(Empleado e)
     {
         if(1== EntradaSalida.entradaInt( " Modificar legajo:  \n 1 - Si \n 2 - No"))
         {
@@ -195,7 +212,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
                 break;
 
             case 2:
-                rep = (Repartidor) modificarEmpleado(rep);
+                rep = (Repartidor) modificarAtributosEmpleado(rep);
                 break;
             case 3:
                 if (1 == EntradaSalida.entradaInt(" Modificar supervisor:  \n 1 - Si \n 2 - No")) {
@@ -223,6 +240,8 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
 
         }while(continuar==1);
 
+        repoRepartidor.modificar(rep);
+
         return rep;
     }
 
@@ -246,7 +265,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
                     break;
 
                 case 2:
-                    empLocal = (EmpleadoLocal) modificarEmpleado(empLocal);
+                    empLocal = (EmpleadoLocal) modificarAtributosEmpleado(empLocal);
                     break;
                 case 3:
 
@@ -262,6 +281,8 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
 
         }while(continuar==1);
 
+        repoEmpLocal.modificar(empLocal);
+
         return empLocal;
     }
     /// endregion
@@ -273,10 +294,67 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
         return false;
     }
 
-
     @Override
     public void registroPaquete() {
+        Paquete nuevo = new Paquete();
 
+        nuevo.setId((repoPaquete.buscarUltimoID())+1);
+        nuevo.setFechaIngreso(LocalDateTime.now());
+        //nuevo.setRemitente(EntradaSalida.entradaString("    NUEVO PAQUETE \nIngrese el remitente"));
+        EntradaSalida.SalidaInformacion("Seleccione el tipo de paquete", "TIPO DE PAQUETE");
+        nuevo.setTiposPaquete(EntradaSalida.entradaTipoPaquete());
+        EntradaSalida.SalidaInformacion("Seleccione la Zona", "Zona");
+        nuevo.setZonaEntrega(EntradaSalida.entradaZona());
+        nuevo.setDestinatario(JOptionPane.showInputDialog("Ingrese el destinatario"));
+        nuevo.setDomicilioEntrega(JOptionPane.showInputDialog("Ingrese el domicilio de entrega"));
+        // nuevo.setEstado(EntradaSalida);  CONTINUAR CON VALIDACION DE ENTRADA
+
+        repoPaquete.agregar(nuevo);
+    }
+
+    public Paquete buscarPaqueteID (int id)
+    {
+        this.listadoPaquetes = repoPaquete.listar();
+        for(Paquete p: this.listadoPaquetes)
+        {
+            if(p.getId()== id)
+            {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    public Paquete buscarPaquete()
+    {
+        Paquete buscado = new Paquete();
+        int opcion = EntradaSalida.entradaInt("  BUSCAR PAQUETE  \n 1 - Por codigo de identificacion" +
+                "\n 2 - Por ID");
+        switch(opcion)
+        {
+            case 1:
+                buscado = repoPaquete.buscar((EntradaSalida.entradaString("Ingrese el codigo de identificacion")));
+                break;
+            case 2:
+                buscado = buscarPaqueteID(EntradaSalida.entradaInt("Ingrede el numerdo de ID del paquete"));
+                break;
+            default:
+                EntradaSalida.SalidaError("El numero ingresado es erroneo","ERROR");
+                break;
+
+        }
+        return buscado;
+    }
+
+    public void verPaquete()
+    {
+        Paquete buscado = buscarPaquete();
+        if (buscado!=null)
+        {
+            buscado.toString();
+        }else {
+            EntradaSalida.SalidaError("No se encontro el paquete buscado","ERROR");
+        }
     }
 
     /// endregion

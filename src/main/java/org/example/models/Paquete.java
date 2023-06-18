@@ -20,6 +20,10 @@ public class Paquete {
     private Persona repatidorAsignado; /// Tipo persona Hasta que esté clase Repartidor
 
     ///region Constructores
+
+    public Paquete()
+    {}
+
     public Paquete(int id, LocalDateTime fechaIngreso, Cliente remitente, TiposPaquete tipoPaquete, Zonas zonaEntrega, String destinatario, String domicilioEntrega) {
         this.id = id;
         this.fechaIngreso = fechaIngreso;
