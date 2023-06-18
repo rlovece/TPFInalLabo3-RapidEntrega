@@ -1,10 +1,12 @@
 package org.example.recursos;
 import org.example.enums.TiposPaquete;
 import org.example.enums.Zonas;
+import org.example.excepciones.CodigoPaqueteExistente;
 import org.example.excepciones.EdadInvalida;
 
 import javax.swing.*;
 import java.util.EnumSet;
+import java.util.UUID;
 
 import static javax.swing.JOptionPane.*;
 
@@ -142,6 +144,14 @@ public class EntradaSalida {
     public static void SalidaAdvertencia (String msj, String titulo) {
         JOptionPane.showMessageDialog(null, msj, titulo, WARNING_MESSAGE);
     }
+    ///endregion
+
+    ///region Entradas Aleatoria
+    public static String CodigoPaquete (){
+        String codigo = UUID.randomUUID().toString().substring(0,10).toUpperCase(); //genera un codigo random
+        return codigo;
+    }
+
     ///endregion
 
     ///region Validaciones

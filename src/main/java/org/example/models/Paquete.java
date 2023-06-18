@@ -24,8 +24,9 @@ public class Paquete {
     public Paquete()
     {}
 
-    public Paquete(int id, LocalDateTime fechaIngreso, Cliente remitente, TiposPaquete tipoPaquete, Zonas zonaEntrega, String destinatario, String domicilioEntrega) {
+    public Paquete(int id, String codigoIdentificacion, LocalDateTime fechaIngreso, Cliente remitente, TiposPaquete tipoPaquete, Zonas zonaEntrega, String destinatario, String domicilioEntrega) {
         this.id = id;
+        this.codigoIdentificacion = codigoIdentificacion;
         this.fechaIngreso = fechaIngreso;
         this.remitente = remitente;
         this.tiposPaquete = tipoPaquete;
