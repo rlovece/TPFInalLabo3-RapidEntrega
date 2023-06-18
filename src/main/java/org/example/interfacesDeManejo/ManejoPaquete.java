@@ -9,5 +9,6 @@ public interface ManejoPaquete {
     boolean modificarPaquete (int id);
     void registroPaquete();
     void validacionCodigoPaquete (String codigo) throws CodigoPaqueteExistente;
+    String nuevoCogigoPaquete ();
 
 }
