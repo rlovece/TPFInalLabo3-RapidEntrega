@@ -3,6 +3,7 @@ import org.example.enums.EstadosPaquete;
 import org.example.enums.TiposPaquete;
 import org.example.enums.Zonas;
 import org.example.excepciones.CodigoPaqueteExistente;
+import org.example.excepciones.DNIIncorrecto;
 import org.example.excepciones.EdadInvalida;
 import org.example.excepciones.EmailIncorrecto;
 
@@ -153,7 +154,7 @@ public class EntradaSalida {
      * Metodo para solicitar el ingreso de correo electronico por teclado. Se utiliza JOptionPane para la
      * solicitud.
      * <p>
-     * Se utiliza el método método {@link org.example.recursos.EntradaSalida#validarEmail(String)} dentro de un try-catch
+     * Se invoca método {@link org.example.recursos.EntradaSalida#validarEmail(String)} dentro de un try-catch
      * para asegurase que el correo ingresado contenga @ y .com.
      * En caso de ingresar al catch, se muetra el error al usuario y se ingresa nuevamente al bucle do.
      *
@@ -161,24 +162,49 @@ public class EntradaSalida {
      * @return email ingresado por teclado
      * @author Ruth Lovece
      */
-    public static String entradaMail (String msj){
+    public static String entradaMail (){
         boolean continuar = false;
         do {
             try {
-                String entrada = showInputDialog("\n Introduzca correo electrónico \n\n");
+                String entrada = showInputDialog("\n Ingrese correo electrónico \n\n");
                 validarEmail(entrada);
                 return entrada;
             } catch (EmailIncorrecto e){
-                String error = "Correo inválido, debe contener @ y .com";
+                String error = "Correo inválido, debe contener @ y .com \n\n";
                 EntradaSalida.SalidaError(error, "Error");
             }
         } while (!continuar);
         return  null;
     }
 
-    public static String entradaDNI (String msj){
-        return showInputDialog(msj);
+    /**
+     * <h1> Entrada de un DNI</h1>
+     * Metodo para solicitar el ingreso de DNI por teclado. Se utiliza JOptionPane para la
+     * solicitud.
+     * <p>
+     * Se invoca mètodo {@link org.example.recursos.EntradaSalida#validarDNI(String)} dentro de un try-catch
+     * para asegurase que el DNI contiene 8 dìgitos numericos
+     * En caso de ingresar al catch, se muetra el error al usuario y se ingresa nuevamente al bucle do.
+     *
+     * @see JOptionPane
+     * @return DNI ingresado por teclado
+     * @author Ruth Lovece
+     */
+    public static String entradaDNI (){
+        boolean continuar = false;
+        do {
+            try {
+                String entrada = showInputDialog("\n Ingrese DNI \n\n");
+                validarDNI(entrada);
+                return entrada;
+            } catch (DNIIncorrecto e){
+                String error = "El DNI debe contener 8 digitos numericos. \nSi Su DNI tiene 7 digitos, agregue 0 al comienzo. \n\n";
+                EntradaSalida.SalidaError(error, "Error");
+            }
+        } while (!continuar);
+        return  null;
     }
+
     public static String entradaUsermane (String msj){return showInputDialog(msj);}
 
     ///endRegion
@@ -226,6 +252,28 @@ public class EntradaSalida {
         if (!email.contains("@") || !email.contains(".com")){
             throw new EmailIncorrecto("Formato de email incorrecto");
         }
+    }
+
+    /**
+     * <h1> Validación ingreso DNI</h1>
+     * Método que valida que el dni contenga 8 dígitos numéricos.
+     * En caso contrario se lanzará la excepción
+     *
+     * @param dni
+     * @exception DNIIncorrecto
+     * @author Ruth Lovece
+     *
+     * */
+    public static void validarDNI (String dni) throws DNIIncorrecto {
+        try {
+            Integer.parseInt(dni);
+        } catch (NumberFormatException e) {
+            throw new DNIIncorrecto("DNI con digitos no numéricos");
+        }
+        if (dni.length()!=8) {
+            throw new DNIIncorrecto("DNI no contiene 8 digitos");
+        }
+
     }
 
     ///endregion

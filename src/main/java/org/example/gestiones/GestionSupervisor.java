@@ -181,9 +181,9 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
     {
         p.setNombre(EntradaSalida.entradaString("Ingrese el nombre"));
         p.setApellido(EntradaSalida.entradaString("Ingrese el apellido"));
-        p.setDni(EntradaSalida.entradaDNI("Ingrese el dni"));
+        p.setDni(EntradaSalida.entradaDNI());
         p.setTelefono(EntradaSalida.entradaString("Ingrese el telefono"));
-        p.setMail(EntradaSalida.entradaMail("Ingrese el mail"));
+        p.setMail(EntradaSalida.entradaMail());
         int opcion=1;
         if(opcion == (EntradaSalida.entradaInt(" Modificar Usuario-Contraseña \n    1 - Si\n    2 - No")))
         {
@@ -306,7 +306,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
         switch(opcion)
         {
             case 1:
-                buscado = repoRepartidor.buscar((EntradaSalida.entradaDNI("Ingrese el numero de DNI")));
+                buscado = repoRepartidor.buscar((EntradaSalida.entradaDNI()));
                 break;
             case 2:
                 buscado = buscarRepartidorID(EntradaSalida.entradaInt("Ingrede el numerdo de ID"));
@@ -824,7 +824,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
         switch (opcion)
         {
             case 1:
-                String dni= EntradaSalida.entradaDNI("Ingrese el numero de DNI");
+                String dni= EntradaSalida.entradaDNI();
                 buscado = repoClientes.buscar(dni);
                 break;
 
@@ -867,10 +867,10 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
         nuevo.setId(EntradaSalida.entradaInt("    NUEVO CLIENTE \nIngrese el ID:"));
         nuevo.setNombre(EntradaSalida.entradaString("Ingrese el nombre:"));
         nuevo.setApellido(EntradaSalida.entradaString("Ingrese el apellido:"));
-        String dni =(EntradaSalida.entradaDNI("Ingrese el DNI:"));
+        String dni =(EntradaSalida.entradaDNI());
         nuevo.setDni(dni);
         nuevo.setTelefono(EntradaSalida.entradaString("Ingrese el telefono:"));
-        nuevo.setMail(EntradaSalida.entradaMail("Ingrese el mail:"));
+        nuevo.setMail(EntradaSalida.entradaMail());
         nuevo.setTelefono(EntradaSalida.entradaString("Ingrese el telefono:"));
         nuevo.setUsername(EntradaSalida.entradaUsermane("Ingrese el nombre de usuario:"));
         nuevo.setPassword(dni);
