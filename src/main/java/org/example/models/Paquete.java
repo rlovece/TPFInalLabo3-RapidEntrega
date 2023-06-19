@@ -18,7 +18,7 @@ public class Paquete {
     private String destinatario;
     private String domicilioEntrega;
     private EstadosPaquete estado;
-    private Persona repatidorAsignado; /// Tipo persona Hasta que esté clase Repartidor
+    private Repartidor repatidorAsignado; /// Tipo persona Hasta que esté clase Repartidor
 
     ///region Constructores
 
@@ -103,11 +103,11 @@ public class Paquete {
         this.estado = estado;
     }
 
-    public Persona getRepatidorAsignado() {
+    public Repartidor getRepatidorAsignado() {
         return repatidorAsignado;
     }
 
-    public void setRepatidorAsignado(Persona repatidorAsignado) {
+    public void setRepatidorAsignado(Repartidor repatidorAsignado) {
         this.repatidorAsignado = repatidorAsignado;
     }
 

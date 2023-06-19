@@ -2,10 +2,7 @@ package org.example.recursos;
 import org.example.enums.EstadosPaquete;
 import org.example.enums.TiposPaquete;
 import org.example.enums.Zonas;
-import org.example.excepciones.CodigoPaqueteExistente;
-import org.example.excepciones.DNIIncorrecto;
-import org.example.excepciones.EdadInvalida;
-import org.example.excepciones.EmailIncorrecto;
+import org.example.excepciones.*;
 
 import javax.swing.*;
 import java.util.EnumSet;
@@ -205,25 +202,93 @@ public class EntradaSalida {
         return  null;
     }
 
+    /**
+     * <h1> Entrada de un Teléfono</h1>
+     * Metodo para solicitar el ingreso de telèfono por teclado. Se utiliza JOptionPane para la
+     * solicitud.
+     * <p>
+     * Se invoca mètodo {@link org.example.recursos.EntradaSalida#validarTelefono(String)} dentro de un try-catch
+     * para asegurase que el Teléfono contiene 10 dìgitos numericos y que no comienza con 0 ni 15
+     * En caso de ingresar al catch, se muetra el error al usuario y se ingresa nuevamente al bucle do.
+     *
+     * @see JOptionPane
+     * @return teléfono ingresado por teclado
+     * @author Ruth Lovece
+     */
+    public static String entradaTelefono (){
+        boolean continuar = false;
+        do {
+            try {
+                String entrada = showInputDialog("\n Ingrese nro de teléfono \n" +
+                        "Debe contener 10 digitos, no incluir 0 ni 15 \n\n");
+                validarTelefono(entrada);
+                return entrada;
+            } catch (TelefonoIncorrecto e){
+                String error = "El Telefono debe contener 10 digitos numericos. \nCódigo de área sin 0 y número de celular sin 15 \n\n";
+                EntradaSalida.SalidaError(error, "Error");
+            }
+        } while (!continuar);
+        return  null;
+    }
+
+
     public static String entradaUsermane (String msj){return showInputDialog(msj);}
 
     ///endRegion
 
     ///region Salidas
+    /**
+     * <h1> Mensaje con Error</h1>
+     * Metodo mostrar errores al usuario utilizando JOptionPane. Se solititan como paràmetros el mensaje que
+     * se quiere mostrar y el tìtulo de la ventana.
+     *
+     * @see JOptionPane
+     * @param msj
+     * @param titulo
+     * @author Ruth Lovece
+     */
     public static void SalidaError (String msj, String titulo){
         JOptionPane.showMessageDialog(null, msj, titulo, ERROR_MESSAGE);
     }
 
+    /**
+     * <h1> Mensaje con Información</h1>
+     * Metodo para mostrar información al usuario utilizando JOptionPane. Se solititan como paràmetros el mensaje que
+     * se quiere mostrar y el tìtulo de la ventana.
+     *
+     * @see JOptionPane
+     * @param msj
+     * @param titulo
+     * @author Ruth Lovece
+     */
     public static void SalidaInformacion (String msj, String titulo){
         JOptionPane.showMessageDialog(null, msj, titulo, INFORMATION_MESSAGE);
     }
 
+    /**
+     * <h1> Mensaje con Advertencia</h1>
+     * Metodo para mostrar advertencias al usuario utilizando JOptionPane. Se solititan como paràmetros el mensaje que
+     * se quiere mostrar y el tìtulo de la ventana.
+     *
+     * @see JOptionPane
+     * @param msj
+     * @param titulo
+     * @author Ruth Lovece
+     */
     public static void SalidaAdvertencia (String msj, String titulo) {
         JOptionPane.showMessageDialog(null, msj, titulo, WARNING_MESSAGE);
     }
     ///endregion
 
     ///region Entradas Aleatoria
+    /**
+     * <h1> Codigo aleatorio</h1>
+     * Metodo para generar un código de 10 dìgitos alfanumèrico aleatorio.
+     *
+     * @see UUID
+     * @return codigo alfanumérico de 10 dìgitos
+     * @author Ruth Lovece
+     */
     public static String CodigoPaquete (){
         String codigo = UUID.randomUUID().toString().substring(0,10).toUpperCase(); //genera un codigo random
         return codigo;
@@ -232,6 +297,16 @@ public class EntradaSalida {
     ///endregion
 
     ///region Validaciones
+    /**
+     * <h1> Validación ingreso Edad</h1>
+     * Método que valida que la edad ingresada sea mayor de 18 y menor de 120.
+     * En caso de no contenear cualquiera estos se lanza un excepción.
+     *
+     * @param edad
+     * @exception EdadInvalida
+     * @author Ruth Lovece
+     *
+     * */
     public static void validarEdad (int edad) throws EdadInvalida {
         if (edad < 18 || edad > 120){
             throw new EdadInvalida("Edad invalida");
@@ -276,6 +351,28 @@ public class EntradaSalida {
 
     }
 
+    /**
+     * <h2> Validación ingreso DNI</h2>
+     * Método que valida que el teléfono contenga 10 dígitos numéricos, y no comienza con 0 ni 15.
+     * En caso contrario se lanzará la excepción
+     *
+     * @param telefono
+     * @exception TelefonoIncorrecto
+     * @author Ruth Lovece
+     *
+     * */
+    public static void validarTelefono (String telefono) throws TelefonoIncorrecto {
+        try {
+            Integer.parseInt(telefono);
+        } catch (NumberFormatException e) {
+            throw new TelefonoIncorrecto("Teléfono con digitos no numéricos");
+        }
+        if (telefono.length()!=10 ||
+                telefono.charAt(0)=='0' ||
+                (telefono.charAt(0)=='1') && telefono.charAt(1)=='5') {
+            throw new TelefonoIncorrecto("Telefono con digitos incorrectos");
+        }
+    }
     ///endregion
 
 }
