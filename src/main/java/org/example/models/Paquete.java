@@ -3,6 +3,7 @@ package org.example.models;
 import org.example.enums.EstadosPaquete;
 import org.example.enums.TiposPaquete;
 import org.example.enums.Zonas;
+import org.example.recursos.EntradaSalida;
 
 import java.time.LocalDateTime;
 
@@ -118,6 +119,26 @@ public class Paquete {
         this.codigoIdentificacion = codigoIdentificacion;
     }
 
+
+    ///endregion
+
+    /// region Metodos
+
+    @Override
+    public String toString() {
+        String mensaje= "                   P A Q U E T E   " +
+                        "  ID:                           " + id +
+                        "  Codigo de Identificacion:     " + codigoIdentificacion +
+                        "  Fecha de Ingreso:             " + fechaIngreso +
+                        "  Remitente:                    " + remitente +
+                        "  Tipo de paquete:              " + tiposPaquete +
+                        "  Zona de Entrega:              " + zonaEntrega +
+                        "  Destinatario:                 " + destinatario +
+                        "  Domicilio de entrega:         " + domicilioEntrega  +
+                        "  Estado:                       " + estado +
+                        "  Repatidor asignado:           " + repatidorAsignado;
+                return mensaje;
+    }
 
     ///endregion
 }
