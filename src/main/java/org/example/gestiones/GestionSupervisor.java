@@ -238,6 +238,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
     }
     ///endregion
 
+
     /// region Metodos Repartidor
 
 

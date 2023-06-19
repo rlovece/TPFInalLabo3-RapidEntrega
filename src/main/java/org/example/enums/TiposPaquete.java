@@ -24,4 +24,9 @@ public enum TiposPaquete {
     TiposPaquete(String descripcion) {
         this.descripcion = descripcion;
     }
+
+    @Override
+    public String toString() {
+        return descripcion;
+    }
 }
