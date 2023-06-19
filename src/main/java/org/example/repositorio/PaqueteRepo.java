@@ -98,9 +98,13 @@ public class PaqueteRepo implements IRepositorio<Paquete>{
     @Override
     public int buscarUltimoID() {
         this.listadoPaquetes= listar();
-
-        Paquete buscado= this.listadoPaquetes.get(this.listadoPaquetes.size() -1 );
-        return buscado.getId();
+        Paquete buscado = new Paquete();
+        try {
+            buscado = this.listadoPaquetes.get(this.listadoPaquetes.size() -1 );
+            return buscado.getId();
+        } catch (IndexOutOfBoundsException e) {
+            return -1;
+        }
     }
 }
 

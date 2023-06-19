@@ -3,6 +3,7 @@ package org.example.models;
 import org.example.enums.EstadosPaquete;
 import org.example.enums.TiposPaquete;
 import org.example.enums.Zonas;
+import org.example.recursos.EntradaSalida;
 
 import java.time.LocalDateTime;
 
@@ -17,11 +18,16 @@ public class Paquete {
     private String destinatario;
     private String domicilioEntrega;
     private EstadosPaquete estado;
-    private Persona repatidorAsignado; /// Tipo persona Hasta que esté clase Repartidor
+    private Repartidor repatidorAsignado; /// Tipo persona Hasta que esté clase Repartidor
 
     ///region Constructores
-    public Paquete(int id, LocalDateTime fechaIngreso, Cliente remitente, TiposPaquete tipoPaquete, Zonas zonaEntrega, String destinatario, String domicilioEntrega) {
+
+    public Paquete()
+    {}
+
+    public Paquete(int id, String codigoIdentificacion, LocalDateTime fechaIngreso, Cliente remitente, TiposPaquete tipoPaquete, Zonas zonaEntrega, String destinatario, String domicilioEntrega) {
         this.id = id;
+        this.codigoIdentificacion = codigoIdentificacion;
         this.fechaIngreso = fechaIngreso;
         this.remitente = remitente;
         this.tiposPaquete = tipoPaquete;
@@ -97,11 +103,11 @@ public class Paquete {
         this.estado = estado;
     }
 
-    public Persona getRepatidorAsignado() {
+    public Repartidor getRepatidorAsignado() {
         return repatidorAsignado;
     }
 
-    public void setRepatidorAsignado(Persona repatidorAsignado) {
+    public void setRepatidorAsignado(Repartidor repatidorAsignado) {
         this.repatidorAsignado = repatidorAsignado;
     }
 
@@ -113,6 +119,26 @@ public class Paquete {
         this.codigoIdentificacion = codigoIdentificacion;
     }
 
+
+    ///endregion
+
+    /// region Metodos
+
+    @Override
+    public String toString() {
+        String mensaje= "                   P A Q U E T E   " +
+                        "  ID:                           " + id +
+                        "  Codigo de Identificacion:     " + codigoIdentificacion +
+                        "  Fecha de Ingreso:             " + fechaIngreso +
+                        "  Remitente:                    " + remitente +
+                        "  Tipo de paquete:              " + tiposPaquete +
+                        "  Zona de Entrega:              " + zonaEntrega +
+                        "  Destinatario:                 " + destinatario +
+                        "  Domicilio de entrega:         " + domicilioEntrega  +
+                        "  Estado:                       " + estado +
+                        "  Repatidor asignado:           " + repatidorAsignado;
+                return mensaje;
+    }
 
     ///endregion
 }

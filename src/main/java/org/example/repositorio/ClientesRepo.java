@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import org.example.models.Cliente;
+import org.example.models.Supervisor;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 //</editor-fold>
 
-public class ClientesRepo implements IRepositorio<Cliente>{
+public class ClientesRepo implements IRepositorio<Cliente> {
 
     // <editor-fold defaultstate="collapsed" desc="Atributos">
     String ruta = "src/main/java/org/example/archivos/clientes.json";
@@ -30,11 +31,13 @@ public class ClientesRepo implements IRepositorio<Cliente>{
         listadoClientes.addAll(List.of(objeto));
         guardar();
     }
+
     @Override
     public ArrayList<Cliente> listar() {
         cargar();
         return this.listadoClientes;
     }
+
     @Override
     public void eliminar(int dato) {
         cargar();
@@ -52,6 +55,7 @@ public class ClientesRepo implements IRepositorio<Cliente>{
         listadoClientes.remove(aux);
         guardar();
     }
+
     @Override
     public void modificar(Cliente nuevo) {
         cargar();
@@ -71,8 +75,9 @@ public class ClientesRepo implements IRepositorio<Cliente>{
         } catch (NullPointerException e) {
 
         }
-        guardar();
+       guardar();
     }
+
     @Override
     public Cliente buscar(String dni) {
         cargar();
@@ -89,9 +94,12 @@ public class ClientesRepo implements IRepositorio<Cliente>{
         }
         return aux;
     }
+
     @Override
     public int buscarUltimoID() {
-        return 0;
+        this.listadoClientes = listar();
+        Cliente buscado = this.listadoClientes.get(this.listadoClientes.size() - 1);
+        return buscado.getId();
     }
 
     public int cantidad() {
@@ -109,13 +117,14 @@ public class ClientesRepo implements IRepositorio<Cliente>{
             throw new RuntimeException(e);
         }
     }
+
     @Override
     public void cargar() {
         try {
             CollectionType collectionType = mapeo.getTypeFactory().constructCollectionType(List.class, Cliente.class);
             this.listadoClientes = mapeo.readValue(archivo, collectionType);
-                    } catch (IOException e) {
-        this.listadoClientes = new ArrayList<>();
+        } catch (IOException e) {
+            this.listadoClientes = new ArrayList<>();
         }
     }
     //    </editor-fold>

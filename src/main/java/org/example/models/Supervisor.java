@@ -56,6 +56,18 @@ public class Supervisor extends Empleado {
     /// endregion
 
     /// region Metodos
+
+    @Override
+    public String toString() {
+        return "Supervisor{" +
+                "Nombre :" + this.getNombre()+
+                "zona=" + zona +
+                ", cantEmpleadosACargo=" + cantEmpleadosACargo +
+                ", empleadosACargo=" + empleadosACargo +
+                '}';
+    }
+
+
     /// endregion
 
 }

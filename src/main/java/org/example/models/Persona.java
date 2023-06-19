@@ -1,14 +1,20 @@
 package org.example.models;
 
+import org.example.enums.EstadosEmpleado;
+
+import java.util.Objects;
+
 public class Persona {
 
     // <editor-fold defaultstate="collapsed" desc="Atributos">
     private int Id;
-    private String nombre, apellido, dni, telefono, mail,username, password;
+    private String nombre, apellido, dni, telefono, mail, username, password;
+
+    private EstadosEmpleado estado;
 //    </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Constructores">
-    public Persona(int id, String nombre,String apellido, String dni, String telefono, String mail,String username, String password) {
+    public Persona(int id, String nombre, String apellido, String dni, String telefono, String mail, String username, String password) {
         this.Id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -17,8 +23,8 @@ public class Persona {
         this.mail = mail;
         this.username = username;
         this.password = password;
+        this.estado= EstadosEmpleado.DISPONIBLE;
     }
-
     public Persona() {
     }
 //    </editor-fold>
@@ -27,22 +33,15 @@ public class Persona {
     public int getId() {
         return Id;
     }
-
-
-
     public void setId(int id) {
         Id = id;
     }
-
-    public String getNombre()
-    {
+    public String getNombre() {
         return nombre;
     }
-
     public String getApellido() {
         return apellido;
     }
-
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
@@ -79,11 +78,16 @@ public class Persona {
     public void setPassword(String password) {
         this.password = password;
     }
+    public EstadosEmpleado getEstado() {
+        return estado;
+    }
 
+    public void setEstado(EstadosEmpleado estado) {
+        this.estado = estado;
+    }
 //    </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="To String">
-
     @Override
     public String toString() {
         return "Id = " + Id
@@ -96,4 +100,21 @@ public class Persona {
                 + "\nPassword = " + password;
     }
 //    </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Equals & Hashcode">
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Persona persona)) return false;
+        return Objects.equals(dni, persona.dni);
+    }
+    @Override
+    public int hashCode() {
+        int resultado = 17;
+        resultado = 31 * resultado + (dni != null ? dni.hashCode() : 0);
+        return resultado;
+    }
+    //    </editor-fold>
+
 }
+
