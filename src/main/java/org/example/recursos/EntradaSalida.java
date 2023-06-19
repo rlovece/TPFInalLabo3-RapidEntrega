@@ -203,7 +203,7 @@ public class EntradaSalida {
     }
 
     /**
-     * <h1> Entrada de un Teléfono</h1>
+     * <h2> Entrada de un Teléfono</h2>
      * Metodo para solicitar el ingreso de telèfono por teclado. Se utiliza JOptionPane para la
      * solicitud.
      * <p>
@@ -223,7 +223,7 @@ public class EntradaSalida {
                         "Debe contener 10 digitos, no incluir 0 ni 15 \n\n");
                 validarTelefono(entrada);
                 return entrada;
-            } catch (TelefonoIncorrecto e){
+            } catch (TelefonoInvalido e){
                 String error = "El Telefono debe contener 10 digitos numericos. \nCódigo de área sin 0 y número de celular sin 15 \n\n";
                 EntradaSalida.SalidaError(error, "Error");
             }
@@ -232,13 +232,41 @@ public class EntradaSalida {
     }
 
 
+    /**
+     * <h2> Entrada de generación password</h2>
+     * Metodo para solicitar el ingreso y generación de password por teclado. Se utiliza JOptionPane para la
+     * solicitud.
+     * <p>
+     * Se invoca mètodo {@link org.example.recursos.EntradaSalida#validarPassword(String)} dentro de un try-catch
+     * para asegurase que el Password contiene al menos 6 dígitos alfanuméricos
+     * En caso de ingresar al catch, se muetra el error al usuario y se ingresa nuevamente al bucle do.
+     *
+     * @see JOptionPane
+     * @return password ingresada por teclado
+     * @author Ruth Lovece
+     */
+    public static String entradaGeneracionPassword (){
+        boolean continuar = false;
+        do {
+            try {
+                String entrada = showInputDialog("\n Ingrese una contraseña \n" +
+                        "Debe contener al menos 6 dígitos alfanuméricos \n\n");
+                validarPassword(entrada);
+                return entrada;
+            } catch (PasswordInvalida e){
+                String error = "La contraseña ingresada no cumple los requisitos\nDebe contener al menos 6 dígitos y una letra \n\n";
+                EntradaSalida.SalidaError(error, "Error");
+            }
+        } while (!continuar);
+        return  null;
+    }
     public static String entradaUsermane (String msj){return showInputDialog(msj);}
 
     ///endRegion
 
     ///region Salidas
     /**
-     * <h1> Mensaje con Error</h1>
+     * <h2> Mensaje con Error</h2>
      * Metodo mostrar errores al usuario utilizando JOptionPane. Se solititan como paràmetros el mensaje que
      * se quiere mostrar y el tìtulo de la ventana.
      *
@@ -252,7 +280,7 @@ public class EntradaSalida {
     }
 
     /**
-     * <h1> Mensaje con Información</h1>
+     * <h2> Mensaje con Información</h2>
      * Metodo para mostrar información al usuario utilizando JOptionPane. Se solititan como paràmetros el mensaje que
      * se quiere mostrar y el tìtulo de la ventana.
      *
@@ -266,7 +294,7 @@ public class EntradaSalida {
     }
 
     /**
-     * <h1> Mensaje con Advertencia</h1>
+     * <h2> Mensaje con Advertencia</h2>
      * Metodo para mostrar advertencias al usuario utilizando JOptionPane. Se solititan como paràmetros el mensaje que
      * se quiere mostrar y el tìtulo de la ventana.
      *
@@ -282,7 +310,7 @@ public class EntradaSalida {
 
     ///region Entradas Aleatoria
     /**
-     * <h1> Codigo aleatorio</h1>
+     * <h2> Codigo aleatorio</h2>
      * Metodo para generar un código de 10 dìgitos alfanumèrico aleatorio.
      *
      * @see UUID
@@ -298,7 +326,7 @@ public class EntradaSalida {
 
     ///region Validaciones
     /**
-     * <h1> Validación ingreso Edad</h1>
+     * <h2> Validación ingreso Edad</h2>
      * Método que valida que la edad ingresada sea mayor de 18 y menor de 120.
      * En caso de no contenear cualquiera estos se lanza un excepción.
      *
@@ -314,7 +342,7 @@ public class EntradaSalida {
     }
 
     /**
-     * <h1> Validación ingreso Email</h1>
+     * <h2> Validación ingreso Email</h2>
      * Método que valida que la dirección de correo electrónico ingresada contenga @ y .com
      * En caso de no contenear cualquiera estos se lanza un excepción.
      *
@@ -330,7 +358,7 @@ public class EntradaSalida {
     }
 
     /**
-     * <h1> Validación ingreso DNI</h1>
+     * <h2> Validación ingreso DNI</h2>
      * Método que valida que el dni contenga 8 dígitos numéricos.
      * En caso contrario se lanzará la excepción
      *
@@ -352,25 +380,47 @@ public class EntradaSalida {
     }
 
     /**
-     * <h2> Validación ingreso DNI</h2>
+     * <h2> Validación ingreso Teléfono</h2>
      * Método que valida que el teléfono contenga 10 dígitos numéricos, y no comienza con 0 ni 15.
      * En caso contrario se lanzará la excepción
      *
      * @param telefono
-     * @exception TelefonoIncorrecto
+     * @exception TelefonoInvalido
      * @author Ruth Lovece
      *
      * */
-    public static void validarTelefono (String telefono) throws TelefonoIncorrecto {
+    public static void validarTelefono (String telefono) throws TelefonoInvalido {
         try {
             Integer.parseInt(telefono);
         } catch (NumberFormatException e) {
-            throw new TelefonoIncorrecto("Teléfono con digitos no numéricos");
+            throw new TelefonoInvalido("Teléfono con digitos no numéricos");
         }
         if (telefono.length()!=10 ||
                 telefono.charAt(0)=='0' ||
                 (telefono.charAt(0)=='1') && telefono.charAt(1)=='5') {
-            throw new TelefonoIncorrecto("Telefono con digitos incorrectos");
+            throw new TelefonoInvalido("Telefono con digitos incorrectos");
+        }
+    }
+
+    /**
+     * <h2> Validación ingreso para generar Password</h2>
+     * Método que valida que la contraseña que se desea generar e ingresada por teclado contenga al menos 6 dígitos,
+     * y al menos una letra.
+     * En caso contrario se lanzará la excepción
+     *
+     * @param password
+     * @exception PasswordInvalida
+     * @author Ruth Lovece
+     *
+     * */
+    public static void validarPassword (String password) throws PasswordInvalida {
+        try {
+            Integer.parseInt(password);
+            throw new PasswordInvalida("Password sin letras");
+        } catch (NumberFormatException e) {
+            if (password.length()<6) {
+                throw new PasswordInvalida("Password con menos de 6 caracteres");
+            }
         }
     }
     ///endregion
