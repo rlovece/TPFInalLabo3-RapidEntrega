@@ -1,4 +1,5 @@
 package org.example.recursos;
+import org.example.enums.EstadosPaquete;
 import org.example.enums.TiposPaquete;
 import org.example.enums.Zonas;
 import org.example.excepciones.CodigoPaqueteExistente;
@@ -118,6 +119,22 @@ public class EntradaSalida {
             System.out.println("Diálogo cerrado sin selección.");
         }
         return zonaEntrada;
+    }
+
+    public static EstadosPaquete entradaEstadosPaquete (){
+        boolean continuar = false;
+        EnumSet<EstadosPaquete> tiposEstadosPaquetes = EnumSet.allOf(EstadosPaquete.class);
+        do {
+            try {
+                String entrada = showInputDialog("\n Introduzca el tipo de paquete: \n" + tiposEstadosPaquetes + "\n\n");
+                EstadosPaquete estadoPaquetes = EstadosPaquete.valueOf(entrada);
+                return estadoPaquetes;
+            } catch (IllegalArgumentException e){
+                String error = "Introduzca un Tipo de Estado de Paquete Valido";
+                EntradaSalida.SalidaError(error, "Error");
+            }
+        } while (!continuar);
+        return  null;
     }
     public static String entradaString (String msj){
         return showInputDialog(msj);
