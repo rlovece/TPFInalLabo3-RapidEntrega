@@ -3,6 +3,7 @@ import org.example.enums.TiposPaquete;
 import org.example.enums.Zonas;
 import org.example.excepciones.CodigoPaqueteExistente;
 import org.example.excepciones.EdadInvalida;
+import org.example.excepciones.EmailIncorrecto;
 
 import javax.swing.*;
 import java.util.EnumSet;
@@ -161,6 +162,21 @@ public class EntradaSalida {
         }
     }
 
+    /**
+     * <h1> Validación ingreso Email</h1>
+     * Método que valida que la dirección de correo electrónico ingresada contenga @ y .com
+     * En caso de no contenear cualquiera estos se lanza un excepción.
+     *
+     * @param email
+     * @exception EmailIncorrecto
+     * @author Ruth Lovece
+     *
+     * */
+    public static void validarEmail (String email) throws EmailIncorrecto {
+        if (!email.contains("@") || !email.contains(".com")){
+            throw new EmailIncorrecto("Formato de email incorrecto");
+        }
+    }
 
     ///endregion
 
