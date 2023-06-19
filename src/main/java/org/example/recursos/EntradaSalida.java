@@ -140,19 +140,25 @@ public class EntradaSalida {
     }
 
     public static EstadosPaquete entradaEstadosPaquete (){
-        boolean continuar = false;
-        EnumSet<EstadosPaquete> tiposEstadosPaquetes = EnumSet.allOf(EstadosPaquete.class);
-        do {
-            try {
-                String entrada = showInputDialog("\n Introduzca el tipo de paquete: \n" + tiposEstadosPaquetes + "\n\n");
-                EstadosPaquete estadoPaquetes = EstadosPaquete.valueOf(entrada);
-                return estadoPaquetes;
-            } catch (IllegalArgumentException e){
-                String error = "Introduzca un Tipo de Estado de Paquete Valido";
-                EntradaSalida.SalidaError(error, "Error");
-            }
-        } while (!continuar);
-        return  null;
+        EstadosPaquete[] estadosPaquetes = EstadosPaquete.values();
+
+        JComboBox<EstadosPaquete> comboBox = new JComboBox<>(estadosPaquetes);
+
+        int seleccion = JOptionPane.showOptionDialog(
+                null,
+                comboBox,
+                "Seleccione un estado de paquete",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                null,
+                estadosPaquetes[0]);
+
+        EstadosPaquete estado = estadosPaquetes[0];;
+        if (seleccion != JOptionPane.CLOSED_OPTION) {
+            estado = (EstadosPaquete) comboBox.getSelectedItem();
+        }
+        return estado;
     }
 
     /**

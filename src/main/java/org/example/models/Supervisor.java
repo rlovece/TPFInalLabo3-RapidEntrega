@@ -59,15 +59,19 @@ public class Supervisor extends Empleado {
 
     @Override
     public String toString() {
-        return "Supervisor{" +
-                "Nombre :" + this.getNombre()+
-                "zona=" + zona +
-                ", cantEmpleadosACargo=" + cantEmpleadosACargo +
-                ", empleadosACargo=" + empleadosACargo +
-                '}';
+        String mensaje= "           S U P E R V I S O R    " +
+                "\n  ID:                   " + this.getId() +
+                "\n  Nombre:               " + this.getNombre() +
+                "\n  Apellido:             " + this.getApellido() +
+                "\n  DNI:                  " + this.getDni() +
+                "\n  Telefono:             " + this.getTelefono() +
+                "\n  Mail:                 " + this.getMail() +
+                "\n  Legajo:               " + this.getLegajo() +
+                "\n  Jornada:              " + this.getJornada()  +
+                "\n  Zona:                 " + zona +
+                "\n  Empleados a cargo:    " + cantEmpleadosACargo;
+        return mensaje;
     }
-
-
     /// endregion
 
 }
