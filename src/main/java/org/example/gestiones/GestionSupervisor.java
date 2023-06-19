@@ -574,7 +574,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
         }
     }
 
-    public Paquete modificarDatosPaquete (Supervisor supervisor,Paquete aModificar)
+    public Paquete modificarDatosPaquete (Paquete aModificar)
     {
         int opcion=0;
 
@@ -627,7 +627,6 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
         }
         if(1== EntradaSalida.entradaInt( " Modificar Repartidor Asignado:  \n 1 - Si \n 2 - No"))
         {
-        
            // asignarArepartidorDisponible()
         }
         return paq;
