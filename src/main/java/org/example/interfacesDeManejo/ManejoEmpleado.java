@@ -1,6 +1,6 @@
 package org.example.interfacesDeManejo;
 
-public interface manejoEmpleado {
+public interface ManejoEmpleado {
     void registroEmpleado();
     void modificarEmpleado();
 }

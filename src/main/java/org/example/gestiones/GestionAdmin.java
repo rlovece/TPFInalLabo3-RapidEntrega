@@ -1,5 +1,6 @@
 package org.example.gestiones;
 
+import org.example.enums.EstadosPaquete;
 import org.example.excepciones.CodigoPaqueteExistente;
 import org.example.interfacesDeManejo.ManejoPaquete;
 import org.example.models.Paquete;
@@ -14,7 +15,7 @@ public class GestionAdmin implements ManejoPaquete {
     PaqueteRepo paqueteRepo = new PaqueteRepo();
 
     @Override
-    private boolean modificarPaquete(int id) {
+    public boolean modificarPaquete(int id) {
         return false;
     }
 
@@ -49,6 +50,16 @@ public class GestionAdmin implements ManejoPaquete {
             }
         } while (!continuar);
         return null;
+    }
+
+    @Override
+    public void verUnPaquete(String codigo) {
+
+    }
+
+    @Override
+    public void verPaquetePorEstado(EstadosPaquete estadosPaquete) {
+
     }
 
     @Override

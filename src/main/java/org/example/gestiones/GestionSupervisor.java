@@ -24,17 +24,17 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
 
 
     ///region Atributos
+
+    Supervisor supervisor;
+    SupervisorRepo repoSuper = new SupervisorRepo();
+    ArrayList<Supervisor> listadoSupervisores;
     PaqueteRepo repoPaquete = new PaqueteRepo();
     ArrayList<Paquete> listadoPaquetes;
     RepartidorRepo repoRepartidor = new RepartidorRepo();
     ArrayList<Repartidor> listadoRepartidores;
     EmpleadoLocalRepo repoEmpLocal = new EmpleadoLocalRepo();
     ArrayList<EmpleadoLocal> listadoEmpLocal;
-    SupervisorRepo repoSuper = new SupervisorRepo();
-    ArrayList<Supervisor> listadoSupervisores;
-
     ArrayList<Empleado> empleadosAcargo;
-
     ClientesRepo repoClientes = new ClientesRepo();
     ArrayList<Cliente> listadoClientes;
 
@@ -42,11 +42,22 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
 
     /// region Metodos Supervisor
 
-    public ArrayList<Supervisor> listarSupervisores()
-    {
-        return this.listadoSupervisores= repoSuper.listar();
+    public GestionSupervisor() {
     }
 
+    public GestionSupervisor(Supervisor supervisor) {
+        this.supervisor = supervisor;
+    }
+
+    public void asignarSupervisor()
+    {
+        try{
+            this.supervisor= buscarSupervisor();
+        }catch(InexistenteException e)
+        {
+            EntradaSalida.SalidaError(e.getMessage(),"ERROR");
+        }
+    }
     public Supervisor buscarSupervisorLegajo(int legajo)
     {
         this.listadoSupervisores= repoSuper.listar();
@@ -73,75 +84,95 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
         return null;
     }
 
-    public Supervisor buscarSupervisor ()
-    {
-        int opcion= EntradaSalida.entradaInt("BUSCAR SUPERVISOR \n 1 - Por ID\n 2 - Por Legajo\n 3 - Por DNI");
-        if(opcion==1)
+    public Supervisor buscarSupervisor () throws InexistenteException {
+        Supervisor buscado= new Supervisor();
+
+        int opcion = EntradaSalida.entradaInt("    BUSCAR SUPERVISOR  \n  1 - Por ID" +
+                                                 "\n  2 - Por Legajo\n  3 - Por DNI");
+
+        switch(opcion)
         {
-            int id= EntradaSalida.entradaInt("Ingrese el numero de ID");
-            return buscarSupervisorID(id);
-        }else if(opcion==2)
-        {
-            int legajo= EntradaSalida.entradaInt("Ingrese el numero de legajo");
-            return buscarSupervisorLegajo(legajo);
-        }else if(opcion==3)
-        {
-            String dni= EntradaSalida.entradaString("Ingrese el DNI");
-            return repoSuper.buscar(dni);
+            case 1:
+                buscado = buscarSupervisorID(EntradaSalida.entradaInt("Ingrese el numerdo de ID"));
+                break;
+            case 2:
+                buscado = buscarSupervisorLegajo(EntradaSalida.entradaInt("Ingrese el numero de legajo"));
+                break;
+            case 3:
+                buscado = repoSuper.buscar(EntradaSalida.entradaString("Ingrese el numero de DNI"));
+                break;
+            default:
+                EntradaSalida.SalidaError("El numero ingresado es erroneo","ERROR");
+                break;
         }
-        return null;
+        if(buscado!=null)
+        {
+            return buscado;
+        }else {
+            throw new InexistenteException("Supervisor inexistente");
+        }
     }
 
     ///endregion
 
     /// region Metodos Empleados a cargo
-    public ArrayList<EmpleadoLocal> empLocalAcargo(Supervisor supervisor)
+    public void empLocalAcargo()
     {
         ArrayList<EmpleadoLocal> aCargo = new ArrayList<>();
         this.listadoEmpLocal = repoEmpLocal.listar();
         for(EmpleadoLocal r: this.listadoEmpLocal)
         {
-            if(r.getSupervisor().equals(supervisor))
+            if(r.getSupervisor().equals(this.supervisor))
             {
-                aCargo.add(r);
+                if(!this.supervisor.getEmpleadosACargo().contains(r))
+                {
+                    aCargo.add(r);
+                }
             }
         }
-        return aCargo;
+        this.supervisor.getEmpleadosACargo().addAll(aCargo);
     }
-    public ArrayList<Repartidor> repartidoresAcargo(Supervisor supervisor)
+    public void repartidoresAcargo()
     {
         ArrayList<Repartidor> aCargo = new ArrayList<>();
         this.listadoRepartidores = repoRepartidor.listar();
         for(Repartidor r: this.listadoRepartidores)
         {
-            if(r.getSupervisor().equals(supervisor))
+            if(r.getSupervisor().equals(this.supervisor))
             {
-                aCargo.add(r);
+                if(!this.supervisor.getEmpleadosACargo().contains(r))
+                {
+                    aCargo.add(r);
+                }
             }
         }
-        return aCargo;
+        this.supervisor.getEmpleadosACargo().addAll(aCargo);
     }
 
-    public ArrayList<Empleado> empleadosAcargo (Supervisor supervisor)
+    public void empleadosAcargo ()
     {
-        this.empleadosAcargo.addAll(empLocalAcargo(supervisor));
-        this.empleadosAcargo.addAll(repartidoresAcargo(supervisor));
-
-        return this.empleadosAcargo;
+        if(this.supervisor!=null)
+        {
+            empLocalAcargo();
+            repartidoresAcargo();
+        }else {
+            EntradaSalida.SalidaError("No tiene un supervisor asignado","ERROR SUPERVISOR");
+        }
     }
 
-    public void verEmpledosAcargo (Supervisor supervisor)
+    public void verEmpledosAcargo ()
     {
-        for (Empleado e: empleadosAcargo(supervisor))
+        empleadosAcargo();
+        for (Empleado e: this.supervisor.getEmpleadosACargo())
         {
             e.toString();
         }
     }
 
 
-    public Empleado buscarEmpleadoAcargo (Supervisor supervisor)
+    public Empleado buscarEmpleadoAcargo ()
     {
-        this.empleadosAcargo = empleadosAcargo(supervisor);
+        empleadosAcargo();
         int legajo = EntradaSalida.entradaInt("Ingrese el numero de legajo");
         for (Empleado e: this.empleadosAcargo)
         {
@@ -153,9 +184,9 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
         return null;
     }
 
-    public boolean modificarEmpleadoAcargo (Supervisor supervisor) throws InexistenteException {
-        this.empleadosAcargo = empleadosAcargo(supervisor);
-        Empleado aModificar = buscarEmpleadoAcargo(supervisor);
+    public boolean modificarEmpleadoAcargo () throws InexistenteException {
+        empleadosAcargo();
+        Empleado aModificar = buscarEmpleadoAcargo();
 
         if(aModificar!=null)
         {
@@ -230,10 +261,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
             case 3:
                 if (1 == EntradaSalida.entradaInt(" Modificar supervisor:  \n 1 - Si \n 2 - No")) {
                     EntradaSalida.SalidaInformacion("Buscar nuevo supervisor a asignar", "Supervisor");
-                    rep.setSupervisor(buscarSupervisor());
-                }
-                if (1 == EntradaSalida.entradaInt(" Modificar licencia:  \n 1 - Si \n 2 - No")) {
-                    rep.setLicencia(EntradaSalida.entradaString("Ingrese licencia"));
+                   // rep.setSupervisor(buscarSupervisor());
                 }
                 if (1 == EntradaSalida.entradaInt(" Modificar zona:  \n 1 - Si \n 2 - No")) {
                     rep.setZona(EntradaSalida.entradaZona());
@@ -259,7 +287,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
     public Repartidor asignarArepartidorDisponible (Supervisor supervisor, Paquete paq)
     {
         Repartidor asignado = new Repartidor();
-        this.listadoRepartidores= filtrarRepartidoresDisponibles(repartidoresAcargo(supervisor));
+       // this.listadoRepartidores= filtrarRepartidoresDisponibles(repartidoresAcargo(supervisor));
         for(Repartidor r: this.listadoRepartidores)
         {
             if(r.getZona() == paq.getZonaEntrega() && r.getTiposPaquetes() == paq.getTiposPaquete())
@@ -329,7 +357,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
 
     public Repartidor buscarRepartidorAcargo (Supervisor supervisor)
     {
-        this.listadoRepartidores = repartidoresAcargo(supervisor);
+        repartidoresAcargo();
         Repartidor buscado= new Repartidor();
         try
         {
@@ -365,7 +393,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
 
     public void asignarPaquetesAutomaticamente (Supervisor supervisor)
     {
-        this.listadoRepartidores = filtrarRepartidoresDisponibles(repartidoresAcargo(supervisor));
+       // this.listadoRepartidores = filtrarRepartidoresDisponibles(repartidoresAcargo(supervisor));
         int cant = EntradaSalida.entradaInt("Ingrese cantidad de paquetes por repartidor");
         for(Repartidor r: this.listadoRepartidores)
         {
@@ -482,7 +510,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
                 case 3:
 
                     EntradaSalida.SalidaInformacion("Buscar nuevo supervisor a asignar", "Supervisor");
-                    empLocal.setSupervisor(buscarSupervisor());
+                   // empLocal.setSupervisor(buscarSupervisor());
 
                     break;
                 default:
@@ -686,6 +714,16 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
         return null;
     }
 
+    @Override
+    public void verUnPaquete(String codigo) {
+
+    }
+
+    @Override
+    public void verPaquetePorEstado(EstadosPaquete estadosPaquete) {
+
+    }
+
     public Paquete buscarPaqueteID (int id)
     {
         this.listadoPaquetes = repoPaquete.listar();
@@ -752,7 +790,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
     }
     public void mostrarPaquetes (Supervisor supervisor)
     {
-        this.listadoRepartidores = repartidoresAcargo(supervisor);
+        repartidoresAcargo();
         int opcion = EntradaSalida.entradaInt("  MOSTRAR PAQUETES  \n 1 - Buscar un paquete" +
                 "\n 2 - Listar paquetes por estado\n 2 - Listar paquetes por repartidor");
         switch(opcion)
