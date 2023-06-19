@@ -10,7 +10,7 @@ public class Repartidor extends Empleado {
 
     /// region Atributos
     private Supervisor supervisor;
-    private String licencia;
+
     private Zonas zona;
     private TiposPaquete tiposPaquetes;
     private ArrayList<Paquete> paquetesAsignados;
@@ -21,9 +21,8 @@ public class Repartidor extends Empleado {
     public Repartidor() {
     }
 
-    public Repartidor(Supervisor supervisor, String licencia, Zonas zona, TiposPaquete tiposPaquetes, ArrayList<Paquete> paquetesAsignados) {
+    public Repartidor(Supervisor supervisor, Zonas zona, TiposPaquete tiposPaquetes, ArrayList<Paquete> paquetesAsignados) {
         this.supervisor = supervisor;
-        this.licencia = licencia;
         this.zona = zona;
         this.tiposPaquetes = tiposPaquetes;
         this.paquetesAsignados = paquetesAsignados;
@@ -39,14 +38,6 @@ public class Repartidor extends Empleado {
 
     public void setSupervisor(Supervisor supervisor) {
         this.supervisor = supervisor;
-    }
-
-    public String getLicencia() {
-        return licencia;
-    }
-
-    public void setLicencia(String licencia) {
-        this.licencia = licencia;
     }
 
     public Zonas getZona() {

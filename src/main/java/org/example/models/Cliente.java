@@ -4,6 +4,8 @@ public class Cliente extends Persona {
 
     // <editor-fold defaultstate="collapsed" desc="Atributos">
     private String domicilio;
+
+    private boolean estadoCliente = true;
 //    </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Constructores">
@@ -22,7 +24,16 @@ public class Cliente extends Persona {
     public void setDomicilio(String domicilio) {
         this.domicilio = domicilio;
     }
-//    </editor-fold>
+
+    public boolean isEstadoCliente() {
+        return estadoCliente;
+    }
+
+    public void setEstadoCliente(boolean estadoCliente) {
+        this.estadoCliente = estadoCliente;
+    }
+
+    //    </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="To String">
     @Override

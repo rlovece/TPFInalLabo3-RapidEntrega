@@ -133,14 +133,9 @@ public class ClienteGestion {
         System.out.println("Ingrese el dni del cliente a eliminar");
         String dni = scan.nextLine();
         Cliente buscado = repoClientes.buscar(dni);
-        buscado.setEstado(EstadosEmpleado.BAJA);
+        buscado.setEstadoCliente(false);
     }
-    public void descansoCliente() {
-        System.out.println("Ingrese el dni del cliente para darle vacaciones");
-        String dni = scan.nextLine();
-        Cliente buscado = repoClientes.buscar(dni);
-        buscado.setEstado(EstadosEmpleado.VACACIONES);
-    }
+
     public void mostrarClientes() {
         listaClientes = repoClientes.listar();
         System.out.println(listaClientes);
