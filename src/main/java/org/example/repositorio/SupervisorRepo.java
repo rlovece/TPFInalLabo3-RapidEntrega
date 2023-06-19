@@ -3,6 +3,7 @@ package org.example.repositorio;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import org.example.models.EmpleadoLocal;
+import org.example.models.Paquete;
 import org.example.models.Supervisor;
 
 import java.io.File;
@@ -100,9 +101,13 @@ public class SupervisorRepo implements IRepositorio<Supervisor> {
     @Override
     public int buscarUltimoID() {
         this.listaSupervisores= listar();
-
-        Supervisor buscado= this.listaSupervisores.get(this.listaSupervisores.size() -1 );
-        return buscado.getId();
+        Supervisor buscado = new Supervisor();
+        try {
+            buscado = this.listaSupervisores.get(this.listaSupervisores.size() -1 );
+            return buscado.getId();
+        } catch (IndexOutOfBoundsException e) {
+            return -1;
+        }
     }
 }
 
