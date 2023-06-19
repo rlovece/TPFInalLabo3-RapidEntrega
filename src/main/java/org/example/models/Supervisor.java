@@ -9,7 +9,7 @@ public class Supervisor extends Empleado {
     /// region Atributos
     private Zonas zona;
     private int cantEmpleadosACargo;
-    private ArrayList<Empleado> empleadosACargo;
+    private transient ArrayList<Empleado> empleadosACargo;
     /// endregion
 
     /// region Constructores

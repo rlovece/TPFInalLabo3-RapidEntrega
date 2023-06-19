@@ -101,8 +101,12 @@ public class RepartidorRepo implements IRepositorio<Repartidor> {
     @Override
     public int buscarUltimoID() {
         this.listaRepartidores= listar();
-
-        Repartidor buscado= this.listaRepartidores.get(this.listaRepartidores.size() -1 );
-        return buscado.getId();
+        Repartidor buscado = new Repartidor();
+        try {
+            buscado = this.listaRepartidores.get(this.listaRepartidores.size() -1 );
+            return buscado.getId();
+        } catch (IndexOutOfBoundsException e) {
+            return -1;
+        }
     }
 }
