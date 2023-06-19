@@ -58,26 +58,53 @@ public class EmpleadoLocalRepo implements IRepositorio<EmpleadoLocal> {
 
         for(EmpleadoLocal empleado : this.empleadosLocal){
 
-            //if(){break;}
+            if(empleado.getId() == id){
+                this.empleadosLocal.remove(empleado);
+                break;
+            }
         }
 
         guardar();
     }
 
+
     @Override
     public void modificar(EmpleadoLocal objeto) {
+        cargar();
 
+        for(EmpleadoLocal empleado : this.empleadosLocal){
+            if(empleado.getId() == objeto.getId()){
+
+                empleado.setId(objeto.getId());
+                empleado.setNombre(objeto.getNombre());
+                empleado.setApellido(objeto.getApellido());
+                empleado.setDni(objeto.getDni());
+                empleado.setTelefono(objeto.getTelefono());
+                empleado.setMail(objeto.getMail());
+                empleado.setUsername(objeto.getUsername());
+                empleado.setPassword(objeto.getPassword());
+                empleado.setLegajo(objeto.getLegajo());
+                empleado.setJornada(objeto.getJornada());
+                empleado.setEstado(objeto.getEstado());
+                empleado.setSupervisor(objeto.getSupervisor());
+
+            }
+        }
+
+        guardar();
     }
+
 
     @Override
     public EmpleadoLocal buscar(String dni) {
 
-        this.empleadosLocal= listar();
-        for(EmpleadoLocal e: empleadosLocal)
+        this.empleadosLocal = listar();
+
+        for(EmpleadoLocal empleado: empleadosLocal)
         {
-            if(e.getDni().equals(dni))
+            if(empleado.getDni().equalsIgnoreCase(dni))
             {
-                return e;
+                return empleado;
             }
         }
         return null;
@@ -86,10 +113,17 @@ public class EmpleadoLocalRepo implements IRepositorio<EmpleadoLocal> {
     @Override
     public int buscarUltimoID() {
 
-        this.empleadosLocal= listar();
+        this.empleadosLocal = listar();
 
-        EmpleadoLocal buscado= this.empleadosLocal.get(this.empleadosLocal.size() -1 );
-        return buscado.getId();
+        EmpleadoLocal buscado = new EmpleadoLocal();
 
+        try{
+            buscado = this.empleadosLocal.get(this.empleadosLocal.size() - 1);
+            return buscado.getId();
+        }catch(IndexOutOfBoundsException e){
+            return -1;
+        }
     }
+
+
 }
