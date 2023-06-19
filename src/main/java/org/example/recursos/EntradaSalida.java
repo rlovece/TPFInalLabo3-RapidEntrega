@@ -81,23 +81,21 @@ public class EntradaSalida {
         } while (!continuar);
         return  null;
     }
-    public static Zonas entradaZona (){
-        boolean continuar = false;
-        EnumSet<Zonas> tiposPaquetes = EnumSet.allOf(Zonas.class);
-        do {
-            try {
-                String entrada = showInputDialog("\n Introduzca la zona válida: \n" + tiposPaquetes + "\n\n");
-                Zonas zonaEntrada = Zonas.valueOf(entrada);
-                return zonaEntrada;
-            } catch (IllegalArgumentException e){
-                String error = "Introduzca una Zona";
-                EntradaSalida.SalidaError(error, "Error");
-            }
-        } while (!continuar);
-        return  null;
-    }
-    public static Zonas entradaZona2 (){
-        boolean continuar = false;
+
+    /**
+     * <h1> Entrada de una Zona</h1>
+     * Metodo para ingresar una instancia de Zonas. El método permite sellecionar la zona deseada eliminado
+     * posibles errores y siendo amigable con el usuario.
+     * Para esto utiliza una arreglo de Zonas y luego se muestra el atributo descripción utilizando
+     * JComboBox y JOptionPane
+     *
+     * @see Zonas
+     * @see JComboBox
+     * @see JOptionPane
+     * @return Zona seleccionada
+     * @author Ruth Lovece
+     */
+    public static Zonas entradaZona(){
         Zonas[] zonas = Zonas.values();
 
         JComboBox<Zonas> comboBox = new JComboBox<>(zonas);
@@ -137,12 +135,47 @@ public class EntradaSalida {
         } while (!continuar);
         return  null;
     }
+
+    /**
+     * <h1> Entrada de un String</h1>
+     * Metodo para ingresar  un String utilizando JOptionPane
+     *
+     * @see JOptionPane
+     * @return String ingresado por teclado
+     * @author Ruth Lovece
+     */
     public static String entradaString (String msj){
         return showInputDialog(msj);
     }
+
+    /**
+     * <h1> Entrada de un email</h1>
+     * Metodo para solicitar el ingreso de correo electronico por teclado. Se utiliza JOptionPane para la
+     * solicitud.
+     * <p>
+     * Se utiliza el método método {@link org.example.recursos.EntradaSalida#validarEmail(String)} dentro de un try-catch
+     * para asegurase que el correo ingresado contenga @ y .com.
+     * En caso de ingresar al catch, se muetra el error al usuario y se ingresa nuevamente al bucle do.
+     *
+     * @see JOptionPane
+     * @return email ingresado por teclado
+     * @author Ruth Lovece
+     */
     public static String entradaMail (String msj){
-        return showInputDialog(msj);
+        boolean continuar = false;
+        do {
+            try {
+                String entrada = showInputDialog("\n Introduzca correo electrónico \n\n");
+                validarEmail(entrada);
+                return entrada;
+            } catch (EmailIncorrecto e){
+                String error = "Correo inválido, debe contener @ y .com";
+                EntradaSalida.SalidaError(error, "Error");
+            }
+        } while (!continuar);
+        return  null;
     }
+
     public static String entradaDNI (String msj){
         return showInputDialog(msj);
     }
