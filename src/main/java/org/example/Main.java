@@ -7,7 +7,7 @@ import org.example.recursos.EntradaSalida;
 public class Main {
     public static void main(String[] args) {
 
-        EntradaSalida.entradaGeneracionPassword();
+        EntradaSalida.entradaEstadoEmpleado();
 
         GestionSupervisor gestion = new GestionSupervisor();
 

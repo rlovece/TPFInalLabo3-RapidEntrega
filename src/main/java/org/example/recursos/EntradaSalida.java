@@ -1,4 +1,5 @@
 package org.example.recursos;
+import org.example.enums.EstadosEmpleado;
 import org.example.enums.EstadosPaquete;
 import org.example.enums.TiposPaquete;
 import org.example.enums.Zonas;
@@ -13,6 +14,16 @@ import static javax.swing.JOptionPane.*;
 public class EntradaSalida {
 
     ///region Entradas
+    /**
+     * <h2> Entrada de un número entero</h2>
+     * Metodo para ingresar un número entero por teclado.
+     * La entrada se obtiene con JOptionPane como string y se parsea a Integer dentro de un try-catch que muestra error y retorna al bucle do
+     * en caso de capturase la excepción, e ingresa nuevamente al bucle do.
+     *
+     * @see JOptionPane
+     * @return numero entero ingresado
+     * @author Ruth Lovece
+     */
     public static int entradaInt (String msj){
 
         boolean continuar = false;
@@ -30,6 +41,17 @@ public class EntradaSalida {
         }
         return  nro;
     }
+
+    /**
+     * <h2> Entrada de un número flotante</h2>
+     * Metodo para ingresar un número flotante por teclado.
+     * La entrada se obtiene con JOptionPane como string y se parsea a Float dentro de un try-catch que muestra error y retorna al bucle do
+     * en caso de capturase la excepción, e ingresa nuevamente al bucle do.
+     *
+     * @see JOptionPane
+     * @return numero entero ingresado
+     * @author Ruth Lovece
+     */
     public static float entradafloat (String mensaje){
         boolean continuar = false;
         float nro = 0;
@@ -45,43 +67,45 @@ public class EntradaSalida {
         } while (continuar);
         return  nro;
     }
-    public static float entradaEdad (String mensaje){
-        boolean continuar = false;
-        int nro = 0;
-        do {
-            try {
-                String entrada = showInputDialog(mensaje);
-                nro= Integer.parseInt(entrada);
-                validarEdad(nro);
-                continuar = true;
-            } catch (NumberFormatException e){
-                String error = "Introduzca su edad, cant de años";
-                EntradaSalida.SalidaError(error, "Error");
-            } catch (EdadInvalida e) {
-                String error = "Debe ser mayor de 18 años";
-                EntradaSalida.SalidaError(error, "Error");
-            }
-        } while (continuar);
-        return  nro;
-    }
+
+    /**
+     * <h2> Entrada de un Tipo de Paquete</h2>
+     * Metodo para ingresar una instancia de TiposPaquete. El método permite selecionar la tipo detro de la lista de opciones,
+     * eliminado posibles errores y siendo amigable con el usuario.
+     * Para esto utiliza una arreglo de TiposPaquetes y luego se muestra el atributo descripción utilizando
+     * JComboBox y JOptionPane
+     *
+     * @see org.example.enums.TiposPaquete
+     * @see JComboBox
+     * @see JOptionPane
+     * @return tipo de paquete seleccionado
+     * @author Ruth Lovece
+     */
     public static TiposPaquete entradaTipoPaquete (){
-        boolean continuar = false;
-        EnumSet<TiposPaquete> tiposPaquetes = EnumSet.allOf(TiposPaquete.class);
-        do {
-            try {
-                String entrada = showInputDialog("\n Introduzca el tipo de paquete: \n" + tiposPaquetes + "\n\n");
-                TiposPaquete tipoEntrada = TiposPaquete.valueOf(entrada);
-                return tipoEntrada;
-            } catch (IllegalArgumentException e){
-                String error = "Introduzca un Tipo de Paquete Valido";
-                EntradaSalida.SalidaError(error, "Error");
-            }
-        } while (!continuar);
-        return  null;
+        TiposPaquete[] estados = TiposPaquete.values();
+
+        JComboBox<TiposPaquete> comboBox = new JComboBox<>(estados);
+
+        int seleccion = JOptionPane.showOptionDialog(
+                null,
+                comboBox,
+                "Selecione el tipo de paquete",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                null,
+                estados[0]);
+
+        TiposPaquete entrada = estados[0];;
+        if (seleccion != JOptionPane.CLOSED_OPTION) {
+            entrada = (TiposPaquete) comboBox.getSelectedItem();
+        }
+        System.out.println(entrada);
+        return entrada;
     }
 
     /**
-     * <h1> Entrada de una Zona</h1>
+     * <h2> Entrada de una Zona</h2>
      * Metodo para ingresar una instancia de Zonas. El método permite sellecionar la zona deseada eliminado
      * posibles errores y siendo amigable con el usuario.
      * Para esto utiliza una arreglo de Zonas y luego se muestra el atributo descripción utilizando
@@ -111,9 +135,6 @@ public class EntradaSalida {
         Zonas zonaEntrada = zonas[0];;
         if (seleccion != JOptionPane.CLOSED_OPTION) {
              zonaEntrada = (Zonas) comboBox.getSelectedItem();
-            System.out.println("Opción seleccionada: " + zonaEntrada);
-        } else {
-            System.out.println("Diálogo cerrado sin selección.");
         }
         return zonaEntrada;
     }
@@ -260,6 +281,43 @@ public class EntradaSalida {
         } while (!continuar);
         return  null;
     }
+
+    /**
+     * <h2> Entrada de un Estado Empleado</h2>
+     * Metodo para ingresar una instancia de EstadosEmpleados. El método permite selecionar la estado detro de la lista de opciones,
+     * eliminado posibles errores y siendo amigable con el usuario.
+     * Para esto utiliza una arreglo de EstadosEmpleado y luego se muestra el atributo descripción utilizando
+     * JComboBox y JOptionPane
+     *
+     * @see org.example.enums.EstadosEmpleado
+     * @see JComboBox
+     * @see JOptionPane
+     * @return estado del empleado seleccionada
+     * @author Ruth Lovece
+     */
+    public static EstadosEmpleado entradaEstadoEmpleado(){
+        EstadosEmpleado[] estados = EstadosEmpleado.values();
+
+        JComboBox<EstadosEmpleado> comboBox = new JComboBox<>(estados);
+
+        int seleccion = JOptionPane.showOptionDialog(
+                null,
+                comboBox,
+                "Selecione el estado",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                null,
+                estados[0]);
+
+        EstadosEmpleado entrada = estados[0];;
+        if (seleccion != JOptionPane.CLOSED_OPTION) {
+            entrada = (EstadosEmpleado) comboBox.getSelectedItem();
+        }
+        System.out.println(entrada);
+        return entrada;
+    }
+
     public static String entradaUsermane (String msj){return showInputDialog(msj);}
 
     ///endRegion
@@ -325,21 +383,6 @@ public class EntradaSalida {
     ///endregion
 
     ///region Validaciones
-    /**
-     * <h2> Validación ingreso Edad</h2>
-     * Método que valida que la edad ingresada sea mayor de 18 y menor de 120.
-     * En caso de no contenear cualquiera estos se lanza un excepción.
-     *
-     * @param edad
-     * @exception EdadInvalida
-     * @author Ruth Lovece
-     *
-     * */
-    public static void validarEdad (int edad) throws EdadInvalida {
-        if (edad < 18 || edad > 120){
-            throw new EdadInvalida("Edad invalida");
-        }
-    }
 
     /**
      * <h2> Validación ingreso Email</h2>
