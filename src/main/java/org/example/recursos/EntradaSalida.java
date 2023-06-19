@@ -324,7 +324,34 @@ public class EntradaSalida {
         return entrada;
     }
 
-    public static String entradaUsermane (String msj){return showInputDialog(msj);}
+    /**
+     * <h2> Entrada username</h2>
+     * Metodo para solicitar el ingreso username por teclado. Se utiliza JOptionPane para la
+     * solicitud.
+     * <p>
+     * Se invoca mètodo {@link org.example.recursos.EntradaSalida#validarUsername(String)} dentro de un try-catch
+     * para asegurase que el username contiene al menos 5 dígitos alfanuméricos
+     * En caso de ingresar al catch, se muetra el error al usuario y se ingresa nuevamente al bucle do.
+     *
+     * @see JOptionPane
+     * @return username ingresada por teclado
+     * @author Ruth Lovece
+     */
+    public static String entradaUsermane (){
+        boolean continuar = false;
+        do {
+            try {
+                String entrada = showInputDialog("\n Ingrese nombre de usuario \n" +
+                        "Debe contener al menos 5 dígitos alfanuméricos \n\n");
+                validarUsername(entrada);
+                return entrada;
+            } catch (UsernameInvalido e){
+                String error = "El usuario ingresado no cumple con los requisitos\nDebe contener al menos 5 dígitos y una letra \n\n";
+                EntradaSalida.SalidaError(error, "Error");
+            }
+        } while (!continuar);
+        return  null;
+    }
 
     ///endRegion
 
@@ -471,6 +498,28 @@ public class EntradaSalida {
                 throw new PasswordInvalida("Password con menos de 6 caracteres");
             }
         }
+    }
+
+    /**
+     * <h2> Validación username</h2>
+     * Método que valida que el username contiene al menos 5 dígitos alfanumericos.
+     * En caso contrario se lanzará la excepción
+     *
+     * @param username
+     * @exception DNIIncorrecto
+     * @author Ruth Lovece
+     *
+     * */
+    public static void validarUsername (String username) throws UsernameInvalido {
+        try {
+            Integer.parseInt(username);
+            throw new UsernameInvalido("Username sin letras");
+        } catch (NumberFormatException e) {
+            if (username.length()<5) {
+                throw new UsernameInvalido("Password con menos de 6 caracteres");
+            }
+        }
+
     }
     ///endregion
 

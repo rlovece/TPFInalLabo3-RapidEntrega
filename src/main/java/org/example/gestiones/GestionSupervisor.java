@@ -218,7 +218,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
         int opcion=1;
         if(opcion == (EntradaSalida.entradaInt(" Modificar Usuario-Contraseña \n    1 - Si\n    2 - No")))
         {
-            p.setUsername(EntradaSalida.entradaUsermane("Ingrese el nuevo usuario"));
+            p.setUsername(EntradaSalida.entradaUsermane());
             p.setPassword(EntradaSalida.entradaString("Ingrese la nueva contraseña"));
         }
         return p;
@@ -910,7 +910,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete {
         nuevo.setTelefono(EntradaSalida.entradaString("Ingrese el telefono:"));
         nuevo.setMail(EntradaSalida.entradaMail());
         nuevo.setTelefono(EntradaSalida.entradaString("Ingrese el telefono:"));
-        nuevo.setUsername(EntradaSalida.entradaUsermane("Ingrese el nombre de usuario:"));
+        nuevo.setUsername(EntradaSalida.entradaUsermane());
         nuevo.setPassword(dni);
 
         try
