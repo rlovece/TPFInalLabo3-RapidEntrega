@@ -24,6 +24,9 @@ public class EmpleadoLocal extends Empleado{
 
     //endregion
 
+    //region equals and hashCode
+
+    //endregion
 
     @Override
     public String toString() {
