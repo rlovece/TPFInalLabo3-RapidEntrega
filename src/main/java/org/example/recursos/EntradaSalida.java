@@ -310,7 +310,7 @@ public class EntradaSalida {
                 null,
                 estados[0]);
 
-        EstadosEmpleado entrada = estados[0];;
+        EstadosEmpleado entrada = estados[0];
         if (seleccion != JOptionPane.CLOSED_OPTION) {
             entrada = (EstadosEmpleado) comboBox.getSelectedItem();
         }

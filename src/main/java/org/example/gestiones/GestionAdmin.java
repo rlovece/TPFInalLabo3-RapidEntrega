@@ -14,7 +14,7 @@ public class GestionAdmin implements ManejoPaquete {
     PaqueteRepo paqueteRepo = new PaqueteRepo();
 
     @Override
-    public boolean modificarPaquete(int id) {
+    private boolean modificarPaquete(int id) {
         return false;
     }
 
