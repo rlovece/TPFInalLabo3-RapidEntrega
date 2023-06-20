@@ -3,9 +3,15 @@ package org.example.models;
 import org.example.enums.EstadosEmpleado;
 
 public class Empleado extends Persona{
+
+    //region Atributos
     private int legajo;
     private String jornada;
     private EstadosEmpleado estado = EstadosEmpleado.DISPONIBLE;
+
+    //endregion
+
+    //region Constructores
     public Empleado() {
     }
 
@@ -15,6 +21,10 @@ public class Empleado extends Persona{
         this.estado = EstadosEmpleado.DISPONIBLE;
     }
 
+    //endregion
+
+
+    //region Getters and Setters
     public int getLegajo() {
         return legajo;
     }
@@ -27,6 +37,10 @@ public class Empleado extends Persona{
         return jornada;
     }
 
+    public void setJornada(String jornada) {
+        this.jornada = jornada;
+    }
+
     public EstadosEmpleado getEstado() {
         return estado;
     }
@@ -35,9 +49,9 @@ public class Empleado extends Persona{
         this.estado = estado;
     }
 
-    public void setJornada(String jornada) {
-        this.jornada = jornada;
-    }
+    //endregion
+
+
 
     @Override
     public String toString() {

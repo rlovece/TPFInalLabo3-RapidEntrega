@@ -5,12 +5,14 @@ public class EmpleadoLocal extends Empleado{
 
     private Supervisor supervisor;
 
-    //constructor
+    //region Constructores
     public EmpleadoLocal() {
     }
 
     public EmpleadoLocal(Supervisor supervisor) {this.supervisor = supervisor;
     }
+
+    //endregion
 
     //region Getters and Setters
 
@@ -23,6 +25,7 @@ public class EmpleadoLocal extends Empleado{
     }
 
     //endregion
+
 
 
     @Override
