@@ -96,7 +96,7 @@ public class EmpleadoLocalRepo implements IRepositorio<EmpleadoLocal> {
 
 
     @Override
-    public EmpleadoLocal buscar(String dni) {
+    public EmpleadoLocal buscar(String dni) throws InexistenteException{
 
         this.empleadosLocal = listar();
 
@@ -107,8 +107,11 @@ public class EmpleadoLocalRepo implements IRepositorio<EmpleadoLocal> {
                 return empleado;
             }
         }
-        return null;
+
+        throw new InexistenteException("DNI inexistente");
     }
+
+
 
     @Override
     public int buscarUltimoID() {

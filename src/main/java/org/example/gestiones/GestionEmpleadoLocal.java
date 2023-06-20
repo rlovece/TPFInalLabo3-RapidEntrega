@@ -41,13 +41,14 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
      @Override
      public void verUnPaquete(String codigo) {
 
+          try{
           Paquete paqueteBuscado = paqueteRepo.buscar(codigo);
 
-          if(paqueteBuscado != null){
-               System.out.println(paqueteBuscado);
-          }else{
-               EntradaSalida.SalidaAdvertencia("El codigo ingresado no existe","ERROR");
-
+               if(paqueteBuscado != null){
+                    System.out.println(paqueteBuscado);
+               }
+          }catch(InexistenteException e){
+               EntradaSalida.SalidaInformacion(e.getMessage(),"ERROR");
           }
      }
 
@@ -70,15 +71,18 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
                String codigo = EntradaSalida.entradaString("Ingrese el Codigo de Identificacion del paquete");
 
-               Paquete paqueteBuscado = paqueteRepo.buscar(codigo);
+               try{
+                    Paquete paqueteBuscado = paqueteRepo.buscar(codigo);
 
-               if(paqueteBuscado.getRemitente().getDni().equalsIgnoreCase(dni)){
-                    verUnPaquete(codigo);
-               }else{
-                    EntradaSalida.SalidaAdvertencia("El paquete ingresado no pertenece al cliente ingresado","Advertencia");
+                    if(paqueteBuscado.getRemitente().getDni().equalsIgnoreCase(dni)){
+                         verUnPaquete(codigo);
+                    }else{
+                         EntradaSalida.SalidaAdvertencia("El paquete ingresado no pertenece al cliente ingresado","Advertencia");
+                    }
+               }catch (InexistenteException e){
+                    EntradaSalida.SalidaInformacion(e.getMessage(),"ERROR");
                }
 
-               verUnPaquete(codigo);
 
           }else{
                EntradaSalida.SalidaAdvertencia("El DNI ingresado no existe","ERROR");
@@ -272,7 +276,7 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
                nuevoCliente.setDni(dni);
                nuevoCliente.setTelefono(EntradaSalida.entradaTelefono());
                nuevoCliente.setMail(EntradaSalida.entradaMail());
-               nuevoCliente.setUsername(EntradaSalida.entradaUsermane("Ingrese el nombre de usuario"));
+               nuevoCliente.setUsername(EntradaSalida.entradaUsermane());
                nuevoCliente.setPassword(nuevoCliente.getDni()); // se genera el usuario con el dni como constraseña, despues el cliente se cambia la contraseña si quiere
                nuevoCliente.setDomicilio(EntradaSalida.entradaString("Ingrese el domicilio"));
                nuevoCliente.setEstadoCliente(true);
@@ -304,7 +308,7 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
      //buscar cliente por DNI y modificarlo
 
      @Override
-     public boolean modificarCliente(String dni) throws InexistenteException {
+     public boolean modificarCliente(String dni)  {
 
           Cliente clienteAModificar = clientesRepo.buscar(dni);
           int opcion;
@@ -354,12 +358,9 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
                return true;
 
 
-          }else{
-               throw new InexistenteException("El DNI ingresado no existe!");
-
           }
 
-
+          return false;
      }
 
      public void modificarDatosClientes(){
@@ -411,11 +412,7 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
      @Override
      public Empleado modificarEmpleado(String dni) {
-
-
-
-
-
+          return null;
      }
 
      public void modificarDatosEmpleado(String dni){
