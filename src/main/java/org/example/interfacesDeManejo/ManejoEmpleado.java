@@ -1,8 +1,10 @@
 package org.example.interfacesDeManejo;
 
+import org.example.models.Empleado;
+
 public interface ManejoEmpleado {
     void registroEmpleado();
-    void modificarEmpleado(String dni);
+    Empleado modificarEmpleado(String dni);
 
 
 }

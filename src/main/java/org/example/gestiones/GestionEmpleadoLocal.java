@@ -7,6 +7,7 @@ import org.example.interfacesDeManejo.ManejoCliente;
 import org.example.interfacesDeManejo.ManejoEmpleado;
 import org.example.interfacesDeManejo.ManejoPaquete;
 import org.example.models.Cliente;
+import org.example.models.Empleado;
 import org.example.models.EmpleadoLocal;
 import org.example.models.Paquete;
 import org.example.recursos.EntradaSalida;
@@ -409,8 +410,15 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
 
      @Override
-     public void modificarEmpleado(String dni) {
+     public Empleado modificarEmpleado(String dni) {
 
+
+
+
+
+     }
+
+     public void modificarDatosEmpleado(String dni){
           EmpleadoLocal empleadoAModificar = empleadoLocalRepo.buscar(dni);
           int opcion;
 
@@ -454,9 +462,6 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
           }else{
                EntradaSalida.SalidaAdvertencia("El dni ingresado no existe","ERROR");
           }
-
-
-
      }
 
      public void menuModificarEmpleadoLocal(){
@@ -563,7 +568,7 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
                          verPerfil(dni);
                          break;
                     case 9: // modificar datos empleadoLocal
-                         modificarEmpleado(dni);
+                         modificarDatosEmpleado(dni);
                          break;
 
                }
