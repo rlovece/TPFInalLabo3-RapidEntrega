@@ -8,7 +8,7 @@ import org.example.models.Paquete;
 
 public interface ManejoPaquete {
 
-    boolean modificarPaquete (int id);
+    boolean modificarPaquete (Paquete paquete);
     void registroPaquete();
     void validacionCodigoPaquete (String codigo) throws CodigoPaqueteExistente;
     String nuevoCogigoPaquete ();

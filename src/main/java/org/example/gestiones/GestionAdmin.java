@@ -125,11 +125,10 @@ public class GestionAdmin implements ManejoPaquete {
                     codigoPaquete = EntradaSalida.entradaString("Ingrese codigo del paquete\n\n");
                     try {
                         Paquete aModificar = paqueteRepo.buscar(codigoPaquete);
-                        modificarPaquete(aModificar.getId());
+                        modificarPaquete(aModificar);
                     } catch (InexistenteException e){
                         EntradaSalida.SalidaError("Codigo incorrecto\n\n", "Error");
                     }
-
                     break;
 
                 default:
@@ -181,40 +180,58 @@ public class GestionAdmin implements ManejoPaquete {
 
     }
 
+
     ///region ModificarPaquete
+    /**
+     * <h2Modificar Paquete por Administrador</h2>
+     * Método implementado de interfaz manejoDePaquetes según su roll, se utiliza un menú con EntradaSalida
+     * para darles las opciones. Además se ivoca a través de su instancia a PaqueteRepo para que se reflejen
+     * las modificaciones en el archivo.
+     *
+     * @see EntradaSalida
+     * @see PaqueteRepo
+     * @see ManejoPaquete
+     * @param aModificar
+     * @author Ruth Lovece
+     */
     @Override
-    public boolean modificarPaquete(int id) {
-        return false;
-    }
-    public void menuModificarPaquete(Paquete aModificar){
-        int opcion = 0;
-        do {
-            opcion = EntradaSalida.entradaInt("      ELIJA UNA OPCION  \n" +
-                    "\n 1 - Regresar a Correo" +
-                    "\n 2 - Quitar del archivo" +
-                    "\n 3 - Marcar como Entregado" +
-                    "\n 0 - Volver\n\n");
+    public boolean modificarPaquete(Paquete aModificar){
+        int opcion = EntradaSalida.entradaInt("      ELIJA UNA OPCION  \n" +
+                "\n 1 - Regresar a Correo" +
+                "\n 2 - Quitar del archivo" +
+                "\n 3 - Marcar como Entregado" +
+                "\n 0 - Volver\n\n");
 
-            switch (opcion){
-                case 1:
+        switch (opcion){
+            case 1:
+                aModificar.setEstado(EstadosPaquete.EN_CORREO);
+                aModificar.setRepatidorAsignado(null);
+                paqueteRepo.modificar(aModificar);
+                break;
 
-                    break;
+            case 2:
+                /// habría que agregar msj alerta
+                paqueteRepo.eliminar(aModificar.getId());
+                break;
 
-                case 2:
-                    String codigo = EntradaSalida.entradaString("Ingrese codigo del paquete\n\n");
-                    verUnPaquete(codigo);
-                    break;
+            case 3:
+                aModificar.setEstado(EstadosPaquete.ENTREGADO);
+                paqueteRepo.modificar(aModificar);
+                break;
 
-                case 3:
-
-                    break;
-
-                default:
-                    break;
-            }
-        } while (opcion!=0);
+            default:
+                break;
+        }
+        return true;
     }
     ///endregion
+
+    //regionNO Implementadas porque no es tarea de administrador
+    @Override
+    public void registroPaquete() {}
+    @Override
+    public String nuevoCogigoPaquete (){return null;}
+    //endregion
 
     //endregion
 
@@ -226,40 +243,6 @@ public class GestionAdmin implements ManejoPaquete {
     //endregion
 
 
-
-
-    @Override
-    public void registroPaquete() {
-        Paquete nuevo = new Paquete();
-        nuevo.setId((paqueteRepo.buscarUltimoID())+1);
-
-        nuevo.setFechaIngreso(LocalDateTime.now());
-        //nuevo.setRemitente(EntradaSalida.entradaString("    NUEVO PAQUETE \nIngrese el remitente"));
-        EntradaSalida.SalidaInformacion("Seleccione el tipo de paquete", "TIPO DE PAQUETE");
-        nuevo.setTiposPaquete(EntradaSalida.entradaTipoPaquete());
-        EntradaSalida.SalidaInformacion("Seleccione la Zona", "Zona");
-        nuevo.setZonaEntrega(EntradaSalida.entradaZona());
-        nuevo.setDestinatario(JOptionPane.showInputDialog("Ingrese el destinatario"));
-        nuevo.setDomicilioEntrega(JOptionPane.showInputDialog("Ingrese el domicilio de entrega"));
-        // nuevo.setEstado(EntradaSalida);  CONTINUAR CON VALIDACION DE ENTRADA
-
-        paqueteRepo.agregar(nuevo);
-
-    }
-
-    public String nuevoCogigoPaquete (){
-        boolean continuar = false;
-        do {
-            try {
-                String codigo = EntradaSalida.CodigoPaquete();
-                validacionCodigoPaquete(codigo);
-                return codigo;
-            } catch (CodigoPaqueteExistente e){
-
-            }
-        } while (!continuar);
-        return null;
-    }
 
 
 
