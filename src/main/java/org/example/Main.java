@@ -1,10 +1,11 @@
 package org.example;
 
 
+
 import org.example.gestiones.GestionEmpleadoLocal;
 
-import org.example.gestiones.GestionAdmin;
 
+import org.example.gestiones.GestionAdmin;
 import org.example.excepciones.InexistenteException;
 
 import org.example.gestiones.GestionSupervisor;

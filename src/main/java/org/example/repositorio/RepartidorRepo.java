@@ -2,6 +2,8 @@ package org.example.repositorio;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
+import org.example.excepciones.InexistenteException;
+import org.example.models.Paquete;
 import org.example.models.Repartidor;
 import org.example.models.Supervisor;
 
@@ -86,16 +88,16 @@ public class RepartidorRepo implements IRepositorio<Repartidor> {
     }
 
     @Override
-    public Repartidor buscar(String dni) {
+    public Repartidor buscar(String dni) throws InexistenteException{
         this.listaRepartidores= listar();
-        for(Repartidor r: listaRepartidores)
+        for(Repartidor s: listaRepartidores)
         {
-            if(r.getDni().equals(dni))
+            if(s.getDni().equals(dni))
             {
-                return r;
+                return s;
             }
         }
-        return null;
+        throw new InexistenteException("Codigo inexistente");
     }
 
     @Override

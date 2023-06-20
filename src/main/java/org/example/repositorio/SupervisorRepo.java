@@ -2,8 +2,10 @@ package org.example.repositorio;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
+import org.example.excepciones.InexistenteException;
 import org.example.models.EmpleadoLocal;
 import org.example.models.Paquete;
+import org.example.models.Repartidor;
 import org.example.models.Supervisor;
 
 import java.io.File;
@@ -86,7 +88,7 @@ public class SupervisorRepo implements IRepositorio<Supervisor> {
     }
 
     @Override
-    public Supervisor buscar(String dni) {
+    public Supervisor buscar(String dni) throws InexistenteException{
         this.listaSupervisores= listar();
         for(Supervisor s: listaSupervisores)
         {
@@ -95,7 +97,7 @@ public class SupervisorRepo implements IRepositorio<Supervisor> {
                 return s;
             }
         }
-        return null;
+        throw new InexistenteException("Codigo inexistente");
     }
 
     @Override
