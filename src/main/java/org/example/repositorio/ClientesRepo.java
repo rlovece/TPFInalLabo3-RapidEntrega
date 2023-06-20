@@ -4,7 +4,9 @@ package org.example.repositorio;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
+import org.example.excepciones.InexistenteException;
 import org.example.models.Cliente;
+import org.example.models.Paquete;
 import org.example.models.Supervisor;
 
 import java.io.File;
@@ -79,20 +81,16 @@ public class ClientesRepo implements IRepositorio<Cliente> {
     }
 
     @Override
-    public Cliente buscar(String dni)  {
-        cargar();
-        Cliente aux = null;
-        try {
-            for (Cliente user : listadoClientes) {
-                if (user.getDni().equals(dni)) {
-                    aux = user;
-                    break;
-                }
+    public Cliente buscar(String dni) throws InexistenteException {
+        this.listadoClientes= listar();
+        for(Cliente s: listadoClientes)
+        {
+            if(s.getDni().equals(dni))
+            {
+                return s;
             }
-        } catch (NullPointerException e) {
-            return null;
         }
-        return aux;
+        throw new InexistenteException("Codigo inexistente");
     }
 
     @Override
