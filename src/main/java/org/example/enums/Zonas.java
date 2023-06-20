@@ -25,4 +25,9 @@ public enum Zonas {
     public String getDescripcion() {
         return descripcion;
     }
+
+    @Override
+    public String toString() {
+        return descripcion;
+    }
 }

@@ -12,5 +12,9 @@ public enum EstadosEmpleado {
         this.descripcion = descripcion;
     }
 
+    @Override
+    public String toString() {
+        return descripcion;
+    }
 }
 
