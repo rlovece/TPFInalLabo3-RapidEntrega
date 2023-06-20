@@ -2,6 +2,7 @@ package org.example;
 
 
 
+import org.example.enums.EstadosEmpleado;
 import org.example.gestiones.GestionEmpleadoLocal;
 
 
@@ -10,10 +11,17 @@ import org.example.excepciones.InexistenteException;
 
 import org.example.gestiones.GestionRepartidor;
 import org.example.gestiones.GestionSupervisor;
+import org.example.models.EmpleadoLocal;
+import org.example.models.Repartidor;
 import org.example.recursos.EntradaSalida;
+import org.example.repositorio.EmpleadoLocalRepo;
+import org.example.repositorio.RepartidorRepo;
 
 public class Main {
+
+
     public static void main(String[] args) {
+
 
         menuIncial();
 
@@ -59,18 +67,18 @@ public class Main {
                     break;
 
                 case 2:
-                    //GestionEmpleadoLocal gestionEmpleadoLocal = new GestionEmpleadoLocal();
-                    //gestionEmpleadoLocal.logueo();
+                    GestionEmpleadoLocal gestionEmpleadoLocal = new GestionEmpleadoLocal();
+                    gestionEmpleadoLocal.logueo();
                     break;
 
                 case 3:
-                    //GestionRepartidor gestionRepartidor = new GestionRepartidor();
-                    /// gestionRepartidor.logueo();
+                    GestionRepartidor gestionRepartidor = new GestionRepartidor();
+                    gestionRepartidor.logueo();
                     break;
 
                 case 4:
-                    //GestionAdmin gestionAdmin = new GestionAdmin();
-                    //gestionAdmin.logueo();
+                    GestionAdmin gestionAdmin = new GestionAdmin();
+                    gestionAdmin.logueo();
                     break;
 
                 default:

@@ -1,0 +1,14 @@
+[ {
+  "nombre" : "Ruth",
+  "apellido" : "Alvarez",
+  "dni" : "33222111",
+  "telefono" : "2291342555",
+  "mail" : "ruti@gmail.com",
+  "username" : "rutis1",
+  "password" : "123empleado",
+  "legajo" : 73,
+  "jornada" : "LaV de 8 a 12",
+  "estado" : "DISPONIBLE",
+  "supervisor" : null,
+  "id" : 1
+} ]

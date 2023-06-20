@@ -576,6 +576,10 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
     }
 
     @Override
+    public boolean modificarPaquete(Paquete paquete) {
+        return false;
+    }
+
     public boolean modificarPaquete(int id) {
 
         Paquete aModificar = buscarPaqueteID(id);

@@ -227,7 +227,7 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
      //EmpleadoLocal no tiene el permiso para modificar un paquete
      @Override
-     public boolean modificarPaquete(int id) {
+     public boolean modificarPaquete(Paquete aModificar) {
           return false;
      }
 
