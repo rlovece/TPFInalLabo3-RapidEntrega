@@ -837,12 +837,30 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
 
     private boolean verificarClienteExistente (Cliente aVerificar) throws ExcepcionClienteExistente {
 
+
+        try{
+            if(repoClientes.buscar(aVerificar.getDni())!=null)
+            {
+                return true;
+            }else {
+                throw new ExcepcionClienteExistente("“El cliente ya existe");
+            }
+        }catch(InexistenteException e){
+            EntradaSalida.SalidaAdvertencia(e.getMessage(),"ERROR");
+        }
+
+        //modifique el metodo para que compile
+        //buscar tira una excepcion
+
+        /*
         if(repoClientes.buscar(aVerificar.getDni())!=null)
         {
             return true;
         }else {
             throw new ExcepcionClienteExistente("“El cliente ya existe");
-        }
+        }*/
+
+        return false;
     }
 
     private Cliente modificarDatosCliente(Cliente buscado) {

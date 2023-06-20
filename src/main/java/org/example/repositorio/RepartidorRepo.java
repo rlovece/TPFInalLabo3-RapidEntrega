@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RepartidorRepo implements IRepositorio<Repartidor> {
-    private final File archivoRepar = new File("");
+    private final File archivoRepar = new File("src/main/java/org/example/archivos/repartidores.json");
 
     private final ObjectMapper mapperRepar = new ObjectMapper();
 

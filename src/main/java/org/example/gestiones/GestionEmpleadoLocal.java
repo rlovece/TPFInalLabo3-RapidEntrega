@@ -2,6 +2,7 @@ package org.example.gestiones;
 
 import org.example.enums.EstadosPaquete;
 import org.example.excepciones.CodigoPaqueteExistente;
+import org.example.excepciones.ExcepcionClienteExistente;
 import org.example.excepciones.InexistenteException;
 import org.example.interfacesDeManejo.ManejoCliente;
 import org.example.interfacesDeManejo.ManejoEmpleado;
@@ -23,12 +24,12 @@ import static org.example.recursos.EntradaSalida.entradaDNI;
 public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, ManejoEmpleado {
 
      //region Atributos
-     PaqueteRepo paqueteRepo = new PaqueteRepo();
-     ClientesRepo clientesRepo = new ClientesRepo();
-     EmpleadoLocalRepo empleadoLocalRepo = new EmpleadoLocalRepo();
-     ArrayList<Paquete> paquetes;
-     ArrayList<Cliente> clientes;
-     ArrayList<EmpleadoLocal> empleadosLocal;
+     private PaqueteRepo paqueteRepo = new PaqueteRepo();
+     private ClientesRepo clientesRepo = new ClientesRepo();
+     private EmpleadoLocalRepo empleadoLocalRepo = new EmpleadoLocalRepo();
+     private ArrayList<Paquete> paquetes;
+     private ArrayList<Cliente> clientes;
+     private ArrayList<EmpleadoLocal> empleadosLocal;
 
      //endregion
 
@@ -41,13 +42,14 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
      @Override
      public void verUnPaquete(String codigo) {
 
+          try{
           Paquete paqueteBuscado = paqueteRepo.buscar(codigo);
 
-          if(paqueteBuscado != null){
-               System.out.println(paqueteBuscado);
-          }else{
-               EntradaSalida.SalidaAdvertencia("El codigo ingresado no existe","ERROR");
-
+               if(paqueteBuscado != null){
+                    System.out.println(paqueteBuscado);
+               }
+          }catch(InexistenteException e){
+               EntradaSalida.SalidaInformacion(e.getMessage(),"ERROR");
           }
      }
 
@@ -56,7 +58,7 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
      /**
       * Metodo que imprime por pantalla la informacion de un paquete que pertenezca al cliente que lo solicita
-      *
+      * @author Angeles Higa
       * */
 
      public void verUnPaqueteCliente(){
@@ -64,25 +66,27 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
           EntradaSalida.SalidaInformacion("Ingrese el DNI del remitente","");
           String dni = entradaDNI();
 
-          Cliente clienteBuscado = clientesRepo.buscar(dni);
+          try{
 
-          if(clienteBuscado != null){
+               Cliente clienteBuscado = clientesRepo.buscar(dni);
 
                String codigo = EntradaSalida.entradaString("Ingrese el Codigo de Identificacion del paquete");
 
-               Paquete paqueteBuscado = paqueteRepo.buscar(codigo);
+               try{
+                    Paquete paqueteBuscado = paqueteRepo.buscar(codigo);
 
-               if(paqueteBuscado.getRemitente().getDni().equalsIgnoreCase(dni)){
-                    verUnPaquete(codigo);
-               }else{
-                    EntradaSalida.SalidaAdvertencia("El paquete ingresado no pertenece al cliente ingresado","Advertencia");
+                    if(paqueteBuscado.getRemitente().getDni().equalsIgnoreCase(dni)){
+                         verUnPaquete(codigo);
+                    }else{
+                         EntradaSalida.SalidaAdvertencia("El paquete ingresado no pertenece al cliente ingresado","Advertencia");
+                    }
+               }catch (InexistenteException e){
+                    EntradaSalida.SalidaInformacion(e.getMessage(),"ERROR");
                }
-
-               verUnPaquete(codigo);
-
-          }else{
-               EntradaSalida.SalidaAdvertencia("El DNI ingresado no existe","ERROR");
+          }catch(InexistenteException e){
+               EntradaSalida.SalidaAdvertencia(e.getMessage(),"ERROR");
           }
+
      }
 
      /**
@@ -93,9 +97,11 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
           EntradaSalida.SalidaInformacion("Ingrese el DNI del remitente","");
           String dni = entradaDNI();
 
-          Cliente clienteBuscado = clientesRepo.buscar(dni);
 
-          if(clienteBuscado != null){
+
+          try{
+
+               Cliente clienteBuscado = clientesRepo.buscar(dni);
 
                this.paquetes = paqueteRepo.listar();
 
@@ -115,8 +121,8 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
                     EntradaSalida.SalidaInformacion("El cliente no ha realizado ningun envio aun","Informacion");
                }
 
-          }else{
-               EntradaSalida.SalidaAdvertencia("El DNI ingresado no existe","ERROR");
+          }catch(InexistenteException e){
+               EntradaSalida.SalidaAdvertencia(e.getMessage(),"ERROR");
           }
      }
 
@@ -129,7 +135,9 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
           int opcion;
 
-          opcion = EntradaSalida.entradaInt("1. Cliente nuevo\n2.Cliente existente");
+          opcion = EntradaSalida.entradaInt("     INGRESE LA OPCION DESEADA\n" +
+                  "\n1 - Cliente nuevo" +
+                          "\n2 - Cliente existente\n\n");
 
           while(opcion < 1 || opcion > 2){
                opcion = EntradaSalida.entradaInt("ERROR - Ingrese una opcion valida");
@@ -141,9 +149,9 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
           String dni = EntradaSalida.entradaDNI();
 
-          Cliente remitente = clientesRepo.buscar(dni);
+          try{
+               Cliente remitente = clientesRepo.buscar(dni);
 
-          if(remitente != null){
                nuevoPaquete.setId(paqueteRepo.buscarUltimoID() + 1);
                nuevoPaquete.setCodigoIdentificacion(nuevoCogigoPaquete());
                nuevoPaquete.setFechaIngreso(LocalDateTime.now());
@@ -151,11 +159,15 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
                nuevoPaquete.setZonaEntrega(EntradaSalida.entradaZona());
                nuevoPaquete.setDestinatario(EntradaSalida.entradaString("Ingrese el destinatario"));
                nuevoPaquete.setDomicilioEntrega(EntradaSalida.entradaString("Ingrese el domicilio de entrega"));
-               nuevoPaquete.setEstado(EntradaSalida.entradaEstadosPaquete());
+               //nuevoPaquete.setEstado(EntradaSalida.entradaEstadosPaquete());
+               nuevoPaquete.setEstado(EstadosPaquete.EN_CORREO); //el paquete que ingresa esta en el correo, esperando a que se le asigne repartidor
+               nuevoPaquete.setRepatidorAsignado(null);
 
                paqueteRepo.agregar(nuevoPaquete);
-          }else{
-               EntradaSalida.SalidaAdvertencia("El DNI ingresado no existe","ERROR");
+
+          }catch(InexistenteException e){
+
+               EntradaSalida.SalidaAdvertencia(e.getMessage(),"ERROR");
           }
 
      }
@@ -167,10 +179,7 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
           this.paquetes = paqueteRepo.listar();
 
-
-          menuEstadosPaquete();
-
-          opcion = EntradaSalida.entradaInt("Ingrese la opcion deseada");
+          opcion = EntradaSalida.entradaInt("1. En el correo\n2. Asiganado para reparto\n3. 1er visita fallida\n4. 2da visita fallida\n5. Entregado\n6. Anulado");
 
           while (opcion < 1 || opcion > 6){
                opcion = EntradaSalida.entradaInt("ERROR - Ingrese una opcion valida");
@@ -212,12 +221,9 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
                }
           }
 
-
      }
 
-     public void menuEstadosPaquete(){
-          EntradaSalida.SalidaInformacion("1. En el correo\n2. Asiganado para reparto\n3. 1er visita fallida\n4. 2da visita fallida\n5. Entregado\n6. Anulado","Estados del Paquete");
-     }
+
 
      //EmpleadoLocal no tiene el permiso para modificar un paquete
      @Override
@@ -258,34 +264,39 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
      //cargar cliente
      @Override
      public void registroCliente() {
-          EntradaSalida.SalidaInformacion("Ingrese el DNI del cliente","Registro Cliente");
+
 
           String dni = EntradaSalida.entradaDNI();
 
-          Cliente nuevoCliente = clientesRepo.buscar(dni);
+          Cliente nuevoCliente = new Cliente();
 
-          if(nuevoCliente == null){
+          try
+          {
+               nuevoCliente = clientesRepo.buscar(dni);
 
+               EntradaSalida.SalidaAdvertencia("El cliente ya existe","ERROR");
+          }catch(InexistenteException e)
+          {
                nuevoCliente.setId(clientesRepo.buscarUltimoID() + 1);
                nuevoCliente.setNombre(EntradaSalida.entradaString("Ingrese el nombre"));
                nuevoCliente.setApellido(EntradaSalida.entradaString("Ingrese el apellido"));
                nuevoCliente.setDni(dni);
                nuevoCliente.setTelefono(EntradaSalida.entradaTelefono());
                nuevoCliente.setMail(EntradaSalida.entradaMail());
-               nuevoCliente.setUsername(EntradaSalida.entradaUsermane("Ingrese el nombre de usuario"));
-               nuevoCliente.setPassword(nuevoCliente.getDni()); // se genera el usuario con el dni como constraseña, despues el cliente se cambia la contraseña si quiere
                nuevoCliente.setDomicilio(EntradaSalida.entradaString("Ingrese el domicilio"));
+               nuevoCliente.setUsername(EntradaSalida.entradaUsermane());
+               nuevoCliente.setPassword(nuevoCliente.getDni()); // se genera el usuario con el dni como constraseña, despues el cliente se cambia la contraseña si quiere
+               EntradaSalida.SalidaInformacion("Se asigno su DNI como contraseña","CONTRASEÑA");
                nuevoCliente.setEstadoCliente(true);
 
                clientesRepo.agregar(nuevoCliente);
-
-          }else{
-               EntradaSalida.SalidaInformacion("Ya existe un cliente con el DNI ingresado","Advertencia");
           }
 
-
-
      }
+
+
+
+
 
      //ver clientes
 
@@ -293,30 +304,42 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
       * Me muestra una lista de todos los clientes
       * */
      public void verClientes(){
+
           this.clientes = clientesRepo.listar();
 
           for(Cliente cliente : this.clientes){
 
                System.out.println(cliente);
+               EntradaSalida.SalidaInformacion(cliente.toString(),"Datos cliente");
           }
      }
 
      //buscar cliente por DNI y modificarlo
 
      @Override
-     public boolean modificarCliente(String dni) throws InexistenteException {
+     public boolean modificarCliente(String dni)  {
 
-          Cliente clienteAModificar = clientesRepo.buscar(dni);
-          int opcion;
+          try{
 
-          if(clienteAModificar != null){
+               Cliente clienteAModificar = clientesRepo.buscar(dni);
+               int opcion;
 
                do{
-                    menuModificarCliente();
+                    //id - NO LO PUEDE MODIFICAR
+                    //DNI - NO LO PUEDE MODIFICAR -> DEBE ELIMINAR CUENTA Y HACER UNA NUEVA
+                    //username - NO LO PUEDE MODIFICAR -> DEBE ELIMINAR LA CUENTA Y HACER UNA NUEVA
 
-                    opcion = EntradaSalida.entradaInt("Ingrese la ocpcion deseada: ");
+                    opcion = EntradaSalida.entradaInt("    INGRESE LA OPCION DESEADA\n"+
+                                    "\n1 - Modificar nombre" +
+                                    "\n2 - Modificar apellido" +
+                                    "\n3 - Modificar telefono" +
+                                    "\n4 - Modificar mail" +
+                                    "\n5 - Modificar domicilio" +
+                                    "\n6 - Modificar contraseña" +
+                                    "\n7 - Eliminar cliente" +
+                                    "\n\n0 - Salir");
 
-                    while(opcion < 0 || opcion > 6){
+                    while(opcion < 0 || opcion > 7){
                          opcion = EntradaSalida.entradaInt("ERROR - Ingrese una opcion valida: ");
                     }
 
@@ -341,10 +364,11 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
                          case 6: //contraseña
                               clienteAModificar.setPassword(EntradaSalida.entradaString("Ingrese la nueva contraseña"));
                               break;
-
+                         case 7: //dar de baja
+                              clienteAModificar.setEstadoCliente(false);
+                              break;
 
                     }
-
 
 
                }while(opcion != 0);
@@ -354,49 +378,31 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
                return true;
 
 
-          }else{
-               throw new InexistenteException("El DNI ingresado no existe!");
+          }catch (InexistenteException e){
 
+               EntradaSalida.SalidaAdvertencia(e.getMessage(),"ERROR");
           }
 
-
+          return false;
      }
 
      public void modificarDatosClientes(){
 
           String dni;
 
-          EntradaSalida.SalidaInformacion("Ingrese el DNI del cliente a modificar","");
+          //EntradaSalida.SalidaInformacion("Ingrese el DNI del cliente a modificar","");
           dni = EntradaSalida.entradaDNI();
 
-          try{
+          if(modificarCliente(dni)){
 
-               if(modificarCliente(dni)){
-                    EntradaSalida.SalidaInformacion("El cliente se modifico con exito!","");
-               }
+               EntradaSalida.SalidaInformacion("El cliente se modifico con exito!","");
 
-          }catch (InexistenteException e){
-               EntradaSalida.SalidaInformacion(e.getMessage(),"ERROR");
+          }else{
+               EntradaSalida.SalidaInformacion("No se pudo modificar el cliente","ERROR");
           }
      }
 
-     public void menuModificarCliente(){
 
-          //id - NO LO PUEDE MODIFICAR
-          //DNI - NO LO PUEDE MODIFICAR -> DEBE ELIMINAR CUENTA Y HACER UNA NUEVA
-          //username - NO LO PUEDE MODIFICAR -> DEBE ELIMINAR LA CUENTA Y HACER UNA NUEVA
-
-          //nuevoCliente.setEstadoCliente(true); //puede eliminar clientes ??
-
-          EntradaSalida.SalidaInformacion("1. Modificar nombre" +
-                  "\n2. Modificar apellido" +
-                  "\n3. Modificar telefono" +
-                  "\n4. Modificar mail" +
-                  "\n5. Modificar domicilio" +
-                          "\n6. Modificar contraseña" +
-                          "\n\n0. Salir"
-                  , "Modificar Cliente");
-     }
 
      //endregion
 
@@ -411,23 +417,26 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
      @Override
      public Empleado modificarEmpleado(String dni) {
-
-
-
-
-
+          return null;
      }
 
      public void modificarDatosEmpleado(String dni){
-          EmpleadoLocal empleadoAModificar = empleadoLocalRepo.buscar(dni);
-          int opcion;
 
-          if(empleadoAModificar != null){
+
+          try{
+
+               EmpleadoLocal empleadoAModificar = empleadoLocalRepo.buscar(dni);
+               int opcion;
 
                do {
-                    menuModificarEmpleadoLocal();
 
-                    opcion = EntradaSalida.entradaInt("Ingrese la opcion deseada");
+                    opcion = EntradaSalida.entradaInt("   INGRESE LA OPCION DESEADA\n" +
+                            "\n1 - Modificar nombre" +
+                                    "\n2 - Modificar apellido" +
+                                    "\n3 - Modificar telefono" +
+                                    "\n4 - Modificar mail" +
+                                    "\n5 - Modificar contraseña" +
+                                    "\n\n0 - Salir\n\n");
 
                     while(opcion < 0 || opcion > 5){
                          opcion = EntradaSalida.entradaInt("ERROR - Ingrese una opcion valida");
@@ -459,24 +468,10 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
                empleadoLocalRepo.agregar(empleadoAModificar);
 
-          }else{
-               EntradaSalida.SalidaAdvertencia("El dni ingresado no existe","ERROR");
+          }catch (InexistenteException e){
+               EntradaSalida.SalidaAdvertencia(e.getMessage(),"ERROR");
           }
      }
-
-     public void menuModificarEmpleadoLocal(){
-
-          EntradaSalida.SalidaInformacion("\n1. Modificar nombre" +
-                  "\n2. Modificar apellido" +
-                  "\n3. Modificar telefono" +
-                  "\n4. Modificar mail" +
-                          "\n5. Modificar contraseña" +
-                  "\n\n0. Salir"
-                  ,"Modificar datos personales");
-     }
-
-
-
 
      //endregion
 
@@ -488,12 +483,12 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
           this.empleadosLocal = empleadoLocalRepo.listar();
 
-          EntradaSalida.SalidaInformacion("Ingrese su DNI","LOG IN");
+          //EntradaSalida.SalidaInformacion("Ingrese su DNI","LOG IN");
           String dni = EntradaSalida.entradaDNI();
 
-          EmpleadoLocal empleadoLocal = empleadoLocalRepo.buscar(dni);
 
-          if(empleadoLocal != null){
+          try{
+               EmpleadoLocal empleadoLocal = empleadoLocalRepo.buscar(dni);
 
                String pass = EntradaSalida.entradaString("Ingrese la contraseña");
 
@@ -505,27 +500,14 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
                     EntradaSalida.SalidaAdvertencia("Contraseña incorrecta","ERROR");
                }
 
-          }else{
-               EntradaSalida.SalidaAdvertencia("El DNI ingresado no existe","ERROR");
+          }catch(InexistenteException e){
+               EntradaSalida.SalidaAdvertencia(e.getMessage(),"ERROR");
           }
 
      }
 
      //menu
-     public void menuPrincipalOpciones(){
-          EntradaSalida.SalidaInformacion("1. Buscar paquete de un cliente" +
-                  "\n2. Cargar un paquete" +
-                  "\n3. Ver paquetes de un cliente" +
-                  "\n4. Ver paquetes por estado" +
-                  "\n5. Ver clientes" +
-                  "\n6. Cargar un cliente" +
-                  "\n7. Modificar cliente" +
-                  "\n8. Ver perfil" +
-                  "\n9. Modificar mis datos" +
-                  "\n\n0. Salir"
 
-                  ,"MENU PRINCIPAL EMPLEADO LOCAL");
-     }
 
 
      public void menuPrincipal(String dni){
@@ -534,9 +516,18 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
           do {
 
-               menuPrincipalOpciones();
+               opcion = EntradaSalida.entradaInt(" INGRESE LA OPCION DESEADA  \n" +
+                       "\n1 - Buscar paquete de un cliente" +
+                       "\n2 - Cargar un paquete" +
+                       "\n3 - Ver paquetes de un cliente" +
+                       "\n4 - Ver paquetes por estado" +
+                       "\n5 - Ver clientes" +
+                       "\n6 - Cargar un cliente" +
+                       "\n7 - Modificar cliente" +
+                       "\n8 - Ver perfil" +
+                       "\n9 - Modificar mis datos" +
+                       "\n\n 0 - Salir\n\n");
 
-               opcion = EntradaSalida.entradaInt("Ingrese la opcion deseada");
 
                while(opcion < 0 || opcion > 9){
                     opcion = EntradaSalida.entradaInt("ERROR - Ingrese una opcion valida");

@@ -83,7 +83,7 @@ public class Persona {
     @Override
     public String toString() {
         return "Id = " + Id
-                + "\nNombre o = " + nombre
+                + "\nNombre = " + nombre
                 + "\nApellido = " + apellido
                 + "\nDni = " + dni
                 + "\nTelefono = " + telefono

@@ -2,8 +2,10 @@ package org.example.gestiones;
 
 import org.example.enums.EstadosEmpleado;
 import org.example.excepciones.Excepciones;
+import org.example.excepciones.InexistenteException;
 import org.example.interfacesDeManejo.ManejoCliente;
 import org.example.models.Cliente;
+import org.example.recursos.EntradaSalida;
 import org.example.repositorio.ClientesRepo;
 
 import java.util.ArrayList;
@@ -132,8 +134,18 @@ public class ClienteGestion {
     public void eliminarCliente() {
         System.out.println("Ingrese el dni del cliente a eliminar");
         String dni = scan.nextLine();
+
+        try{
+            Cliente buscado = repoClientes.buscar(dni);
+            buscado.setEstadoCliente(false);
+        }catch (InexistenteException e){
+            EntradaSalida.SalidaAdvertencia(e.getMessage(),"ERROR");
+        }
+
+        /*System.out.println("Ingrese el dni del cliente a eliminar");
+        String dni = scan.nextLine();
         Cliente buscado = repoClientes.buscar(dni);
-        buscado.setEstadoCliente(false);
+        buscado.setEstadoCliente(false);*/
     }
 
     public void mostrarClientes() {

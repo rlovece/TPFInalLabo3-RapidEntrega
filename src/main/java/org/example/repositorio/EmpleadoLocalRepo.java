@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmpleadoLocalRepo implements IRepositorio<EmpleadoLocal> {
-    private final File archivo = new File("src/main/java/org/axample/Archivos/empleadosLocal.json");
+    private final File archivo = new File("src/main/java/org/example/archivos/empleadosLocal.json");
 
     private final ObjectMapper mapper = new ObjectMapper();
 
@@ -96,7 +96,7 @@ public class EmpleadoLocalRepo implements IRepositorio<EmpleadoLocal> {
 
 
     @Override
-    public EmpleadoLocal buscar(String dni) {
+    public EmpleadoLocal buscar(String dni) throws InexistenteException{
 
         this.empleadosLocal = listar();
 
@@ -107,8 +107,11 @@ public class EmpleadoLocalRepo implements IRepositorio<EmpleadoLocal> {
                 return empleado;
             }
         }
-        return null;
+
+        throw new InexistenteException("DNI inexistente");
     }
+
+
 
     @Override
     public int buscarUltimoID() {

@@ -1,18 +1,21 @@
 package org.example;
 
-import  org.example.gestiones.GestionEmpleadoLocal;
+
+
+import org.example.gestiones.GestionEmpleadoLocal;
+
+
 import org.example.gestiones.GestionAdmin;
 import org.example.excepciones.InexistenteException;
+
+import org.example.gestiones.GestionRepartidor;
 import org.example.gestiones.GestionSupervisor;
 import org.example.recursos.EntradaSalida;
 
 public class Main {
     public static void main(String[] args) {
 
-
         menuIncial();
-
-
 
 
     }
@@ -48,7 +51,7 @@ public class Main {
                     "\n 2 - Soy Empleado de Local" +
                     "\n 3 - Soy Repartidor" +
                     "\n 4 - Soy Administrador" +
-                    "\n 0 - Salir \n\n");
+                    "\n\n 0 - Salir \n\n");
 
             switch (opcion){
                 case 1:
@@ -56,16 +59,18 @@ public class Main {
                     break;
 
                 case 2:
-                    /// gestionEmpleadoLocal.logueo();
+                    //GestionEmpleadoLocal gestionEmpleadoLocal = new GestionEmpleadoLocal();
+                    //gestionEmpleadoLocal.logueo();
                     break;
 
                 case 3:
+                    //GestionRepartidor gestionRepartidor = new GestionRepartidor();
                     /// gestionRepartidor.logueo();
                     break;
 
                 case 4:
-                    GestionAdmin gestionAdmin = new GestionAdmin();
-                    gestionAdmin.logueo();
+                    //GestionAdmin gestionAdmin = new GestionAdmin();
+                    //gestionAdmin.logueo();
                     break;
 
                 default:

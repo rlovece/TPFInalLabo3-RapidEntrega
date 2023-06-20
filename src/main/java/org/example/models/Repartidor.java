@@ -68,6 +68,16 @@ public class Repartidor extends Empleado {
 
 /// region Metodos
 
+    @Override
+    public String toString() {
+        return "Repartidor{" +
+                "supervisor=" + supervisor +
+                ", zona=" + zona +
+                ", tiposPaquetes=" + tiposPaquetes +
+                ", paquetesAsignados=" + paquetesAsignados +
+                '}';
+    }
+
 
 /// endregion
 }

@@ -249,10 +249,11 @@ public class EntradaSalida {
                 String entrada = showInputDialog("\n Ingrese nro de teléfono \n" +
                         "Debe contener 10 digitos, no incluir 0 ni 15 \n\n");
                 validarTelefono(entrada);
+                continuar = true;
                 return entrada;
             } catch (TelefonoInvalido e){
-                String error = "El Telefono debe contener 10 digitos numericos. \nCódigo de área sin 0 y número de celular sin 15 \n\n";
-                EntradaSalida.SalidaError(error, "Error");
+                //String error = "El Telefono debe contener 10 digitos numericos. \nCódigo de área sin 0 y número de celular sin 15 \n\n";
+                EntradaSalida.SalidaError(e.getMessage(), "Error");
             }
         } while (!continuar);
         return  null;
@@ -467,13 +468,13 @@ public class EntradaSalida {
      * */
     public static void validarTelefono (String telefono) throws TelefonoInvalido {
         try {
-            Integer.parseInt(telefono);
+            Long.parseLong(telefono);
         } catch (NumberFormatException e) {
             throw new TelefonoInvalido("Teléfono con digitos no numéricos");
         }
         if (telefono.length()!=10 ||
                 telefono.charAt(0)=='0' ||
-                (telefono.charAt(0)=='1') && telefono.charAt(1)=='5') {
+                telefono.charAt(0)=='1' && telefono.charAt(1)=='5') {
             throw new TelefonoInvalido("Telefono con digitos incorrectos");
         }
     }
