@@ -5,9 +5,10 @@ import org.example.enums.TiposPaquete;
 import org.example.enums.Zonas;
 import org.example.recursos.EntradaSalida;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Paquete {
+public class Paquete implements Serializable {
 
     private int id;
     private String codigoIdentificacion;

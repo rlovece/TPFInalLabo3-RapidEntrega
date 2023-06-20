@@ -1,6 +1,8 @@
 package org.example.models;
 
-public class Cliente extends Persona {
+import java.io.Serializable;
+
+public class Cliente extends Persona implements Serializable {
 
     // <editor-fold defaultstate="collapsed" desc="Atributos">
     private String domicilio;

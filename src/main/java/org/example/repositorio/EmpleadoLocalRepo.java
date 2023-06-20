@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmpleadoLocalRepo implements IRepositorio<EmpleadoLocal> {
-    private final File archivo = new File("src/main/java/org/axample/Archivos/empleadosLocal.json");
+    private final File archivo = new File("src/main/java/org/example/archivos/empleadosLocal.json");
 
     private final ObjectMapper mapper = new ObjectMapper();
 

@@ -95,9 +95,19 @@ public class ClientesRepo implements IRepositorio<Cliente> {
 
     @Override
     public int buscarUltimoID() {
-        this.listadoClientes = listar();
+        //modifique para que compile
+        /*this.listadoClientes = listar();
         Cliente buscado = this.listadoClientes.get(this.listadoClientes.size() - 1);
-        return buscado.getId();
+        return buscado.getId();*/
+
+        this.listadoClientes= listar();
+        Cliente buscado = new Cliente();
+        try {
+            buscado = this.listadoClientes.get(this.listadoClientes.size() -1 );
+            return buscado.getId();
+        } catch (IndexOutOfBoundsException e) {
+            return -1;
+        }
     }
 
     public int cantidad() {

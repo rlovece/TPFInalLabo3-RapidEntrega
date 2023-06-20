@@ -12,9 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PaqueteRepo implements IRepositorio<Paquete>{
-    private final File archivoPaquete = new File("");
+    private final File archivoPaquete = new File("src/main/java/org/example/archivos/paquetes.json");
 
     private final ObjectMapper mapperPaquete = new ObjectMapper();
+
+
 
     private List<Paquete> listadoPaquetes;
 
@@ -23,6 +25,7 @@ public class PaqueteRepo implements IRepositorio<Paquete>{
 
         try
         {
+
             CollectionType collectionType = mapperPaquete.getTypeFactory().constructCollectionType(List.class, Paquete.class);
             this.listadoPaquetes= mapperPaquete.readValue(archivoPaquete,collectionType);
         }catch(IOException e)

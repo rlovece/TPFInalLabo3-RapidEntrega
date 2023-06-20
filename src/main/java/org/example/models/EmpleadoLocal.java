@@ -1,7 +1,9 @@
 package org.example.models;
 
 
-public class EmpleadoLocal extends Empleado{
+import java.io.Serializable;
+
+public class EmpleadoLocal extends Empleado implements Serializable {
 
     private Supervisor supervisor;
 
