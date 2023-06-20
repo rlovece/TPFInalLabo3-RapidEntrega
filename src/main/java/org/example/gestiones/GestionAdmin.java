@@ -2,6 +2,7 @@ package org.example.gestiones;
 
 import org.example.enums.EstadosPaquete;
 import org.example.excepciones.CodigoPaqueteExistente;
+import org.example.excepciones.InexistenteException;
 import org.example.excepciones.PasswordInvalida;
 import org.example.interfacesDeManejo.ManejoPaquete;
 import org.example.models.Cliente;
@@ -101,12 +102,12 @@ public class GestionAdmin implements ManejoPaquete {
      */
     public void menuManejoPaquetes(){
         int opcion = 0;
+        String codigoPaquete = null;
         do {
             opcion = EntradaSalida.entradaInt("      ELIJA UNA OPCION  \n" +
                     "\n 1 - Ver Paquetes por estado" +
                     "\n 2 - Ver un Paquete" +
                     "\n 3 - Modificar un Paquete" +
-                    "\n 4 - Registrar un Paquete" +
                     "\n 0 - Volver\n\n");
 
             switch (opcion){
@@ -116,6 +117,18 @@ public class GestionAdmin implements ManejoPaquete {
                     break;
 
                 case 2:
+                    codigoPaquete = EntradaSalida.entradaString("Ingrese codigo del paquete\n\n");
+                    verUnPaquete(codigoPaquete);
+                    break;
+
+                case 3:
+                    codigoPaquete = EntradaSalida.entradaString("Ingrese codigo del paquete\n\n");
+                    try {
+                        Paquete aModificar = paqueteRepo.buscar(codigoPaquete);
+                        modificarPaquete(aModificar.getId());
+                    } catch (InexistenteException e){
+                        EntradaSalida.SalidaError("Codigo incorrecto\n\n", "Error");
+                    }
 
                     break;
 
@@ -125,6 +138,16 @@ public class GestionAdmin implements ManejoPaquete {
         } while (opcion!=0);
     }
 
+    /**
+     * <h2>Ver paquetes por estado</h2>
+     * Muestra el listado de todos los paquetes que se encuentren en la lista del archivo según método
+     * {@link PaqueteRepo#listar()}, que tengan como atributo el estado ingresado por parametro utilizando EntradaSalida
+     *
+     * @see EntradaSalida
+     * @see PaqueteRepo
+     * @param estadoPaquetes
+     * @author Ruth Lovece
+     */
     @Override
     public void verPaquetePorEstado(EstadosPaquete estadoPaquetes) {
         ArrayList<Paquete> paquetesEstado = new ArrayList<>();
@@ -135,6 +158,64 @@ public class GestionAdmin implements ManejoPaquete {
         }
         EntradaSalida.SalidaInformacion(estadoPaquetes.toString(), ("Paquetes " + estadoPaquetes.toString()));
     }
+
+    /**
+     * <h2>Ver un paquete</h2>
+     * Muestra un paquete con EntradaSalida según el codigo ingresado por pamametro utilizando el método
+     * {@link PaqueteRepo#buscar(String)}
+     *
+     * @see EntradaSalida
+     * @see PaqueteRepo
+     * @param codigoIdentificacion
+     * @author Ruth Lovece
+     */
+    @Override
+    public void verUnPaquete(String codigoIdentificacion) {
+        try {
+            Paquete buscado = paqueteRepo.buscar(codigoIdentificacion);
+            String titulo = "Paquete " + buscado.getCodigoIdentificacion();
+            EntradaSalida.SalidaInformacion(buscado.toString(), titulo);
+        } catch (InexistenteException e) {
+            EntradaSalida.SalidaError("Codigo incorrecto\n\n", "Error");
+        }
+
+    }
+
+    ///region ModificarPaquete
+    @Override
+    public boolean modificarPaquete(int id) {
+        return false;
+    }
+    public void menuModificarPaquete(Paquete aModificar){
+        int opcion = 0;
+        do {
+            opcion = EntradaSalida.entradaInt("      ELIJA UNA OPCION  \n" +
+                    "\n 1 - Regresar a Correo" +
+                    "\n 2 - Quitar del archivo" +
+                    "\n 3 - Marcar como Entregado" +
+                    "\n 0 - Volver\n\n");
+
+            switch (opcion){
+                case 1:
+
+                    break;
+
+                case 2:
+                    String codigo = EntradaSalida.entradaString("Ingrese codigo del paquete\n\n");
+                    verUnPaquete(codigo);
+                    break;
+
+                case 3:
+
+                    break;
+
+                default:
+                    break;
+            }
+        } while (opcion!=0);
+    }
+    ///endregion
+
     //endregion
 
 
@@ -145,10 +226,7 @@ public class GestionAdmin implements ManejoPaquete {
     //endregion
 
 
-    @Override
-    public boolean modificarPaquete(int id) {
-        return false;
-    }
+
 
     @Override
     public void registroPaquete() {
@@ -183,10 +261,7 @@ public class GestionAdmin implements ManejoPaquete {
         return null;
     }
 
-    @Override
-    public void verUnPaquete(String codigo) {
 
-    }
 
 
 

@@ -2,6 +2,8 @@ package org.example.repositorio;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
+import org.example.excepciones.CodigoPaqueteExistente;
+import org.example.excepciones.InexistenteException;
 import org.example.models.Paquete;
 
 import java.io.File;
@@ -83,7 +85,7 @@ public class PaqueteRepo implements IRepositorio<Paquete>{
     }
 
     @Override
-    public Paquete buscar(String codigo) {
+    public Paquete buscar(String codigo) throws InexistenteException {
         this.listadoPaquetes= listar();
         for(Paquete s: listadoPaquetes)
         {
@@ -92,7 +94,7 @@ public class PaqueteRepo implements IRepositorio<Paquete>{
                 return s;
             }
         }
-        return null;
+        throw new InexistenteException("Codigo inexistente");
     }
 
     @Override

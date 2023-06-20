@@ -79,7 +79,7 @@ public class ClientesRepo implements IRepositorio<Cliente> {
     }
 
     @Override
-    public Cliente buscar(String dni) {
+    public Cliente buscar(String dni)  {
         cargar();
         Cliente aux = null;
         try {

@@ -717,11 +717,10 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
     }
     @Override
     public void verUnPaquete(String codigo) {
-         Paquete paq = repoPaquete.buscar(codigo);
-
-        if(paq!=null) {
+        try {
+            Paquete paq = repoPaquete.buscar(codigo);
             verPaquete(paq);
-        }else {
+        } catch (InexistenteException e){
             EntradaSalida.SalidaError("Paquete inexistente","ERROR");
         }
     }
