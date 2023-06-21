@@ -280,13 +280,11 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
                     break;
 
                 case 3:
-                    codigoPaquete = EntradaSalida.entradaString("Ingrese codigo del paquete\n\n");
-                    try {
-                        Paquete aModificar = paqueteRepo.buscar(codigoPaquete);
-                        modificarPaquete(aModificar);
-                    } catch (InexistenteException e){
-                        EntradaSalida.SalidaError("Codigo incorrecto\n\n", "Error");
-                    }
+                    bajaEmpleado(EntradaSalida.entradaInt("Ingrese número de legajo"));
+                    break;
+
+                case 4:
+                    ascenderEmpleado();
                     break;
 
                 default:
@@ -575,12 +573,152 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
     }
     //endregion
 
+    /**
+     * <h2>Baja Empleado</h2>
+     *Cambia atributo EstadoEmpleado a BAJA, es decir, se realiza una baja lógica del empleado.
+     *En caso de ser un empleado con supervisor, también se cambia atributo supervisor a null.
+     *En caso de ser un Supervisor, se cambia a null todos los empleados que tengan a ese supervisor como
+     *atributo, esto se hace con método {@link GestionAdmin#quitarSupervisor(Supervisor)}
+     *
+     * @author Ruth Lovece
+     */
+    public void bajaEmpleado(int legajo){
+        try {
+            Empleado empleado = buscarEmpleadoPorLegajo(legajo);
+            empleado.setEstado(EstadosEmpleado.BAJA);
+            if (empleado.getClass() == Repartidor.class) {
+                ((Repartidor) empleado).setSupervisor(null);
+                repartidorRepo.modificar((Repartidor) empleado);
+            } else if (empleado.getClass() == EmpleadoLocal.class) {
+                ((EmpleadoLocal) empleado).setSupervisor(null);
+                empleadoLocalRepo.modificar((EmpleadoLocal) empleado);
+            } else {
+                quitarSupervisor((Supervisor) empleado);
+                supervisorRepo.modificar((Supervisor) empleado);
+            }
+        } catch (InexistenteException e){
+            EntradaSalida.SalidaError("Legajo no registrado", "Error");
+        }
+    }
 
+    /**
+     * <h2>Quitar supervisor</h2>
+     *Cambia a null todos los empleados que tengan al Supervisor ingresado por parámetro como
+     *atributo
+     *
+     * @param supervisor
+     * @author Ruth Lovece
+     */
+    void quitarSupervisor (Supervisor supervisor){
+        for (Empleado empleado: this.listaEmpleados) {
+            if (empleado.getClass() == Repartidor.class) {
+                ((Repartidor) empleado).setSupervisor(null);
+                repartidorRepo.modificar((Repartidor) empleado);
+            } else if (empleado.getClass() == EmpleadoLocal.class) {
+                ((EmpleadoLocal) empleado).setSupervisor(null);
+                empleadoLocalRepo.modificar((EmpleadoLocal) empleado);
+            }
+        }
+    }
 
+    /**
+     * <h2>Menú Asceso de empleado</h2>
+     *Muentra las opciones con EntradaSalida que tiene el administrador para asender a un Repartidor o empleado Local
+     *a supervisor.
+     *Luego se invoca el método según el empleado corresponda a un grupo o al otro.
+     *{@link GestionAdmin#ascensoRepartidor(int)} o {@link GestionAdmin#ascenderEmpleado()}
+     *
+     * @see EntradaSalida
+     * @author Ruth Lovece
+     */
+    public void ascenderEmpleado (){
+        int opcion = EntradaSalida.entradaInt("      ELIJA UNA OPCION  \n" +
+                "\n 1 - Un Repartidor" +
+                "\n 2 - Un Empleado de Local" +
+                "\n 0 - Volver\n\n");
+        switch (opcion) {
+            case 1:
+                ascensoRepartidor(EntradaSalida.entradaInt("Ingrese Legajo"));
+                break;
 
+            case 2:
+                ascensoEmpleadoLocal (EntradaSalida.entradaInt("Ingrese Legajo"));
+                break;
 
+            default:
+                break;
+        }
+    }
 
+    /**
+     * <h2>Ascenso de Repartidor</h2>
+     *Quita del archivo y la lista de empleados al repartidor según legajo ingresado por parámetro.
+     *Solicita datos adicionales para registrarlo como Supervisor y lo carga en archivo y lista con su nuevo roll
+     *En caso de no registrarse ese legajo en el archivo de Repartidores se lanza la excepcion.
+     *
+     * @exception InexistenteException
+     * @see EntradaSalida
+     * @author Ruth Lovece
+     */
+    public void ascensoRepartidor (int legajo){
+        try {
+            Empleado empleado = buscarEmpleadoPorLegajo(legajo);
+            repartidorRepo.eliminar(empleado.getId());
+            Supervisor nuevoSupervisor = new Supervisor();
+            nuevoSupervisor.setId(repartidorRepo.buscarUltimoID()+1);
+            nuevoSupervisor.setLegajo(empleado.getLegajo());
+            nuevoSupervisor.setNombre(empleado.getNombre());
+            nuevoSupervisor.setApellido(empleado.getApellido());
+            nuevoSupervisor.setTelefono(empleado.getTelefono());
+            nuevoSupervisor.setMail(empleado.getMail());
+            nuevoSupervisor.setUsername(empleado.getUsername());
+            nuevoSupervisor.setPassword(empleado.getPassword());
+            nuevoSupervisor.setZona(EntradaSalida.entradaZona());
+            nuevoSupervisor.setJornada(EntradaSalida.entradaString("Ingrese Jornada"));
+            nuevoSupervisor.setEstado(EstadosEmpleado.DISPONIBLE);
+            supervisorRepo.agregar(nuevoSupervisor);
+            listaEmpleados.remove(empleado);
+            listaEmpleados.add(nuevoSupervisor);
+            EntradaSalida.SalidaInformacion("Asceso exitoso", "Gestion exitosa");
+        } catch (InexistenteException e){
+            EntradaSalida.SalidaError("Legajo no registrado como Repartidor", "Error");
+        }
+    }
 
+    /**
+     * <h2>Ascenso de Empleado Local</h2>
+     *Quita del archivo y la lista de empleados al Empleado de local según legajo ingresado por parámetro.
+     *Solicita datos adicionales para registrarlo como Supervisor y lo carga en archivo y lista con su nuevo roll
+     * En caso de no registrarse ese legajo en el archivo de Repartidores se lanza la excepcion.
+     *
+     * @exception InexistenteException
+     * @see EntradaSalida
+     * @author Ruth Lovece
+     */
+    public void ascensoEmpleadoLocal (int legajo){
+        try {
+            Empleado empleado = buscarEmpleadoPorLegajo(legajo);
+            empleadoLocalRepo.eliminar(empleado.getId());
+            Supervisor nuevoSupervisor = new Supervisor();
+            nuevoSupervisor.setId(repartidorRepo.buscarUltimoID()+1);
+            nuevoSupervisor.setLegajo(empleado.getLegajo());
+            nuevoSupervisor.setNombre(empleado.getNombre());
+            nuevoSupervisor.setApellido(empleado.getApellido());
+            nuevoSupervisor.setTelefono(empleado.getTelefono());
+            nuevoSupervisor.setMail(empleado.getMail());
+            nuevoSupervisor.setUsername(empleado.getUsername());
+            nuevoSupervisor.setPassword(empleado.getPassword());
+            nuevoSupervisor.setZona(EntradaSalida.entradaZona());
+            nuevoSupervisor.setJornada(EntradaSalida.entradaString("Ingrese Jornada"));
+            nuevoSupervisor.setEstado(EstadosEmpleado.DISPONIBLE);
+            supervisorRepo.agregar(nuevoSupervisor);
+            listaEmpleados.remove(empleado);
+            listaEmpleados.add(nuevoSupervisor);
+            EntradaSalida.SalidaInformacion("Asceso exitoso", "Gestion exitosa");
+        } catch (InexistenteException e){
+            EntradaSalida.SalidaError("Legajo no registrado como Empleado Local", "Error");
+        }
+    }
     @Override
     public void validacionCodigoPaquete(String codigo) throws CodigoPaqueteExistente {
         for (Paquete paquete: paqueteRepo.listar()) {

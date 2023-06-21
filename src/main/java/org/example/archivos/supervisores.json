@@ -13,4 +13,19 @@
   "cantEmpleadosACargo" : 0,
   "empleadosACargo" : null,
   "id" : 1
+}, {
+  "nombre" : "Antonio",
+  "apellido" : "Nuñez",
+  "dni" : null,
+  "telefono" : "2231561555",
+  "mail" : "antonio@gmail.com",
+  "username" : "anuñez",
+  "password" : "31233122",
+  "legajo" : 1,
+  "jornada" : "LaS de 8 a 16",
+  "estado" : "DISPONIBLE",
+  "zona" : "PINAMAR",
+  "cantEmpleadosACargo" : 0,
+  "empleadosACargo" : null,
+  "id" : 3
 } ]
