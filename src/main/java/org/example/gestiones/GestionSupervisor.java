@@ -20,18 +20,18 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
 
     ///region Atributos
 
-    Supervisor supervisor;
-    SupervisorRepo repoSuper = new SupervisorRepo();
-    ArrayList<Supervisor> listadoSupervisores;
-    PaqueteRepo repoPaquete = new PaqueteRepo();
-    ArrayList<Paquete> listadoPaquetes;
-    RepartidorRepo repoRepartidor = new RepartidorRepo();
-    ArrayList<Repartidor> listadoRepartidores;
-    EmpleadoLocalRepo repoEmpLocal = new EmpleadoLocalRepo();
-    ArrayList<EmpleadoLocal> listadoEmpLocal;
-    ArrayList<Empleado> empleadosAcargo;
-    ClientesRepo repoClientes = new ClientesRepo();
-    ArrayList<Cliente> listadoClientes;
+    public Supervisor supervisor;
+    public SupervisorRepo repoSuper = new SupervisorRepo();
+    public ArrayList<Supervisor> listadoSupervisores;
+    public PaqueteRepo repoPaquete = new PaqueteRepo();
+    public ArrayList<Paquete> listadoPaquetes;
+    public RepartidorRepo repoRepartidor = new RepartidorRepo();
+    public ArrayList<Repartidor> listadoRepartidores;
+    public EmpleadoLocalRepo repoEmpLocal = new EmpleadoLocalRepo();
+    public ArrayList<EmpleadoLocal> listadoEmpLocal;
+    public ArrayList<Empleado> empleadosAcargo;
+    public ClientesRepo repoClientes = new ClientesRepo();
+    public ArrayList<Cliente> listadoClientes;
 
     /// endregion
 
@@ -926,7 +926,26 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
     @Override
     public void registroPaquete() {
 
-        Paquete nuevo = new Paquete();
+        String dni;
+        int cliente=0;
+        Paquete nuevo= new Paquete();
+         do {
+             EntradaSalida.SalidaInformacion("Debera ingresar el DNI del remitente para cargar el paquete","ATENCION");
+             dni=EntradaSalida.entradaDNI();
+             try {
+                 nuevo.setRemitente(repoClientes.buscar(dni));
+                 cargarPaquete(nuevo);
+             }catch(InexistenteException e)
+             {
+             EntradaSalida.SalidaError("Ingrese un cliente valido","ERROR");
+            }
+             cliente = EntradaSalida.entradaInt("1 - Cargar otro paquete\n2 - Finalizar");
+        }while(cliente==1);
+
+    }
+
+    private void cargarPaquete (Paquete nuevo)
+    {
         int cliente=0;
 
         nuevo.setId((repoPaquete.buscarUltimoID())+1);
@@ -937,16 +956,6 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
         String formattedString = localDate.format(formatter);
 
         nuevo.setFechaIngreso(formattedString);
-        do {
-            try {
-                nuevo.setRemitente(buscarCliente());
-                cliente=1;
-
-            } catch (InexistenteException e) {
-
-                EntradaSalida.SalidaError("Ingrese un cliente valido","ERROR");
-            }
-        }while(cliente==1);
         nuevo.setTiposPaquete(EntradaSalida.entradaTipoPaquete());
         nuevo.setZonaEntrega(EntradaSalida.entradaZona());
         nuevo.setDestinatario(EntradaSalida.entradaString("Ingrese el destinatario"));
@@ -1141,33 +1150,29 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
     public void registroCliente() {
         Cliente nuevo = new Cliente();
 
-        nuevo.setId((repoClientes.buscarUltimoID())+1);
+        nuevo.setId((repoClientes.buscarUltimoID()) + 1);
         nuevo.setNombre(EntradaSalida.entradaString("    NUEVO CLIENTE \nIngrese el nombre:"));
         nuevo.setApellido(EntradaSalida.entradaString("Ingrese el apellido:"));
-        String dni =(EntradaSalida.entradaDNI());
+        String dni = (EntradaSalida.entradaDNI());
         nuevo.setDni(dni);
         nuevo.setTelefono(EntradaSalida.entradaTelefono());
         nuevo.setMail(EntradaSalida.entradaMail());
         nuevo.setUsername(EntradaSalida.entradaUsermane());
-        EntradaSalida.SalidaInformacion("Se asigno su DNI como contraseña","CONTRASEÑA");
+        EntradaSalida.SalidaInformacion("Se asigno su DNI como contraseña", "CONTRASEÑA");
         nuevo.setPassword(dni);
 
-        try
-        {
-            if(!verificarClienteExistente(nuevo))
-            {
+
+            if (!verificarClienteExistente(dni)) {
                 repoClientes.agregar(nuevo);
+            } else {
+                EntradaSalida.SalidaError("El cliente ya existe en el registro", "ERROR Cliente Existente");
             }
-        }catch(ExcepcionClienteExistente e)
-        {
-            EntradaSalida.SalidaError(e.getMessage(),"ERROR Cliente Existente");
-        }
 
     }
 
-    private boolean verificarClienteExistente (Cliente aVerificar) throws ExcepcionClienteExistente {
+    private boolean verificarClienteExistente(String dni){
         try{
-            repoClientes.buscar(aVerificar.getDni());
+            repoClientes.buscar(dni);
             return true;
 
         }catch(InexistenteException e){
@@ -1326,12 +1331,10 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
      */
     public boolean logueo(){
 
-        EntradaSalida.SalidaInformacion("Ingrese con su numero de DNI","LOGUEO SUPERVISOR");
+        EntradaSalida.SalidaInformacion("Ingrese con su numero de DNI","   LOGUEO SUPERVISOR");
         String dni = EntradaSalida.entradaDNI();
-        Supervisor sup;
-
         try {
-            sup= repoSuper.buscar(dni);
+            Supervisor sup= repoSuper.buscar(dni);
             String password = EntradaSalida.entradaString("Ingrese la contraseña");
             if(sup.getPassword().equals(password))
             {

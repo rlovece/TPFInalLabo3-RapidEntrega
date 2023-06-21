@@ -9,14 +9,13 @@
   "legajo" : 2,
   "jornada" : "LaS de 8 a 16",
   "estado" : "DISPONIBLE",
-  "zona" : null,
   "cantEmpleadosACargo" : 0,
   "empleadosACargo" : null,
   "id" : 1
 }, {
   "nombre" : "Antonio",
   "apellido" : "Nuñez",
-  "dni" : null,
+  "dni" : "31233122",
   "telefono" : "2231561555",
   "mail" : "antonio@gmail.com",
   "username" : "anuñez",
@@ -24,7 +23,6 @@
   "legajo" : 1,
   "jornada" : "LaS de 8 a 16",
   "estado" : "DISPONIBLE",
-  "zona" : "PINAMAR",
   "cantEmpleadosACargo" : 0,
   "empleadosACargo" : null,
   "id" : 3

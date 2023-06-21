@@ -87,10 +87,8 @@ public class EmpleadoLocalRepo implements IRepositorio<EmpleadoLocal> {
                 empleado.setJornada(objeto.getJornada());
                 empleado.setEstado(objeto.getEstado());
                 empleado.setSupervisor(objeto.getSupervisor());
-
             }
         }
-
         guardar();
     }
 

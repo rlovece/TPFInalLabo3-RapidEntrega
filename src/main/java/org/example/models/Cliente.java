@@ -20,6 +20,7 @@ public class Cliente extends Persona implements Serializable {
 //    </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Getters & Setters">
+
     public String getDomicilio() {
         return domicilio;
     }

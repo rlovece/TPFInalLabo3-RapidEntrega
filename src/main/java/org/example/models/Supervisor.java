@@ -50,6 +50,7 @@ public class Supervisor extends Empleado {
 
     /// region Metodos
 
+
     @Override
     public String toString() {
         String mensaje= "           S U P E R V I S O R    " +

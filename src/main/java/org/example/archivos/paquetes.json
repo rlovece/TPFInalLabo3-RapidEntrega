@@ -1,0 +1,34 @@
+[ {
+  "id" : 1,
+  "codigoIdentificacion" : "73947ACB-F",
+  "fechaIngreso" : "21 junio 2023",
+  "remitente" : null,
+  "tiposPaquete" : "GRANDE",
+  "zonaEntrega" : "MDP_SUR",
+  "destinatario" : "Armando Mendoza",
+  "domicilioEntrega" : "Rosales 1234",
+  "estado" : "EN_CORREO",
+  "repatidorAsignado" : null
+}, {
+  "id" : 2,
+  "codigoIdentificacion" : "CAF1D7CA-4",
+  "fechaIngreso" : "21 junio 2023",
+  "remitente" : {
+    "nombre" : "Lucina",
+    "apellido" : "Higa",
+    "dni" : "37376621",
+    "telefono" : "2235638998",
+    "mail" : "lucinahiga@gmail.com",
+    "username" : "luchi.na",
+    "password" : "37376621",
+    "domicilio" : "Lopez y Planes 667",
+    "estadoCliente" : true,
+    "id" : 1
+  },
+  "tiposPaquete" : "PEQUEÑO",
+  "zonaEntrega" : "MDP_NORTE",
+  "destinatario" : "Beatriz Pinzon Solano",
+  "domicilioEntrega" : "Francia 3456",
+  "estado" : "EN_CORREO",
+  "repatidorAsignado" : null
+} ]

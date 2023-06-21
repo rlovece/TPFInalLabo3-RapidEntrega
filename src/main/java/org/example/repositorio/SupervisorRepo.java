@@ -7,6 +7,7 @@ import org.example.models.EmpleadoLocal;
 import org.example.models.Paquete;
 import org.example.models.Repartidor;
 import org.example.models.Supervisor;
+import org.example.recursos.EntradaSalida;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +16,7 @@ import java.util.List;
 
 public class SupervisorRepo implements IRepositorio<Supervisor> {
 
-    private final File archivoSuper = new File("src\\main\\java\\org\\example\\archivos\\supervisores.json");
+    private final File archivoSuper = new File("C:\\Users\\54223\\Desktop\\UTN\\3er cuatrimestre\\Pro&Lab III\\Proyecto Final\\TPFInalLabo3-RapidEntrega\\src\\main\\java\\org\\example\\archivos\\supervisores.json");
 
     private final ObjectMapper mapperSuper = new ObjectMapper();
 
@@ -83,8 +84,10 @@ public class SupervisorRepo implements IRepositorio<Supervisor> {
             {
                 s.setNombre(nuevo.getNombre());
                 s.setApellido(nuevo.getApellido());
+                s.setDni(nuevo.getDni());
                 s.setTelefono(nuevo.getTelefono());
                 s.setMail(nuevo.getMail());
+                s.setUsername(nuevo.getUsername());
                 s.setPassword(nuevo.getPassword());
                 s.setCantEmpleadosACargo(nuevo.getCantEmpleadosACargo());
             }
@@ -94,11 +97,13 @@ public class SupervisorRepo implements IRepositorio<Supervisor> {
 
     @Override
     public Supervisor buscar(String dni) throws InexistenteException{
-        this.listaSupervisores= listar();
-        for(Supervisor s: listaSupervisores)
-        {
-            if(s.getDni().equals(dni))
-            {
+        this.listaSupervisores = listar();
+
+        EntradaSalida.SalidaInformacion("HOLO","DNI");
+        for(Supervisor s: this.listaSupervisores) {
+
+            EntradaSalida.SalidaInformacion(s.getDni(),"DNI");
+            if (s.getDni().equalsIgnoreCase(dni)) {
                 return s;
             }
         }

@@ -20,6 +20,7 @@ public class ClienteGestion {
     ArrayList<Cliente> listaClientes = new ArrayList<>();
     //</editor-fold>
 
+
     // <editor-fold defaultstate="collapsed" desc="Metodos">
     public void registrarCliente() {
 

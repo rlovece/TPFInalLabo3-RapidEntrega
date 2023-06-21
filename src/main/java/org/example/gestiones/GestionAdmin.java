@@ -709,7 +709,6 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
             nuevoSupervisor.setMail(empleado.getMail());
             nuevoSupervisor.setUsername(empleado.getUsername());
             nuevoSupervisor.setPassword(empleado.getPassword());
-            nuevoSupervisor.setZona(EntradaSalida.entradaZona());
             nuevoSupervisor.setJornada(EntradaSalida.entradaString("Ingrese Jornada"));
             nuevoSupervisor.setEstado(EstadosEmpleado.DISPONIBLE);
             supervisorRepo.agregar(nuevoSupervisor);
@@ -744,7 +743,6 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
             nuevoSupervisor.setMail(empleado.getMail());
             nuevoSupervisor.setUsername(empleado.getUsername());
             nuevoSupervisor.setPassword(empleado.getPassword());
-            nuevoSupervisor.setZona(EntradaSalida.entradaZona());
             nuevoSupervisor.setJornada(EntradaSalida.entradaString("Ingrese Jornada"));
             nuevoSupervisor.setEstado(EstadosEmpleado.DISPONIBLE);
             supervisorRepo.agregar(nuevoSupervisor);
@@ -918,8 +916,7 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
                     "\n 2 - Modificar Apellido" +
                     "\n 3 - Modificar DNI" +
                     "\n 4 - Modificar Usuario" +
-                    "\n 5 - Modificar Zona" +
-                    "\n 6 - Modificar Estado" +
+                    "\n 5 - Modificar Estado" +
                     "\n 0 - Volver\n\n");
 
             switch (opcion) {
@@ -967,14 +964,6 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
                     break;
 
                 case 5:
-                    aModificar.setZona(EntradaSalida.entradaZona());
-                    supervisorRepo.modificar(aModificar);
-                    listaEmpleados.remove(aModificar);
-                    listaEmpleados.add(aModificar);
-                    EntradaSalida.SalidaInformacion("Modificación", "Gestio exitosa");
-                    break;
-
-                case 6:
                     EstadosEmpleado nuevoEstado = EntradaSalida.entradaEstadoEmpleado();
                     if (nuevoEstado == EstadosEmpleado.BAJA) {
                         EntradaSalida.SalidaError("Para dar de baja ingrese a menú Dar de Baja Empleado", "Error");

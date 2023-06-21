@@ -22,7 +22,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-
         menuIncial();
 
 
@@ -54,36 +53,37 @@ public class Main {
     public static void menuEmpleadosOpcion(){
         int opcion = 0;
         do {
-            opcion = EntradaSalida.entradaInt("      ELIJA OPCION  \n" +
-                    "\n 1 - Soy Supervisor" +
-                    "\n 2 - Soy Empleado de Local" +
-                    "\n 3 - Soy Repartidor" +
-                    "\n 4 - Soy Administrador" +
-                    "\n\n 0 - Salir \n\n");
+            opcion = EntradaSalida.entradaInt("""
+                          ELIJA OPCION \s
 
-            switch (opcion){
-                case 1:
-                    GestionSupervisor gestionSupervisor=new GestionSupervisor();
+                     1 - Soy Supervisor
+                     2 - Soy Empleado de Local
+                     3 - Soy Repartidor
+                     4 - Soy Administrador
+
+                     0 - Salir\s
+
+                    """);
+
+            switch (opcion) {
+                case 1 -> {
+                    GestionSupervisor gestionSupervisor = new GestionSupervisor();
                     gestionSupervisor.logueo();
-                    break;
-
-                case 2:
+                }
+                case 2 -> {
                     GestionEmpleadoLocal gestionEmpleadoLocal = new GestionEmpleadoLocal();
                     gestionEmpleadoLocal.logueo();
-                    break;
-
-                case 3:
+                }
+                case 3 -> {
                     GestionRepartidor gestionRepartidor = new GestionRepartidor();
                     gestionRepartidor.logueo();
-                    break;
-
-                case 4:
+                }
+                case 4 -> {
                     GestionAdmin gestionAdmin = new GestionAdmin();
                     gestionAdmin.logueo();
-                    break;
-
-                default:
-                    break;
+                }
+                default -> {
+                }
             }
         } while (opcion!=0);
     }
