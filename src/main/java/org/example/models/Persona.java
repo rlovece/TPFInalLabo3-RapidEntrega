@@ -3,7 +3,9 @@ package org.example.models;
 import org.example.enums.EstadosEmpleado;
 
 import java.util.Objects;
-
+/**
+ * @author Cavallo, Pablo David
+ */
 public abstract class Persona {
 
     // <editor-fold defaultstate="collapsed" desc="Atributos">

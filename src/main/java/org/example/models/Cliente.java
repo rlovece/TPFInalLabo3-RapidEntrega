@@ -3,7 +3,9 @@ package org.example.models;
 import org.example.models.Persona;
 
 import java.io.Serializable;
-
+/**
+ * @author Cavallo, Pablo David
+ */
 public class Cliente extends Persona implements Serializable {
 
     // <editor-fold defaultstate="collapsed" desc="Atributos">
@@ -59,5 +61,5 @@ public class Cliente extends Persona implements Serializable {
                 " " + this.getApellido();
 
     }
+//    </editor-fold>
 }
-//    </editor-fold>      
