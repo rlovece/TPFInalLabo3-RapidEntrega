@@ -16,7 +16,9 @@ import org.example.repositorio.ClientesRepo;
 import org.example.repositorio.EmpleadoLocalRepo;
 import org.example.repositorio.PaqueteRepo;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import static org.example.recursos.EntradaSalida.entradaDNI;
@@ -46,7 +48,7 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
           Paquete paqueteBuscado = paqueteRepo.buscar(codigo);
 
                if(paqueteBuscado != null){
-                    System.out.println(paqueteBuscado);
+                    EntradaSalida.SalidaInformacion(paqueteBuscado.toString(),"DATOS PAQUETE");
                }
           }catch(InexistenteException e){
                EntradaSalida.SalidaInformacion(e.getMessage(),"ERROR");
@@ -63,7 +65,6 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
      public void verUnPaqueteCliente(){
 
-          EntradaSalida.SalidaInformacion("Ingrese el DNI del remitente","");
           String dni = entradaDNI();
 
           try{
@@ -94,7 +95,7 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
       * */
 
      public void verPaquetesDeUnCliente(){
-          EntradaSalida.SalidaInformacion("Ingrese el DNI del remitente","");
+
           String dni = entradaDNI();
 
 
@@ -102,24 +103,31 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
           try{
 
                Cliente clienteBuscado = clientesRepo.buscar(dni);
-
                this.paquetes = paqueteRepo.listar();
 
-               boolean tienePaquetes = false;
+              if(paquetes != null){
 
-               for(Paquete paquete : this.paquetes){
 
-                    if(paquete.getRemitente().getDni().equalsIgnoreCase(dni)){
+                    boolean tienePaquetes = false;
 
-                         System.out.println(paquete);
+                    for(Paquete paquete : this.paquetes){
 
-                         tienePaquetes = true;
+                         if(paquete.getRemitente().getDni().equalsIgnoreCase(dni)){
+
+                              EntradaSalida.SalidaInformacion(paquete.toString(),"DATOS PAQUETE");
+
+                              tienePaquetes = true;
+                         }
                     }
-               }
 
-               if(!tienePaquetes){
-                    EntradaSalida.SalidaInformacion("El cliente no ha realizado ningun envio aun","Informacion");
-               }
+                    if(!tienePaquetes){
+                         EntradaSalida.SalidaInformacion("El cliente no tiene paquetes registrados","Informacion");
+                    }
+               }else{
+                   EntradaSalida.SalidaInformacion("No hay paquetes registrados","!");
+              }
+
+
 
           }catch(InexistenteException e){
                EntradaSalida.SalidaAdvertencia(e.getMessage(),"ERROR");
@@ -152,14 +160,19 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
           try{
                Cliente remitente = clientesRepo.buscar(dni);
 
+               LocalDate localDate = LocalDate.now();
+               DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
+               String formattedString = localDate.format(formatter);
+
+               nuevoPaquete.setRemitente(remitente);
+
                nuevoPaquete.setId(paqueteRepo.buscarUltimoID() + 1);
                nuevoPaquete.setCodigoIdentificacion(nuevoCogigoPaquete());
-               nuevoPaquete.setFechaIngreso(LocalDateTime.now());
+               nuevoPaquete.setFechaIngreso(formattedString);
                nuevoPaquete.setTiposPaquete(EntradaSalida.entradaTipoPaquete());
                nuevoPaquete.setZonaEntrega(EntradaSalida.entradaZona());
                nuevoPaquete.setDestinatario(EntradaSalida.entradaString("Ingrese el destinatario"));
                nuevoPaquete.setDomicilioEntrega(EntradaSalida.entradaString("Ingrese el domicilio de entrega"));
-               //nuevoPaquete.setEstado(EntradaSalida.entradaEstadosPaquete());
                nuevoPaquete.setEstado(EstadosPaquete.EN_CORREO); //el paquete que ingresa esta en el correo, esperando a que se le asigne repartidor
                nuevoPaquete.setRepatidorAsignado(null);
 
@@ -174,34 +187,10 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
 
      public void verPaquetesPorEstado(){
-          int opcion;
-          EstadosPaquete estadoPaquete = EstadosPaquete.ANULADO;
+
+          EstadosPaquete estadoPaquete = EntradaSalida.entradaEstadosPaquete();
 
           this.paquetes = paqueteRepo.listar();
-
-          opcion = EntradaSalida.entradaInt("1. En el correo\n2. Asiganado para reparto\n3. 1er visita fallida\n4. 2da visita fallida\n5. Entregado\n6. Anulado");
-
-          while (opcion < 1 || opcion > 6){
-               opcion = EntradaSalida.entradaInt("ERROR - Ingrese una opcion valida");
-          }
-
-          switch(opcion){
-               case 1:
-                    estadoPaquete = EstadosPaquete.EN_CORREO;
-                    break;
-               case 2:
-                    estadoPaquete = EstadosPaquete.ASIGNADO_PARA_REPARTO;
-                    break;
-               case 3:
-                    estadoPaquete = EstadosPaquete.PRIMER_VISITA_FALLIDA;
-                    break;
-               case 4:
-                    estadoPaquete = EstadosPaquete.SEGUNDA_VISITA_FALLIDA;
-                    break;
-               case 5:
-                    estadoPaquete = EstadosPaquete.ENTREGADO;
-                    break;
-          }
 
           verPaquetePorEstado(estadoPaquete);
 
@@ -210,15 +199,22 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
      @Override
      public void verPaquetePorEstado(EstadosPaquete estadosPaquete) {
 
+          boolean existe = false;
+
           for(Paquete paquete : this.paquetes){
 
-               EntradaSalida.SalidaInformacion(String.valueOf(estadosPaquete),"Lista de Paquetes");
 
                if(paquete.getEstado().equals(estadosPaquete)){
 
-                    System.out.println(paquete);
+                    EntradaSalida.SalidaInformacion(paquete.toString(),"PAQUETES " + estadosPaquete.toString());
+
+                    existe = true;
 
                }
+          }
+
+          if(!existe){
+               EntradaSalida.SalidaInformacion("No hay paquetes " + estadosPaquete.toString(),"!");
           }
 
      }
@@ -261,10 +257,7 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
      //region Metodos Cliente
 
-     @Override
-     public boolean modificarCliente(Cliente cliente) {
-          return false;
-     }
+
 
      //cargar cliente
      @Override
@@ -321,12 +314,9 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
      //buscar cliente por DNI y modificarlo
 
+     @Override
+     public boolean modificarCliente(Cliente clienteAModificar) {
 
-     public boolean modificarCliente(String dni)  {
-
-          try{
-
-               Cliente clienteAModificar = clientesRepo.buscar(dni);
                int opcion;
 
                do{
@@ -335,14 +325,14 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
                     //username - NO LO PUEDE MODIFICAR -> DEBE ELIMINAR LA CUENTA Y HACER UNA NUEVA
 
                     opcion = EntradaSalida.entradaInt("    INGRESE LA OPCION DESEADA\n"+
-                                    "\n1 - Modificar nombre" +
-                                    "\n2 - Modificar apellido" +
-                                    "\n3 - Modificar telefono" +
-                                    "\n4 - Modificar mail" +
-                                    "\n5 - Modificar domicilio" +
-                                    "\n6 - Modificar contraseña" +
-                                    "\n7 - Eliminar cliente" +
-                                    "\n\n0 - Salir");
+                            "\n1 - Modificar nombre" +
+                            "\n2 - Modificar apellido" +
+                            "\n3 - Modificar telefono" +
+                            "\n4 - Modificar mail" +
+                            "\n5 - Modificar domicilio" +
+                            "\n6 - Modificar contraseña" +
+                            "\n7 - Eliminar cliente" +
+                            "\n\n0 - Salir");
 
                     while(opcion < 0 || opcion > 7){
                          opcion = EntradaSalida.entradaInt("ERROR - Ingrese una opcion valida: ");
@@ -382,29 +372,31 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
                return true;
 
-
-          }catch (InexistenteException e){
-
-               EntradaSalida.SalidaAdvertencia(e.getMessage(),"ERROR");
-          }
-
-          return false;
      }
 
      public void modificarDatosClientes(){
 
           String dni;
 
-          //EntradaSalida.SalidaInformacion("Ingrese el DNI del cliente a modificar","");
           dni = EntradaSalida.entradaDNI();
 
-          if(modificarCliente(dni)){
+          try{
 
-               EntradaSalida.SalidaInformacion("El cliente se modifico con exito!","");
+               Cliente clienteAModificar = clientesRepo.buscar(dni);
 
-          }else{
-               EntradaSalida.SalidaInformacion("No se pudo modificar el cliente","ERROR");
+               if(modificarCliente(clienteAModificar)){
+
+                    EntradaSalida.SalidaInformacion("El cliente se modifico con exito!","");
+
+               }else{
+                    EntradaSalida.SalidaInformacion("No se pudo modificar el cliente","ERROR");
+               }
+
+          }catch (InexistenteException e){
+               EntradaSalida.SalidaAdvertencia(e.getMessage(),"ERROR");
           }
+
+
      }
 
 
@@ -580,7 +572,7 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
                if(empleado.getDni().equalsIgnoreCase(dni)){
 
-                    System.out.println(empleado);
+                    EntradaSalida.SalidaInformacion(empleado.toString(),"DATOS EMPLEADO LOCAL");
 
                     break;
 

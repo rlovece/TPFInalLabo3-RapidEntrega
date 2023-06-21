@@ -5,7 +5,10 @@ import org.example.interfacesDeManejo.*;
 import org.example.models.*;
 import org.example.recursos.EntradaSalida;
 import org.example.repositorio.*;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEmpleado {
@@ -647,7 +650,12 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
 
         nuevo.setId((repoPaquete.buscarUltimoID())+1);
         nuevo.setCodigoIdentificacion(nuevoCogigoPaquete());
-        nuevo.setFechaIngreso(LocalDateTime.now());
+
+        LocalDate localDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
+        String formattedString = localDate.format(formatter);
+
+        nuevo.setFechaIngreso(formattedString);
         do {
             try {
                 nuevo.setRemitente(buscarCliente());

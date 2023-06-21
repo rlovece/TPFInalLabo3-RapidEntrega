@@ -30,9 +30,17 @@ public class EmpleadoLocal extends Empleado implements Serializable {
 
     @Override
     public String toString() {
-        return "Empleado Local - Legajo: " + super.getLegajo() +
-                " - " + super.getNombre() +
-                " " + super.getApellido() +
-                " Supervirsor: " + supervisor;
+        return "       EMPLEADO LOCAL" +
+                "\n\nID:                   " + this.getId() +
+                "\nNombre:               " + this.getNombre() +
+                "\nApellido:             " + this.getApellido() +
+                "\nDNI:                  " + this.getDni() +
+                "\nTelefono:             " + this.getTelefono() +
+                "\nMail:                 " + this.getMail() +
+                "\nLegajo:               " + this.getLegajo() +
+                "\nJornada:              " + this.getJornada()  +
+                "\nSupervisor:           " + this.getSupervisor().getNombre() + " " + this.getSupervisor().getApellido() + "\n\n";
     }
+
+
 }

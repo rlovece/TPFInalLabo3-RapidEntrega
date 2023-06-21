@@ -12,7 +12,8 @@ public class Paquete implements Serializable {
 
     private int id;
     private String codigoIdentificacion;
-    private LocalDateTime fechaIngreso;
+    //private LocalDateTime fechaIngreso;
+    private String fechaIngreso;
     private Cliente remitente;
     private TiposPaquete tiposPaquete;
     private Zonas zonaEntrega;
@@ -26,7 +27,7 @@ public class Paquete implements Serializable {
     public Paquete()
     {}
 
-    public Paquete(int id, String codigoIdentificacion, LocalDateTime fechaIngreso, Cliente remitente, TiposPaquete tipoPaquete, Zonas zonaEntrega, String destinatario, String domicilioEntrega) {
+    public Paquete(int id, String codigoIdentificacion, String fechaIngreso, Cliente remitente, TiposPaquete tipoPaquete, Zonas zonaEntrega, String destinatario, String domicilioEntrega) {
         this.id = id;
         this.codigoIdentificacion = codigoIdentificacion;
         this.fechaIngreso = fechaIngreso;
@@ -48,11 +49,11 @@ public class Paquete implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
-    public LocalDateTime getFechaIngreso() {
+    public String getFechaIngreso() {
         return fechaIngreso;
     }
 
-    public void setFechaIngreso(LocalDateTime fechaIngreso) {
+    public void setFechaIngreso(String fechaIngreso) {
         this.fechaIngreso = fechaIngreso;
     }
 
@@ -127,17 +128,25 @@ public class Paquete implements Serializable {
 
     @Override
     public String toString() {
-        String mensaje= "                   P A Q U E T E   " +
-                        "  ID:                           " + id +
-                        "  Codigo de Identificacion:     " + codigoIdentificacion +
-                        "  Fecha de Ingreso:             " + fechaIngreso +
-                        "  Remitente:                    " + remitente +
-                        "  Tipo de paquete:              " + tiposPaquete +
-                        "  Zona de Entrega:              " + zonaEntrega +
-                        "  Destinatario:                 " + destinatario +
-                        "  Domicilio de entrega:         " + domicilioEntrega  +
-                        "  Estado:                       " + estado +
-                        "  Repatidor asignado:           " + repatidorAsignado;
+        String nombreRepartidor = "-";
+        String apellidoRepartidor = "";
+
+        if(repatidorAsignado != null){
+            nombreRepartidor = repatidorAsignado.getNombre();
+            apellidoRepartidor = repatidorAsignado.getApellido();
+        }
+
+        String mensaje= "               P A Q U E T E\n" +
+                        "\nID:                           " + id +
+                        "\nCodigo de Identificacion:     " + codigoIdentificacion +
+                        "\nFecha de Ingreso:             " + fechaIngreso +
+                        "\nRemitente:                    " + remitente.getNombre() + " " + remitente.getApellido() +
+                        "\nTipo de paquete:              " + tiposPaquete +
+                        "\nZona de Entrega:              " + zonaEntrega +
+                        "\nDestinatario:                 " + destinatario +
+                        "\nDomicilio de entrega:         " + domicilioEntrega  +
+                        "\nEstado:                       " + estado +
+                        "\nRepatidor asignado:           " + nombreRepartidor + " " + apellidoRepartidor + "\n\n";
                 return mensaje;
     }
 
