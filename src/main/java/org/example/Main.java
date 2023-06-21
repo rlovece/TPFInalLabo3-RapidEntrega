@@ -3,14 +3,11 @@ package org.example;
 
 
 import org.example.enums.EstadosEmpleado;
-import org.example.gestiones.GestionEmpleadoLocal;
+import org.example.gestiones.*;
 
 
-import org.example.gestiones.GestionAdmin;
 import org.example.excepciones.InexistenteException;
 
-import org.example.gestiones.GestionRepartidor;
-import org.example.gestiones.GestionSupervisor;
 import org.example.models.EmpleadoLocal;
 import org.example.models.Repartidor;
 import org.example.recursos.EntradaSalida;
@@ -38,7 +35,8 @@ public class Main {
 
             switch (opcion){
                 case 1:
-                    /// gestionCliente.menuPrincipal();
+                    ClienteGestion clienteGestion = new ClienteGestion();
+                    clienteGestion.logueo();
                     break;
 
                 case 2:

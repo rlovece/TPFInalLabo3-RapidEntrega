@@ -7,7 +7,7 @@ public class Cliente extends Persona implements Serializable {
     // <editor-fold defaultstate="collapsed" desc="Atributos">
     private String domicilio;
 
-    private boolean estadoCliente = true;
+    private boolean estadoCliente;
 //    </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Constructores">
@@ -40,10 +40,21 @@ public class Cliente extends Persona implements Serializable {
     // <editor-fold defaultstate="collapsed" desc="To String">
     @Override
     public String toString() {
-        return super.toString() + "\nDomicilio = " + domicilio;
+
+        return "          C L I E N T E\n" +
+                "\nID:                 " + this.getId() +
+                "\nNombre:               " + this.getNombre() +
+                "\nApellido:             " + this.getApellido() +
+                "\nDNI:                  " + this.getDni() +
+                "\nTelefono:             " + this.getTelefono() +
+                "\nMail:                 " + this.getMail() +
+                "\nDomicilio:            " + this.getDomicilio()  + "\n";
     }
 
-    public String toStringLista(){
+   public String toStringListar() {
+        return "\nCliente - ID: " + this.getId() +
+                " - " + this.getNombre() +
+                " " + this.getApellido();
 
     }
 //    </editor-fold>      

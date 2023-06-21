@@ -4,17 +4,17 @@ import org.example.enums.EstadosEmpleado;
 
 import java.util.Objects;
 
-public class Persona {
+public abstract class Persona {
 
     // <editor-fold defaultstate="collapsed" desc="Atributos">
-    private int Id;
-    private String nombre, apellido, dni, telefono, mail, username, password;
+    protected int id;
+    protected String nombre, apellido, dni, telefono, mail, username, password;
 
 //    </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Constructores">
     public Persona(int id, String nombre, String apellido, String dni, String telefono, String mail, String username, String password) {
-        this.Id = id;
+        this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
@@ -29,10 +29,10 @@ public class Persona {
 
     // <editor-fold defaultstate="collapsed" desc="Getters & Setters">
     public int getId() {
-        return Id;
+        return id;
     }
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
     public String getNombre() {
         return nombre;
@@ -82,7 +82,7 @@ public class Persona {
     // <editor-fold defaultstate="collapsed" desc="To String">
     @Override
     public String toString() {
-        return "Id = " + Id
+        return "Id = " + id
                 + "\nNombre = " + nombre
                 + "\nApellido = " + apellido
                 + "\nDni = " + dni

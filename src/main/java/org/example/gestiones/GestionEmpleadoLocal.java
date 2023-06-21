@@ -201,19 +201,23 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
           boolean existe = false;
 
+          StringBuilder stringBuilder = new StringBuilder();
+
           for(Paquete paquete : this.paquetes){
 
 
                if(paquete.getEstado().equals(estadosPaquete)){
 
-                    EntradaSalida.SalidaInformacion(paquete.toString(),"PAQUETES " + estadosPaquete.toString());
+                    stringBuilder.append(paquete.toStringListar());
 
                     existe = true;
 
                }
           }
 
-          if(!existe){
+          if(existe){
+               EntradaSalida.SalidaInformacion(stringBuilder.toString(),"PAQUETES " + estadosPaquete.toString());
+          }else{
                EntradaSalida.SalidaInformacion("No hay paquetes " + estadosPaquete.toString(),"!");
           }
 
@@ -245,9 +249,10 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
                try {
                     String codigo = EntradaSalida.CodigoPaquete();
                     validacionCodigoPaquete(codigo);
+                    continuar = true;
                     return codigo;
                } catch (CodigoPaqueteExistente e){
-
+                         EntradaSalida.SalidaAdvertencia(e.getMessage(),"ERROR");
                }
           } while (!continuar);
           return null;
@@ -272,7 +277,15 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
           {
                nuevoCliente = clientesRepo.buscar(dni);
 
-               EntradaSalida.SalidaAdvertencia("El cliente ya existe","ERROR");
+               if(nuevoCliente.isEstadoCliente()){
+                    EntradaSalida.SalidaAdvertencia("El cliente ya existe","ERROR");
+               }else{
+                    EntradaSalida.SalidaAdvertencia("El cliente se dio de alta nuevamente","!");
+                    nuevoCliente.setEstadoCliente(true);
+                    clientesRepo.modificar(nuevoCliente);
+               }
+
+
           }catch(InexistenteException e)
           {
                nuevoCliente.setId(clientesRepo.buscarUltimoID() + 1);
@@ -304,11 +317,57 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
      public void verClientes(){
 
           this.clientes = clientesRepo.listar();
+          boolean hayClientesActivos = false;
+          StringBuilder stringBuilder = new StringBuilder();
 
-          for(Cliente cliente : this.clientes){
+          if(this.clientes != null) {
 
-               System.out.println(cliente);
-               EntradaSalida.SalidaInformacion(cliente.toString(),"Datos cliente");
+               for (Cliente cliente : this.clientes) {
+
+                    if(cliente.isEstadoCliente()){
+                         stringBuilder.append(cliente.toStringListar());
+                         hayClientesActivos = true;
+                    }
+
+               }
+
+               if(hayClientesActivos){
+                    EntradaSalida.SalidaInformacion(stringBuilder.toString(), "CLIENTES");
+               }
+
+
+
+          }else{
+               EntradaSalida.SalidaInformacion("No hay clientes registrados","!");
+          }
+     }
+
+     public void verCliente(){
+
+          String dni = EntradaSalida.entradaDNI();
+
+          try{
+
+               Cliente clienteBuscado = clientesRepo.buscar(dni);
+
+               if(clienteBuscado.isEstadoCliente()){
+                    this.clientes = clientesRepo.listar();
+
+                    for(Cliente cliente : this.clientes){
+
+                         if(cliente.getDni().equalsIgnoreCase(dni)){
+                              EntradaSalida.SalidaInformacion(cliente.toString(),"DATOS CLIENTE");
+                         }
+
+                    }
+               }else{
+                    EntradaSalida.SalidaAdvertencia("El cliente esta deshabilitado","!");
+               }
+
+
+
+          }catch (InexistenteException e){
+               EntradaSalida.SalidaAdvertencia(e.getMessage(),"ERROR");
           }
      }
 
@@ -366,7 +425,7 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
                     }
 
 
-               }while(opcion != 0);
+               }while(opcion != 0 && clienteAModificar.isEstadoCliente());
 
                clientesRepo.modificar(clienteAModificar);
 
@@ -519,14 +578,15 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
                        "\n3 - Ver paquetes de un cliente" +
                        "\n4 - Ver paquetes por estado" +
                        "\n5 - Ver clientes" +
-                       "\n6 - Cargar un cliente" +
-                       "\n7 - Modificar cliente" +
-                       "\n8 - Ver perfil" +
-                       "\n9 - Modificar mis datos" +
+                       "\n6 - Ver un cliente" +
+                       "\n7 - Cargar un cliente" +
+                       "\n8 - Modificar cliente" +
+                       "\n9 - Ver perfil" +
+                       "\n10 - Modificar mis datos" +
                        "\n\n 0 - Salir\n\n");
 
 
-               while(opcion < 0 || opcion > 9){
+               while(opcion < 0 || opcion > 10){
                     opcion = EntradaSalida.entradaInt("ERROR - Ingrese una opcion valida");
                }
 
@@ -546,16 +606,19 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
                     case 5: // ver clientes
                          verClientes();
                          break;
-                    case 6: // cargar un cliente
+                    case 6: //ver un cliente por dni
+                         verCliente();
+                         break;
+                    case 7: // cargar un cliente
                          registroCliente();
                          break;
-                    case 7: //modificar cliente
+                    case 8: //modificar cliente
                          modificarDatosClientes();
                          break;
-                    case 8: // ver perfil
+                    case 9: // ver perfil
                          verPerfil(dni);
                          break;
-                    case 9: // modificar datos empleadoLocal
+                    case 10: // modificar datos empleadoLocal
                          modificarDatosEmpleado(dni);
                          break;
 
