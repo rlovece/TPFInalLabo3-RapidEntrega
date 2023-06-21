@@ -4,10 +4,12 @@ import org.example.enums.Zonas;
 
 import java.util.ArrayList;
 
+/**
+ * @author Oriana Dafne Lucero
+ */
 public class Supervisor extends Empleado {
 
     /// region Atributos
-    private Zonas zona;
     private int cantEmpleadosACargo;
     private transient ArrayList<Empleado> empleadosACargo;
     /// endregion
@@ -17,8 +19,7 @@ public class Supervisor extends Empleado {
     public Supervisor ()
     {}
 
-    public Supervisor(Zonas zona, int cantEmpleadosACargo, ArrayList<Empleado> empleadosACargo) {
-        this.zona = zona;
+    public Supervisor(int cantEmpleadosACargo, ArrayList<Empleado> empleadosACargo) {
         this.cantEmpleadosACargo = cantEmpleadosACargo;
         this.empleadosACargo = empleadosACargo;
     }
@@ -27,14 +28,6 @@ public class Supervisor extends Empleado {
     /// endregion
 
     /// region Getters&Setters
-
-    public Zonas getZona() {
-        return zona;
-    }
-
-    public void setZona(Zonas zona) {
-        this.zona = zona;
-    }
 
     public int getCantEmpleadosACargo() {
         return cantEmpleadosACargo;
@@ -68,7 +61,6 @@ public class Supervisor extends Empleado {
                 "\n  Mail:                 " + this.getMail() +
                 "\n  Legajo:               " + this.getLegajo() +
                 "\n  Jornada:              " + this.getJornada()  +
-                "\n  Zona:                 " + zona +
                 "\n  Empleados a cargo:    " + cantEmpleadosACargo;
         return mensaje;
     }
