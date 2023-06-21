@@ -63,7 +63,8 @@ public class Main {
 
             switch (opcion){
                 case 1:
-                    /// gestionSupervisor.logueo();
+                    GestionSupervisor gestionSupervisor=new GestionSupervisor();
+                    gestionSupervisor.logueo();
                     break;
 
                 case 2:

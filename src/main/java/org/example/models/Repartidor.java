@@ -70,12 +70,20 @@ public class Repartidor extends Empleado {
 
     @Override
     public String toString() {
-        return "Repartidor{" +
-                "supervisor=" + supervisor +
-                ", zona=" + zona +
-                ", tiposPaquetes=" + tiposPaquetes +
-                ", paquetesAsignados=" + paquetesAsignados +
-                '}';
+        String mensaje= "               R E P A R T I D O R    " +
+                "\n  ID:                   " + this.getId() +
+                "\n  Nombre:               " + this.getNombre() +
+                "\n  Apellido:             " + this.getApellido() +
+                "\n  DNI:                  " + this.getDni() +
+                "\n  Telefono:             " + this.getTelefono() +
+                "\n  Mail:                 " + this.getMail() +
+                "\n  Legajo:               " + this.getLegajo() +
+                "\n  Jornada:              " + this.getJornada()  +
+                "\n  Supervisor:           " + supervisor +
+                "\n  Zona:                 " + zona +
+                "\n  Tipo de Paquetes:     " + tiposPaquetes +
+                "\n  Paquetes Asignados:   " + paquetesAsignados;
+        return mensaje;
     }
 
 

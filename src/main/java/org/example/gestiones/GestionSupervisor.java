@@ -1,25 +1,12 @@
 package org.example.gestiones;
-
-import org.example.enums.EstadosEmpleado;
-import org.example.enums.EstadosPaquete;
-import org.example.enums.TiposPaquete;
-import org.example.enums.Zonas;
-import org.example.excepciones.CodigoPaqueteExistente;
-import org.example.excepciones.ExcepcionClienteExistente;
-import org.example.excepciones.InexistenteException;
-import org.example.interfacesDeManejo.ManejoCliente;
-import org.example.interfacesDeManejo.ManejoEmpleado;
-import org.example.interfacesDeManejo.ManejoPaquete;
+import org.example.enums.*;
+import org.example.excepciones.*;
+import org.example.interfacesDeManejo.*;
 import org.example.models.*;
 import org.example.recursos.EntradaSalida;
 import org.example.repositorio.*;
-
-import javax.swing.*;
-import java.net.PasswordAuthentication;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
-import static javax.swing.JOptionPane.ERROR_MESSAGE;
 
 public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEmpleado {
 
@@ -102,6 +89,24 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
         }
     }
 
+    private boolean cambiarContrasenia()
+    {
+        EntradaSalida.SalidaInformacion("Reingrese su numero de DNI","CAMBIAR CONTRASEÑA");
+        String dni= EntradaSalida.entradaDNI();
+        try
+        {
+            Supervisor buscado = repoSuper.buscar(dni);
+            EntradaSalida.SalidaInformacion("Ingresara a cambiar su contraseña","CAMBIAR CONTRASEÑA");
+            buscado.setPassword(EntradaSalida.entradaGeneracionPassword());
+            repoSuper.modificar(buscado);
+            return true;
+        }catch(InexistenteException e)
+        {
+            EntradaSalida.SalidaError(e.getMessage(),"ERROR");
+        }
+        return false;
+    }
+
     ///endregion
 
     /// region Metodos Empleados a cargo
@@ -114,11 +119,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
         {
             if(r.getSupervisor().equals(this.supervisor))
             {
-                if(this.supervisor.getEmpleadosACargo().contains(r))
-                {
-
-                }
-                    aCargo.add(r);
+                aCargo.add(r);
             }
         }
         return aCargo;
@@ -141,10 +142,10 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
     {
         if(this.supervisor!=null)
         {
-            ArrayList<Empleado> empleados = new ArrayList<>();
-            empleados.addAll(repartidoresAcargo());
-            empleados.addAll(empLocalAcargo());
-            this.supervisor.setEmpleadosACargo(empleados);
+            this.empleadosAcargo = new ArrayList<>();
+            this.empleadosAcargo.addAll(repartidoresAcargo());
+            this.empleadosAcargo.addAll(empLocalAcargo());
+            this.supervisor.setEmpleadosACargo(this.empleadosAcargo);
         }else {
             EntradaSalida.SalidaError("No tiene un supervisor asignado","ERROR SUPERVISOR");
         }
@@ -468,6 +469,24 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
         repoRepartidor.modificar(rep);
     }
 
+    private void asignarPorRepartidor()
+    {
+        try{
+            Repartidor buscar = (Repartidor) buscarEmpleadoAcargo();
+            try {
+                validarEstadoRepartidor(buscar);
+                int cant = EntradaSalida.entradaInt("Ingrese la cantidad de paquetes a asignar");
+                asignarPaquetesRepartidor(buscar,cant);
+            }catch(Exception e)
+            {
+                EntradaSalida.SalidaError(e.getMessage(),"ERROR");
+            }
+        }catch(InexistenteException e)
+        {
+            EntradaSalida.SalidaError(e.getMessage(),"ERROR");
+        }
+    }
+
     public boolean validarEstadoRepartidor (Repartidor rep) throws Exception {
         boolean validado=false;
         if(rep.getEstado()== EstadosEmpleado.DISPONIBLE)
@@ -491,36 +510,26 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
 
     void asignarPaquetes (Supervisor supervisor)
     {
-        int opcion = EntradaSalida.entradaInt(" ASIGNACION DE PAQUETES \n  1 - Asignacion automatica" +
-                "\n  2 . Asignacion a un repartidor\n  3 . Asignacion manual");
+        int opcion = EntradaSalida.entradaInt("""
+                      ASIGNACION DE PAQUETES\s
+                  1 - Asignacion automatica a repartidores
+                  2 . Asignacion de paquetes a un repartidor
+                  3 . Asignacion de un paquete\
+                """);
 
         do{
-            switch (opcion)
-            {
-                case 1:
-                    String msj= "Confirmar asignacion automatica a repartidores de supervisor " +
-                    supervisor.getNombre() +" "+ supervisor.getApellido() + "\n      1 - CONFIRMAR " +
+            switch (opcion) {
+                case 1 -> {
+                    String msj = "Confirmar asignacion automatica a repartidores de supervisor " +
+                            supervisor.getNombre() + " " + supervisor.getApellido() + "\n      1 - CONFIRMAR " +
                             "\n      2 - CANCELAR ";
-                    if(1==EntradaSalida.entradaInt(msj))
-                    {
+                    if (1 == EntradaSalida.entradaInt(msj)) {
                         asignarPaquetesAutomaticamente();
                     }
-                    break;
-                case 2:
-                    Repartidor buscado = buscarRepartidorAcargo();
-                    if(buscado!=null)
-                    {
-                        int cant = EntradaSalida.entradaInt("Ingrese la cantidad de paquetes a asignar");
-                        asignarPaquetesRepartidor(buscado,cant);
-                    }
-                    break;
-                case 3:
-                    break;
-                default:
-                    EntradaSalida.SalidaError("El numero ingresado es erroneo","ERROR");
-                    break;
-
-
+                }
+                case 2 -> asignarPorRepartidor();
+                case 3 -> asignarUnPaquete();
+                default -> EntradaSalida.SalidaError("El numero ingresado es erroneo", "ERROR");
             }
             opcion = EntradaSalida.entradaInt("CONTINUAR ASIGNANDO \n 1 - Si\n 2 - No");
         }while(opcion==1);
@@ -576,34 +585,8 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
     }
 
     @Override
-    public boolean modificarPaquete(Paquete paquete) {
-        return false;
-    }
+    public boolean modificarPaquete(Paquete aModificar) {
 
-    public boolean modificarPaquete(int id) {
-
-        Paquete aModificar = buscarPaqueteID(id);
-        if(aModificar != null)
-        {
-            aModificar = modificarDatosPaquete(aModificar);
-            repoPaquete.modificar(aModificar);
-            return true;
-        }else {
-            try{
-                aModificar = buscarPaquete();
-                aModificar = modificarDatosPaquete(aModificar);
-                repoPaquete.modificar(aModificar);
-                return true;
-            }catch(InexistenteException e)
-            {
-                EntradaSalida.SalidaError(e.getMessage(),"PAQUETE INEXISTENTE");
-                return false;
-            }
-        }
-    }
-
-    private Paquete modificarDatosPaquete (Paquete aModificar)
-    {
         int opcion=0, continuar=0;
 
         do {
@@ -634,7 +617,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
             }
             opcion = EntradaSalida.entradaInt("  CONTINUAR MODIFICANDO PAQUETE \n  1 - Si \n  2 - Finalizar");
         }while(opcion==1);
-        return aModificar;
+        return true;
     }
 
     private Paquete modificarDatosAdicionales(Paquete paq)
@@ -736,6 +719,38 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
         }
     }
 
+    private void verPaquetePorZona() {
+        for(Paquete p : filtrarPaquetesPorZona(repoPaquete.listar()))
+        {
+            verPaquete(p);
+        }
+    }
+    private void verPaquetePorTipo() {
+        for(Paquete p : filtrarPaquetesPorTipo(repoPaquete.listar()))
+        {
+            verPaquete(p);
+        }
+    }
+
+    private void verPaquetesRepartidor ()
+    {
+        try {
+            Repartidor aBuscar = (Repartidor) buscarEmpleadoAcargo();
+            if (aBuscar.getPaquetesAsignados() != null) {
+                for (Paquete p : aBuscar.getPaquetesAsignados()) {
+                    verPaquete(p);
+                }
+            } else {
+                EntradaSalida.SalidaError("No contiene paquetes asignados", "ERROR");
+            }
+        }catch(InexistenteException e)
+        {
+            EntradaSalida.SalidaError(e.getMessage(),"ERROR");
+        }
+    }
+
+
+
     public Paquete buscarPaqueteID (int id)
     {
         this.listadoPaquetes = repoPaquete.listar();
@@ -777,37 +792,6 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
             verPaquete(p);
         }
     }
-    private void mostrarPaquetes ()
-    {
-        empleadosAcargo();
-        int opcion = EntradaSalida.entradaInt("""
-                          MOSTRAR PAQUETES \s
-                 1 - Buscar un paquete
-                 2 - Listar paquetes por estado
-                 2 - Listar paquetes por repartidor\
-                """);
-        switch (opcion) {
-            case 1 -> {
-                try {
-                    Paquete paq = buscarPaquete();
-                    verPaquete(paq);
-                } catch (InexistenteException e) {
-                    EntradaSalida.SalidaError(e.getMessage(), "ERROR");
-                }
-            }
-            case 2 -> mostrarListadoPaquetes(filtrarPaquetesPorEstado(this.listadoPaquetes));
-            case 3 -> {
-                try {
-                    Repartidor repartidor = (Repartidor) buscarEmpleadoAcargo();
-                    mostrarListadoPaquetes(repartidor.getPaquetesAsignados());
-                } catch (InexistenteException e) {
-                    EntradaSalida.SalidaError(e.getMessage(), "ERROR");
-                }
-            }
-            default -> EntradaSalida.SalidaError("El numero ingresado es erroneo", "ERROR");
-        }
-    }
-
     /// endregion
 
     /// region Metodos Cliente
@@ -840,30 +824,13 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
     }
 
     private boolean verificarClienteExistente (Cliente aVerificar) throws ExcepcionClienteExistente {
-
-
         try{
-            if(repoClientes.buscar(aVerificar.getDni())!=null)
-            {
-                return true;
-            }else {
-                throw new ExcepcionClienteExistente("“El cliente ya existe");
-            }
+            repoClientes.buscar(aVerificar.getDni());
+            return true;
+
         }catch(InexistenteException e){
             EntradaSalida.SalidaAdvertencia(e.getMessage(),"ERROR");
         }
-
-        //modifique el metodo para que compile
-        //buscar tira una excepcion
-
-        /*
-        if(repoClientes.buscar(aVerificar.getDni())!=null)
-        {
-            return true;
-        }else {
-            throw new ExcepcionClienteExistente("“El cliente ya existe");
-        }*/
-
         return false;
     }
 
@@ -889,10 +856,9 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
         return buscado;
     }
     @Override
-    public boolean modificarCliente(String dni) {
+    public boolean modificarCliente(Cliente aModificar) {
 
         int continuar=0, opcion=0;
-        Cliente aModificar;
 
         try {
             aModificar = buscarCliente();
@@ -950,6 +916,17 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
         }
         return null;
     }
+
+    private void verCliente ()
+    {
+        try {
+            Cliente buscar = buscarCliente();
+            EntradaSalida.SalidaInformacion(buscar.toString(), "   C L I E N T E");
+        }catch (InexistenteException e)
+        {
+            EntradaSalida.SalidaError(e.getMessage(),"ERROR");
+        }
+    }
     @Override
     public void registroEmpleado() {
 
@@ -957,7 +934,263 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
 
     /// endregion
 
+
+    /// region MENUS
+
+    public boolean logueo(){
+
+        EntradaSalida.SalidaInformacion("Ingrese con su numero de DNI","LOGUEO SUPERVISOR");
+        String dni = EntradaSalida.entradaDNI();
+        Supervisor sup;
+
+        try {
+            sup= repoSuper.buscar(dni);
+            String password = EntradaSalida.entradaString("Ingrese la contraseña");
+            if(sup.getPassword().equals(password))
+            {
+                menuGestionSupervisor(sup);
+                return true;
+            }
+        } catch (InexistenteException e) {
+            EntradaSalida.SalidaError(e.getMessage(),"DNI INEXISTENTE");
+        }
+        return false;
+    }
+
+    public void menuGestionSupervisor(Supervisor sup){
+
+        this.supervisor =sup;
+
+        int opcion = 0;
+        do {
+            opcion = EntradaSalida.entradaInt("""
+                          SELECCIONE UNA OPCION \s
+                     1 - Gestionar Empleados
+                     2 - Gestionar Paquetes
+                     3 - Gestionar Clientes
+                     4 - Cambiar contraseña
+
+                     0 - Salir
+                    """);
+
+            switch (opcion){
+                case 1:
+                    menuEmpleados(sup);
+                    break;
+
+                case 2:
+                    menuPaquetes(sup);
+                    break;
+                case 3:
+                    menuClientes(sup);
+                    break;
+
+                case 4:
+                    if(cambiarContrasenia())
+                    {
+                        EntradaSalida.SalidaInformacion("Constraseña cambiada existosamente","CAMBIO CONTRASEÑA");
+                    }else {
+                        EntradaSalida.SalidaError("No se pudo cambiar la constraseña","ERROR");
+                    }
+                    break;
+
+
+                default:
+                    break;
+            }
+        } while (opcion!=0);
+    }
+
+    public void menuEmpleados(Supervisor sup){
+
+        this.supervisor =sup;
+
+        int opcion = 0;
+        do {
+            opcion = EntradaSalida.entradaInt("""
+                          SELECCIONE UNA OPCION \s
+                     1 - Ver empleados a cargo
+                     2 - Modificar datos empleados
+
+                     0 - Salir
+                    """);
+
+            switch (opcion) {
+                case 1 -> menuVerEmpleados(sup);
+                case 2 -> {
+                    if (modificarEmpleadoAcargo()) {
+                        EntradaSalida.SalidaInformacion("El empleado se modifico correctamente", "EMPLEADO MODIFICADO");
+                    } else {
+                        EntradaSalida.SalidaError("No se pudo modificar empleado", "ERROR");
+                    }
+                }
+                default -> {
+                }
+            }
+        } while (opcion!=0);
+    }
+
+    public void menuVerEmpleados (Supervisor sup)
+    {
+        this.supervisor =sup;
+
+        int opcion = 0;
+        do {
+            opcion = EntradaSalida.entradaInt("""
+                          SELECCIONE UNA OPCION \s
+                     1 - Buscar un empleado
+                     2 - Ver todos los empleados a cargo
+
+                     0 - Salir
+                    """);
+            switch (opcion) {
+                case 1 -> {
+                    try {
+                        Empleado aBuscar = buscarEmpleadoAcargo();
+                        EntradaSalida.SalidaInformacion(aBuscar.toString(), "   E M P L E A D O ");
+                    } catch (InexistenteException e) {
+                        EntradaSalida.SalidaError(e.getMessage(), "ERROR");
+                    }
+                }
+                case 2 -> verEmpleadosAcargo();
+                default -> {
+                }
+            }
+        } while (opcion!=0);
+    }
+
+    public void menuPaquetes (Supervisor sup)
+    {
+        this.supervisor =sup;
+
+        int opcion = 0;
+        do {
+            opcion = EntradaSalida.entradaInt("""
+                          SELECCIONE UNA OPCION \s
+                     1 - Ver paquetes
+                     2 - Alta nuevo paquete
+                     3 - Modificar Paquete
+                     4 - Asignar paquetes
+
+                     0 - Salir
+                    """);
+
+            switch (opcion) {
+                case 1 -> menuVerPaquetes(sup);
+                case 2 -> registroPaquete();
+                case 3 -> {
+                    try {
+                        Paquete aModificar = buscarPaquete();
+                        modificarPaquete(aModificar);
+                    } catch (InexistenteException e) {
+                        EntradaSalida.SalidaError(e.getMessage(), "PAQUETE INEXISTENTE");
+                    }
+                }
+                case 4 -> asignarPaquetes(sup);
+                default -> {
+                }
+            }
+        } while (opcion!=0);
+
+    }
+
+    public void menuVerPaquetes (Supervisor sup)
+    {
+        this.supervisor =sup;
+
+        int opcion = 0;
+        do {
+            opcion = EntradaSalida.entradaInt("""
+                        V E R P A Q U E T E S \s
+                     1 - Ver un paquete
+                     2 - Ver paquetes por estado
+                     3 - Ver paquetes por tipo
+                     4 - Ver paquetes por zona
+                     5 - Ver paquetes por repartidor
+
+                     0 - Salir
+                    """);
+
+            switch (opcion) {
+                case 1 -> {
+                    try {
+                        Paquete paq = buscarPaquete();
+                        verPaquete(paq);
+                    } catch (InexistenteException e) {
+                        EntradaSalida.SalidaError(e.getMessage(), "Error");
+                    }
+                }
+                case 2 -> verPaquetePorEstado(EstadosPaquete.EN_CORREO);
+                case 3 -> verPaquetePorTipo();
+                case 4 -> verPaquetePorZona();
+                case 5 -> verPaquetesRepartidor();
+                default -> {
+                }
+            }
+        } while (opcion!=0);
+    }
+
+    public void menuClientes (Supervisor sup)
+    {
+        this.supervisor =sup;
+
+        int opcion = 0;
+        do {
+            opcion = EntradaSalida.entradaInt("""
+                        SELECCIONE UNA OPCION \s
+                     1 - Ver un cliente
+                     2 - Dar de alta un cliente
+                     3 - Modificar un cliente
+
+                     0 - Salir
+                    """);
+
+            switch (opcion) {
+                case 1 -> verCliente();
+                case 2 -> registroCliente();
+                case 3 -> { try {
+                                 Cliente buscado = buscarCliente();
+                   if(modificarCliente(buscado))
+                   {
+                       EntradaSalida.SalidaInformacion("El cliente fue modificado con existo","CLIENTE MODIFICADO");
+                   }
+                }catch(InexistenteException e)
+                {
+                    EntradaSalida.SalidaError(e.getMessage(),"ERROR");
+                }
+                }
+                default -> {
+                }
+            }
+        } while (opcion!=0);
+    }
+
+    ///endregion
+
     /// region METODOS DESCARTADOS
+    /*
+
+    public boolean modificarPaquete(int id) {
+
+        Paquete aModificar = buscarPaqueteID(id);
+        if(aModificar != null)
+        {
+            aModificar = modificarDatosPaquete(aModificar);
+            repoPaquete.modificar(aModificar);
+            return true;
+        }else {
+            try{
+                aModificar = buscarPaquete();
+                aModificar = modificarDatosPaquete(aModificar);
+                repoPaquete.modificar(aModificar);
+                return true;
+            }catch(InexistenteException e)
+            {
+                EntradaSalida.SalidaError(e.getMessage(),"PAQUETE INEXISTENTE");
+                return false;
+            }
+        }
+    }
 
     Empleado modificarAtributosEmpleado(Empleado e)
     {
@@ -971,6 +1204,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
         }
         return e;
     }
+
 
     private Repartidor buscarRepartidorID (int id)
     {
@@ -1018,6 +1252,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
             throw new InexistenteException("Repartidor inexistente");
         }
     }
+    */
 
     /// endregion
 }

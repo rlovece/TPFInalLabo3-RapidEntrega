@@ -97,7 +97,7 @@ public class SupervisorRepo implements IRepositorio<Supervisor> {
                 return s;
             }
         }
-        throw new InexistenteException("Codigo inexistente");
+        throw new InexistenteException("Supervisor Inexistente");
     }
 
     @Override

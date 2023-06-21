@@ -4,7 +4,7 @@ import org.example.models.Cliente;
 
 
 public interface ManejoCliente {
-    boolean modificarCliente (String dni);
+    boolean modificarCliente (Cliente cliente);
     void registroCliente();
 
 }

@@ -261,6 +261,11 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
      //region Metodos Cliente
 
+     @Override
+     public boolean modificarCliente(Cliente cliente) {
+          return false;
+     }
+
      //cargar cliente
      @Override
      public void registroCliente() {
@@ -316,7 +321,7 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
      //buscar cliente por DNI y modificarlo
 
-     @Override
+
      public boolean modificarCliente(String dni)  {
 
           try{
