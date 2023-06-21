@@ -51,12 +51,12 @@ public class Empleado extends Persona{
 
     //endregion
 
-
-
     @Override
     public String toString() {
         return "Empleado{" +
                 "legajo=" + legajo +
+                " " + super.getNombre() +
+                " " + super.getApellido() +
                 ", jornada='" + jornada + '\'' +
                 '}';
     }

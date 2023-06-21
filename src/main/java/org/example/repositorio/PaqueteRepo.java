@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PaqueteRepo implements IRepositorio<Paquete>{
-    private final File archivoPaquete = new File("src/main/java/org/example/archivos/paquetes.json");
+    private final File archivoPaquete = new File("src\\main\\java\\org\\example\\archivos\\paquetes.json");
 
     private final ObjectMapper mapperPaquete = new ObjectMapper();
 

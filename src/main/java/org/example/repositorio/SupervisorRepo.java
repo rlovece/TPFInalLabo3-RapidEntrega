@@ -15,7 +15,7 @@ import java.util.List;
 
 public class SupervisorRepo implements IRepositorio<Supervisor> {
 
-    private final File archivoSuper = new File("");
+    private final File archivoSuper = new File("src\\main\\java\\org\\example\\archivos\\supervisores.json");
 
     private final ObjectMapper mapperSuper = new ObjectMapper();
 

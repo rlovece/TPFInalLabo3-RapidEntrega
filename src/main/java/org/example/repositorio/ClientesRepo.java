@@ -19,7 +19,7 @@ import java.util.List;
 public class ClientesRepo implements IRepositorio<Cliente> {
 
     // <editor-fold defaultstate="collapsed" desc="Atributos">
-    String ruta = "src/main/java/org/example/archivos/clientes.json";
+    String ruta = "src\\main\\java\\org\\example\\archivos\\clientes.json";
     ObjectMapper mapeo = new ObjectMapper();
     private final File archivo = new File(ruta);
     ArrayList<Cliente> listadoClientes = new ArrayList<>();

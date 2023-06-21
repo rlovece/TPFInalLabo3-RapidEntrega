@@ -1,0 +1,16 @@
+[ {
+  "nombre" : "Agustin",
+  "apellido" : "Perez",
+  "dni" : "33123456",
+  "telefono" : "2291451232",
+  "mail" : "agus@gmail.com",
+  "username" : "aperez",
+  "password" : "33123456",
+  "legajo" : 2,
+  "jornada" : "LaS de 8 a 16",
+  "estado" : "DISPONIBLE",
+  "zona" : null,
+  "cantEmpleadosACargo" : 0,
+  "empleadosACargo" : null,
+  "id" : 1
+} ]

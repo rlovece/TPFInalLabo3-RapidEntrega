@@ -28,12 +28,11 @@ public class EmpleadoLocal extends Empleado implements Serializable {
 
     //endregion
 
-
-
     @Override
     public String toString() {
-        return "EmpleadoLocal{" +
-                "supervisor=" + supervisor +
-                '}';
+        return "Empleado Local - Legajo: " + super.getLegajo() +
+                " - " + super.getNombre() +
+                " " + super.getApellido() +
+                " Supervirsor: " + supervisor;
     }
 }
