@@ -42,5 +42,9 @@ public class Cliente extends Persona implements Serializable {
     public String toString() {
         return super.toString() + "\nDomicilio = " + domicilio;
     }
+
+    public String toStringLista(){
+
+    }
 //    </editor-fold>      
 }

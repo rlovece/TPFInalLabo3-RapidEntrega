@@ -1019,6 +1019,8 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
                     "\n 3 - Modificar un Paquete" +
                     "\n 0 - Volver\n\n");
 
+            String codigoPaquete;
+
             switch (opcion){
                 case 1:
                     EstadosPaquete estado = EntradaSalida.entradaEstadosPaquete();

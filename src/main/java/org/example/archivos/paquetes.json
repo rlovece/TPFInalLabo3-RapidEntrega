@@ -1,0 +1,45 @@
+[ {
+  "id" : 0,
+  "codigoIdentificacion" : "A45D3903-7",
+  "fechaIngreso" : "21 junio 2023",
+  "remitente" : {
+    "nombre" : "Angeles",
+    "apellido" : "Higa",
+    "dni" : "39657616",
+    "telefono" : "2235754080",
+    "mail" : "angeles.higa@gmail.com",
+    "username" : "angie123",
+    "password" : "39657616",
+    "domicilio" : "Lopez y Planes 667",
+    "estadoCliente" : true,
+    "id" : 0
+  },
+  "tiposPaquete" : "GRANDE",
+  "zonaEntrega" : "MDP_SUR",
+  "destinatario" : "lucia",
+  "domicilioEntrega" : "Av. Colon 1500",
+  "estado" : "EN_CORREO",
+  "repatidorAsignado" : null
+}, {
+  "id" : 1,
+  "codigoIdentificacion" : "A24A89E0-1",
+  "fechaIngreso" : "21 junio 2023",
+  "remitente" : {
+    "nombre" : "Angeles",
+    "apellido" : "Higa",
+    "dni" : "39657616",
+    "telefono" : "2235754080",
+    "mail" : "angeles.higa@gmail.com",
+    "username" : "angie123",
+    "password" : "39657616",
+    "domicilio" : "Lopez y Planes 667",
+    "estadoCliente" : true,
+    "id" : 0
+  },
+  "tiposPaquete" : "FRAGIL_Y_GRANDE",
+  "zonaEntrega" : "MDP_NORTE",
+  "destinatario" : "Marta",
+  "domicilioEntrega" : "Av. Tejedor",
+  "estado" : "EN_CORREO",
+  "repatidorAsignado" : null
+} ]
