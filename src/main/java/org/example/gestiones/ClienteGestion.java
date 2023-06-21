@@ -255,11 +255,18 @@ public class ClienteGestion implements ManejoCliente, ManejoPaquete {
         //el cliente no implementa este metodo
     }
 
-
     //</editor-fold>
 
 
 
+
+
+
+
+    // <editor-fold defaultstate="collapsed" desc="Menu Principal">
+
+
+    //logueo
 
 
 

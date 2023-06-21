@@ -1009,6 +1009,8 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
                     "\n 4 - Eliminar del archivo" +
                     "\n 0 - Volver\n\n");
 
+            String codigoPaquete;
+
             switch (opcion){
                 case 1:
                     verCliente();

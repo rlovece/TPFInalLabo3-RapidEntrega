@@ -53,7 +53,9 @@ public class Cliente extends Persona implements Serializable {
                 "\nDomicilio:            " + this.getDomicilio()  + "\n";
     }
 
-    public String toStringListar() {
+
+   public String toStringListar() {
+
         return "\nCliente - ID: " + this.getId() +
                 " - " + this.getNombre() +
                 " " + this.getApellido();

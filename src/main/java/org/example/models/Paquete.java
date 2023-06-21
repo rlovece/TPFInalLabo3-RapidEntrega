@@ -152,6 +152,7 @@ public class Paquete implements Serializable {
     }
 
 
+
     public String toStringListar ()
     {
         String mensaje = "\n-----------------------------------------------------------------------------------------------" +
@@ -160,5 +161,14 @@ public class Paquete implements Serializable {
                 "\n   Destinatario: "+destinatario +" - Domicilio de entrega: " +domicilioEntrega ;
         return mensaje;
     }
+
+    /*public String toStringListar() {
+        return "\nPaquete # " + this.getCodigoIdentificacion() +
+                " - Fecha ingreso: " + this.getFechaIngreso() +
+                " - Destinatario: " + this.getDestinatario();
+
+    }*/
+
+
     ///endregion
 }

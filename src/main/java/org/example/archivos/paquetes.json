@@ -1,4 +1,5 @@
 [ {
+<<<<<<< HEAD
   "id" : 1,
   "codigoIdentificacion" : "73947ACB-F",
   "fechaIngreso" : "21 junio 2023",
@@ -18,10 +19,54 @@
   "zonaEntrega" : "MDP_SUR",
   "destinatario" : "Armando Mendoza",
   "domicilioEntrega" : "Rosales 1234",
+=======
+  "id" : 0,
+  "codigoIdentificacion" : "A45D3903-7",
+  "fechaIngreso" : "21 junio 2023",
+  "remitente" : {
+    "id" : 0,
+    "nombre" : "Angeles",
+    "apellido" : "Higa",
+    "dni" : "39657616",
+    "telefono" : "2235754080",
+    "mail" : "angeles.higa@gmail.com",
+    "username" : "angie123",
+    "password" : "39657616",
+    "domicilio" : "Lopez y Planes 667",
+    "estadoCliente" : true
+  },
+  "tiposPaquete" : "GRANDE",
+  "zonaEntrega" : "MDP_SUR",
+  "destinatario" : "lucia",
+  "domicilioEntrega" : "Av. Colon 1500",
+  "estado" : "EN_CORREO",
+  "repatidorAsignado" : null
+}, {
+  "id" : 1,
+  "codigoIdentificacion" : "A24A89E0-1",
+  "fechaIngreso" : "21 junio 2023",
+  "remitente" : {
+    "id" : 0,
+    "nombre" : "Angeles",
+    "apellido" : "Higa",
+    "dni" : "39657616",
+    "telefono" : "2235754080",
+    "mail" : "angeles.higa@gmail.com",
+    "username" : "angie123",
+    "password" : "39657616",
+    "domicilio" : "Lopez y Planes 667",
+    "estadoCliente" : true
+  },
+  "tiposPaquete" : "FRAGIL_Y_GRANDE",
+  "zonaEntrega" : "MDP_NORTE",
+  "destinatario" : "Marta",
+  "domicilioEntrega" : "Av. Tejedor",
+>>>>>>> angeles
   "estado" : "EN_CORREO",
   "repatidorAsignado" : null
 }, {
   "id" : 2,
+<<<<<<< HEAD
   "codigoIdentificacion" : "CAF1D7CA-4",
   "fechaIngreso" : "21 junio 2023",
   "remitente" : {
@@ -40,6 +85,26 @@
   "zonaEntrega" : "MDP_NORTE",
   "destinatario" : "Beatriz Pinzon Solano",
   "domicilioEntrega" : "Francia 3456",
+=======
+  "codigoIdentificacion" : "48B8879C-1",
+  "fechaIngreso" : "21 junio 2023",
+  "remitente" : {
+    "id" : 0,
+    "nombre" : "Angeles Maria",
+    "apellido" : "Higa",
+    "dni" : "39657616",
+    "telefono" : "2235754080",
+    "mail" : "angeles.higa@gmail.com",
+    "username" : "angie123",
+    "password" : "39657616",
+    "domicilio" : "Lopez y Planes 667",
+    "estadoCliente" : true
+  },
+  "tiposPaquete" : "MEDIANO",
+  "zonaEntrega" : "NECOCHEA",
+  "destinatario" : "Roberto",
+  "domicilioEntrega" : "Av. San Martin 147",
+>>>>>>> angeles
   "estado" : "EN_CORREO",
   "repatidorAsignado" : null
 } ]
