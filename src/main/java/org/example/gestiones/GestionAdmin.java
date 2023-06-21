@@ -79,6 +79,7 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
             opcion = EntradaSalida.entradaInt("      ELIJA UNA OPCION  \n" +
                     "\n 1 - Manejar Paquetes" +
                     "\n 2 - Manejar Empleados" +
+                    "\n 3 - Manejar Clientes" +
                     "\n 0 - Cerrar Sesión\n\n");
 
             switch (opcion){
@@ -89,6 +90,11 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
                 case 2:
                     menuManejoEmpleados();
                     break;
+
+                case 3:
+                    menuManejoClientes();
+                    break;
+
 
                 default:
                     break;
@@ -234,6 +240,26 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
         }
         return true;
     }
+
+    /**
+     * <h2Validación Codigo de Paquete</h2>
+     * Método que lanza exepción en caso de que se quiera asginar un código de paquete que ya exista en el archivo.
+     * El codigo a verificar se ingresa por parámetro.
+     * En caso de ya existir se lanza la expción.
+     *
+     * @param codigo
+     * @exception CodigoPaqueteExistente
+     * @author Ruth Lovece
+     */
+    @Override
+    public void validacionCodigoPaquete(String codigo) throws CodigoPaqueteExistente {
+        for (Paquete paquete: paqueteRepo.listar()) {
+            if (paquete.getCodigoIdentificacion().equals(codigo)){
+                throw new CodigoPaqueteExistente("Codigo Paquete Existente");
+            }
+            break;
+        }
+    }
     ///endregion
 
     //regionNO Implementadas porque no es tarea de administrador
@@ -244,7 +270,6 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
     //endregion
 
     //endregion
-
 
     //region Manejo Empleados
     /**
@@ -970,15 +995,58 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
         }
     }
     ///endregion
-    @Override
-    public void validacionCodigoPaquete(String codigo) throws CodigoPaqueteExistente {
-        for (Paquete paquete: paqueteRepo.listar()) {
-            if (paquete.getCodigoIdentificacion().equals(codigo)){
-                throw new CodigoPaqueteExistente("Codigo Paquete Existente");
+
+    ///endregion
+
+    ///regionManejo Clientes
+    /**
+     * <h2>Menu Gestión de Clientes para Administrador</h2>
+     *Muentra dentro de un ciclo do-while las opciones que tiene el administrador sobre los clientes,
+     *lee el ingreso por teclado con EntradaSalida,
+     * e ingresa al switch correspondiente donde se invocan otros metodos para continuar con la gestión.
+     *El ciclo se repite hasta que el usuario admin ingrese la opción 0 para volver al
+     * {@link GestionAdmin#menuPrincipal()}.
+     *
+     * @see EntradaSalida
+     * @author Ruth Lovece
+     */
+    public void menuManejoClientes(){
+        int opcion = 0;
+        do {
+            opcion = EntradaSalida.entradaInt("      ELIJA UNA OPCION  \n" +
+                    "\n 1 - Ver Paquetes por estado" +
+                    "\n 2 - Ver un Paquete" +
+                    "\n 3 - Modificar un Paquete" +
+                    "\n 0 - Volver\n\n");
+
+            switch (opcion){
+                case 1:
+                    EstadosPaquete estado = EntradaSalida.entradaEstadosPaquete();
+                    verPaquetePorEstado(estado);
+                    break;
+
+                case 2:
+                    codigoPaquete = EntradaSalida.entradaString("Ingrese codigo del paquete\n\n");
+                    verUnPaquete(codigoPaquete);
+                    break;
+
+                case 3:
+                    codigoPaquete = EntradaSalida.entradaString("Ingrese codigo del paquete\n\n");
+                    try {
+                        Paquete aModificar = paqueteRepo.buscar(codigoPaquete);
+                        modificarPaquete(aModificar);
+                    } catch (InexistenteException e){
+                        EntradaSalida.SalidaError("Codigo incorrecto\n\n", "Error");
+                    }
+                    break;
+
+                default:
+                    break;
             }
-            break;
-        }
+        } while (opcion!=0);
     }
+
+    ///endregion
 
     static void validarPassword (String contraseña) throws PasswordInvalida {
         if (!contraseña.equals("123Admin")){
