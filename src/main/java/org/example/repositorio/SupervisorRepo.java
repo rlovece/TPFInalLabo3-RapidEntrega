@@ -98,11 +98,8 @@ public class SupervisorRepo implements IRepositorio<Supervisor> {
     @Override
     public Supervisor buscar(String dni) throws InexistenteException{
         this.listaSupervisores = listar();
-
-        EntradaSalida.SalidaInformacion("HOLO","DNI");
         for(Supervisor s: this.listaSupervisores) {
 
-            EntradaSalida.SalidaInformacion(s.getDni(),"DNI");
             if (s.getDni().equalsIgnoreCase(dni)) {
                 return s;
             }

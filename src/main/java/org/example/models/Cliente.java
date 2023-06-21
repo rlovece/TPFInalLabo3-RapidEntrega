@@ -41,7 +41,15 @@ public class Cliente extends Persona implements Serializable {
     // <editor-fold defaultstate="collapsed" desc="To String">
     @Override
     public String toString() {
-        return super.toString() + "\nDomicilio = " + domicilio;
+        String mensaje= "             C L I E N T E     " +
+                "\n  ID:                   " + this.getId() +
+                "\n  Nombre:               " + this.getNombre() +
+                "\n  Apellido:             " + this.getApellido() +
+                "\n  DNI:                  " + this.getDni() +
+                "\n  Telefono:             " + this.getTelefono() +
+                "\n  Mail:                 " + this.getMail() +
+                "\n  Direccion             " + this.getDomicilio();
+        return mensaje;
     }
 //    </editor-fold>      
 }

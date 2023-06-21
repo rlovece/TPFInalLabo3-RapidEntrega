@@ -859,19 +859,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
                       2- Cambiar destinatario\s
                       3- Datos adicionales""");
             switch (opcion) {
-                case 1 -> {
-                    do {
-                        try {
-                            aModificar.setRemitente(buscarCliente());
-                            continuar = 1;
-                            repoPaquete.modificar(aModificar);
-
-                        } catch (InexistenteException e) {
-
-                            EntradaSalida.SalidaError("Ingrese un cliente valido", "ERROR");
-                        }
-                    } while (continuar == 1);
-                }
+                case 1 -> cambiarRemitente(aModificar);
                 case 2 -> {
                     aModificar.setDestinatario(EntradaSalida.entradaString("Ingrese el nuevo destinatario"));
                     aModificar.setDomicilioEntrega(EntradaSalida.entradaString("Ingrese el nuevo domicilio de entrega"));
@@ -883,6 +871,23 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
             opcion = EntradaSalida.entradaInt("  CONTINUAR MODIFICANDO PAQUETE \n  1 - Si \n  2 - Finalizar");
         }while(opcion==1);
         return true;
+    }
+
+    private void cambiarRemitente (Paquete paq)
+    {
+        int continuar =0;
+        do {
+            try {
+                Cliente aBuscar= buscarCliente();
+                paq.setRemitente(aBuscar);
+                continuar = 1;
+                repoPaquete.modificar(paq);
+
+            } catch (InexistenteException e) {
+
+                EntradaSalida.SalidaError("Ingrese un cliente valido", "ERROR");
+            }
+        } while (continuar != 1);
     }
 
     /**
@@ -1001,7 +1006,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
     public void verUnPaquete(String codigo) {
         try {
             Paquete paq = repoPaquete.buscar(codigo);
-            paq.toString();
+            EntradaSalida.SalidaError(paq.toString(),"");
         } catch (InexistenteException e){
             EntradaSalida.SalidaError("Paquete inexistente","ERROR");
         }
@@ -1017,10 +1022,15 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
     @Override
     public void verPaquetePorEstado(EstadosPaquete estadosPaquete) {
         EstadosPaquete estado = EntradaSalida.entradaEstadosPaquete();
+
+        StringBuilder listado=new StringBuilder();
         for(Paquete p : filtrarPaquetesPorEstado(repoPaquete.listar(),estado))
         {
-            p.toStringListar();
+            listado.append(p.toStringListar());
+
         }
+        String mensaje= "PAQUETES EN ESTADO: "+ estadosPaquete;
+        EntradaSalida.SalidaInformacion(listado.toString(),mensaje);
     }
 
     /**
@@ -1032,10 +1042,13 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
      */
     private void verPaquetePorZona() {
         Zonas zona= EntradaSalida.entradaZona();
+        StringBuilder listado=new StringBuilder();
         for(Paquete p : filtrarPaquetesPorZona(repoPaquete.listar(),zona))
         {
-            p.toStringListar();
+            listado.append(p.toStringListar());
         }
+        String mensaje= "PAQUETES EN ZONA: "+ zona;
+        EntradaSalida.SalidaInformacion(listado.toString(),mensaje);
     }
 
     /**
@@ -1047,10 +1060,13 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
      */
     private void verPaquetePorTipo() {
         TiposPaquete tipos = EntradaSalida.entradaTipoPaquete();
+        StringBuilder listado=new StringBuilder();
         for(Paquete p : filtrarPaquetesPorTipo(repoPaquete.listar(),tipos))
         {
-            p.toStringListar();
+            listado.append(p.toStringListar());
         }
+        String mensaje= "PAQUETES DEL TIPO: "+ tipos;
+        EntradaSalida.SalidaInformacion(listado.toString(),mensaje);
     }
 
     /**
@@ -1067,9 +1083,12 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
         try {
             Repartidor aBuscar = (Repartidor) buscarEmpleadoAcargo();
             if (aBuscar.getPaquetesAsignados() != null) {
+                StringBuilder listado=new StringBuilder();
                 for (Paquete p : aBuscar.getPaquetesAsignados()) {
-                    p.toString();
+                    listado.append(p.toStringListar());
                 }
+                String mensaje= "PAQUETES ASIGNADOS";
+                EntradaSalida.SalidaInformacion(listado.toString(),mensaje);
             } else {
                 EntradaSalida.SalidaError("No contiene paquetes asignados", "ERROR");
             }
@@ -1340,6 +1359,9 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
             {
                 menuGestionSupervisor(sup);
                 return true;
+            }else
+            {
+                EntradaSalida.SalidaError("Contraseña erronea","ERROR");
             }
         } catch (InexistenteException e) {
             EntradaSalida.SalidaError(e.getMessage(),"DNI INEXISTENTE");
@@ -1512,7 +1534,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
                 case 1 -> {
                     try {
                         Paquete paq = buscarPaquete();
-                        paq.toString();
+                        EntradaSalida.SalidaInformacion(paq.toString(),"");
                     } catch (InexistenteException e) {
                         EntradaSalida.SalidaError(e.getMessage(), "Error");
                     }

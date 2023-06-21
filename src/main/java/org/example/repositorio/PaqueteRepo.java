@@ -81,7 +81,13 @@ public class PaqueteRepo implements IRepositorio<Paquete>{
         {
             if(s.getId() == nuevo.getId())
             {
-                // ATRIBUTOS
+                s.setRemitente(nuevo.getRemitente());
+                s.setTiposPaquete(nuevo.getTiposPaquete());
+                s.setZonaEntrega(nuevo.getZonaEntrega());
+                s.setDestinatario(nuevo.getDestinatario());
+                s.setDomicilioEntrega(nuevo.getDomicilioEntrega());
+                s.setEstado(nuevo.getEstado());
+                s.setRepatidorAsignado(nuevo.getRepatidorAsignado());
             }
         }
         guardar();
