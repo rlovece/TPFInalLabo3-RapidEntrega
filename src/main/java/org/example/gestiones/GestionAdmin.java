@@ -1014,32 +1014,29 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
         int opcion = 0;
         do {
             opcion = EntradaSalida.entradaInt("      ELIJA UNA OPCION  \n" +
-                    "\n 1 - Ver Paquetes por estado" +
-                    "\n 2 - Ver un Paquete" +
-                    "\n 3 - Modificar un Paquete" +
+                    "\n 1 - Ver Cliente" +
+                    "\n 2 - Modificar Usuario" +
+                    "\n 3 - Modificar DNI" +
+                    "\n 4 - Eliminar del archivo" +
                     "\n 0 - Volver\n\n");
 
             String codigoPaquete;
 
             switch (opcion){
                 case 1:
-                    EstadosPaquete estado = EntradaSalida.entradaEstadosPaquete();
-                    verPaquetePorEstado(estado);
+                    verCliente();
                     break;
 
                 case 2:
-                    codigoPaquete = EntradaSalida.entradaString("Ingrese codigo del paquete\n\n");
-                    verUnPaquete(codigoPaquete);
+                    modificarUsernameCliente();
                     break;
 
                 case 3:
-                    codigoPaquete = EntradaSalida.entradaString("Ingrese codigo del paquete\n\n");
-                    try {
-                        Paquete aModificar = paqueteRepo.buscar(codigoPaquete);
-                        modificarPaquete(aModificar);
-                    } catch (InexistenteException e){
-                        EntradaSalida.SalidaError("Codigo incorrecto\n\n", "Error");
-                    }
+                    modificarDNICliente();
+                    break;
+
+                case 4:
+                    elimiarCliente();
                     break;
 
                 default:
@@ -1048,6 +1045,79 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
         } while (opcion!=0);
     }
 
+    /**
+     * <h2>Ver cliente para Supervisor</h2>
+     *Método para buscar un empleado por DNI dentro de la lista de empleados generada a partir de los archivos.
+     *Si no logra encontrar el empleado que coincida con el DNI ingresado por parametro, lanza excepción.
+     *
+     * @return empleado encontrado
+     * @exception InexistenteException
+     * @author Ruth Lovece
+     */
+    public void verCliente(){
+        try {
+            Cliente cliente = clientesRepo.buscar(EntradaSalida.entradaString("Ingrese DNI\n\n"));
+            EntradaSalida.SalidaInformacion((cliente.toString() + "\n\n"), "Cliente buscado");
+        } catch (InexistenteException e){
+            EntradaSalida.SalidaError("No existe Cliente con ese DNI", "Error");
+        }
+    }
+    public void modificarUsernameCliente(){
+        try {
+            Cliente aModificar =clientesRepo.buscar(EntradaSalida.entradaDNI());
+            boolean continuar = true;
+            String nuevoUsername;
+            do {
+                nuevoUsername = EntradaSalida.entradaUsermane();
+                for (Cliente cliente: clientesRepo.listar()) {
+                    if (nuevoUsername.equals(cliente.getUsername())){
+                        continuar = false;
+                        break;
+                    }
+                }
+            } while (continuar);
+            aModificar.setUsername(nuevoUsername);
+            clientesRepo.modificar(aModificar);
+            EntradaSalida.SalidaInformacion("Usuario modificado con exito", "Gestion exitosa");
+        } catch (InexistenteException e){
+            EntradaSalida.SalidaError("No existe Cliente con ese DNI", "Error");
+        }
+    }
+
+    public void modificarDNICliente(){
+        try {
+            Cliente aModificar =clientesRepo.buscar(EntradaSalida.entradaDNI());
+            boolean continuar = true;
+            String nuevoDNI;
+            do {
+                nuevoDNI = EntradaSalida.entradaDNI();
+                for (Cliente cliente: clientesRepo.listar()) {
+                    if (nuevoDNI.equals(cliente.getDni())){
+                        continuar = false;
+                        break;
+                    }
+                }
+            } while (continuar);
+            aModificar.setDni(nuevoDNI);
+            clientesRepo.modificar(aModificar);
+            EntradaSalida.SalidaInformacion("DNI modificado con éxito", "Gestion exitosa");
+        } catch (InexistenteException e){
+            EntradaSalida.SalidaError("No existe Cliente con ese DNI", "Error");
+        }
+    }
+
+    public void elimiarCliente(){
+        try {
+            Cliente aModificar =clientesRepo.buscar(EntradaSalida.entradaDNI());
+            clientesRepo.eliminar(aModificar.getId());
+            EntradaSalida.SalidaInformacion("Cliente eliminado definitivamente con éxito", "Gestion exitosa");
+        } catch (InexistenteException e){
+            EntradaSalida.SalidaError("No existe Cliente con ese DNI", "Error");
+        }
+    }
+
+
+    ///EntradaSalida.SalidaInformacion("Asceso exitoso", "Gestion exitosa");
     ///endregion
 
     static void validarPassword (String contraseña) throws PasswordInvalida {

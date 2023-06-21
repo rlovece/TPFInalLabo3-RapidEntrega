@@ -42,5 +42,12 @@ public class EmpleadoLocal extends Empleado implements Serializable {
                 "\nSupervisor:           " + this.getSupervisor().getNombre() + " " + this.getSupervisor().getApellido() + "\n\n";
     }
 
-
+    public String toStringListar() {
+        return "\nEmpleado Local - Legajo: " + super.getLegajo() +
+                " - " + super.getNombre() +
+                " " + super.getApellido() +
+                " Supervirsor: " + supervisor.getLegajo() +
+                " " + this.supervisor.getNombre() +
+                " " + this.supervisor.getApellido();
+    }
 }
