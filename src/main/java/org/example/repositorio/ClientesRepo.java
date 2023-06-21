@@ -19,10 +19,10 @@ import java.util.List;
 public class ClientesRepo implements IRepositorio<Cliente> {
 
     // <editor-fold defaultstate="collapsed" desc="Atributos">
-    String ruta = "src\\main\\java\\org\\example\\archivos\\clientes.json";
-    ObjectMapper mapeo = new ObjectMapper();
+    private final String ruta = "src\\main\\java\\org\\example\\archivos\\clientes.json";
+    private final ObjectMapper mapeo = new ObjectMapper();
     private final File archivo = new File(ruta);
-    ArrayList<Cliente> listadoClientes = new ArrayList<>();
+    private ArrayList<Cliente> listadoClientes;
 
 //    </editor-fold>
 
@@ -72,12 +72,13 @@ public class ClientesRepo implements IRepositorio<Cliente> {
                     user.setMail(nuevo.getMail());
                     user.setUsername(nuevo.getUsername());
                     user.setPassword(nuevo.getPassword());
+                    user.setEstadoCliente(nuevo.isEstadoCliente());
                 }
             }
         } catch (NullPointerException e) {
 
         }
-       guardar();
+        guardar();
     }
 
     @Override

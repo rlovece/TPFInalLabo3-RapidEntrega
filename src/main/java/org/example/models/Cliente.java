@@ -1,5 +1,7 @@
 package org.example.models;
 
+import org.example.models.Persona;
+
 import java.io.Serializable;
 
 public class Cliente extends Persona implements Serializable {
@@ -7,7 +9,7 @@ public class Cliente extends Persona implements Serializable {
     // <editor-fold defaultstate="collapsed" desc="Atributos">
     private String domicilio;
 
-    private boolean estadoCliente = true;
+    private boolean estadoCliente;
 //    </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Constructores">
@@ -20,7 +22,6 @@ public class Cliente extends Persona implements Serializable {
 //    </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Getters & Setters">
-
     public String getDomicilio() {
         return domicilio;
     }
@@ -41,15 +42,22 @@ public class Cliente extends Persona implements Serializable {
     // <editor-fold defaultstate="collapsed" desc="To String">
     @Override
     public String toString() {
-        String mensaje= "             C L I E N T E     " +
-                "\n  ID:                   " + this.getId() +
-                "\n  Nombre:               " + this.getNombre() +
-                "\n  Apellido:             " + this.getApellido() +
-                "\n  DNI:                  " + this.getDni() +
-                "\n  Telefono:             " + this.getTelefono() +
-                "\n  Mail:                 " + this.getMail() +
-                "\n  Direccion             " + this.getDomicilio();
-        return mensaje;
+
+        return "          C L I E N T E\n" +
+                "\nID:                 " + this.getId() +
+                "\nNombre:               " + this.getNombre() +
+                "\nApellido:             " + this.getApellido() +
+                "\nDNI:                  " + this.getDni() +
+                "\nTelefono:             " + this.getTelefono() +
+                "\nMail:                 " + this.getMail() +
+                "\nDomicilio:            " + this.getDomicilio()  + "\n";
     }
-//    </editor-fold>      
+
+    public String toStringListar() {
+        return "\nCliente - ID: " + this.getId() +
+                " - " + this.getNombre() +
+                " " + this.getApellido();
+
+    }
 }
+//    </editor-fold>      
