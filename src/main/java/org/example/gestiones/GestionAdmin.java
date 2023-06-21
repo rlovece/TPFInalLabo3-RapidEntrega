@@ -264,11 +264,11 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
         String codigoPaquete = null;
         do {
             opcion = EntradaSalida.entradaInt("      ELIJA UNA OPCION  \n" +
-                    "\n 1 - Ver empleado" +
-                    "\n 2 - Cargar empleado" +
-                    "\n 3 - Dar de baja empleado" +
-                    "\n 4 - Ascender empleado" +
-                    "\n 5 - Modificar supervisor" +
+                    "\n 1 - Ver Empleado" +
+                    "\n 2 - Cargar Empleado" +
+                    "\n 3 - Dar de Baja Empleado" +
+                    "\n 4 - Ascender Empleado" +
+                    "\n 5 - Modificar Empleado" +
                     "\n 0 - Volver\n\n");
             switch (opcion){
                 case 1:
@@ -526,11 +526,24 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
      * @author Ruth Lovece
      */
     public void pedirDatosPersonales (Persona nuevo){
+        boolean continuar;
         nuevo.setNombre(EntradaSalida.entradaString("Ingrese el nombre\n\n"));
         nuevo.setApellido(EntradaSalida.entradaString("Ingrese el apellido\n\n"));
         nuevo.setTelefono(EntradaSalida.entradaTelefono());
         nuevo.setMail(EntradaSalida.entradaMail());
-        nuevo.setUsername(EntradaSalida.entradaUsermane());
+
+        do {
+            continuar = false;
+            nuevo.setUsername(EntradaSalida.entradaUsermane());
+            for (Empleado empleado: this.listaEmpleados) {
+                if (nuevo.getUsername().equals(empleado.getUsername())){
+                    EntradaSalida.SalidaError("Usuario ya existente", "Error");
+                    continuar = true;
+                    break;
+                }
+            }
+        } while (!continuar);
+
         EntradaSalida.SalidaInformacion("Se asigno su DNI como contraseña","CONTRASEÑA\n\n");
         nuevo.setPassword(nuevo.getDni());
     }
@@ -566,13 +579,9 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
         }
         return legajoMayor;
     }
+    ///endregion
 
-    @Override
-    public Empleado modificarEmpleado(String dni) {
-        return null;
-    }
-    //endregion
-
+    ///region Baja empleado
     /**
      * <h2>Baja Empleado</h2>
      *Cambia atributo EstadoEmpleado a BAJA, es decir, se realiza una baja lógica del empleado.
@@ -620,7 +629,9 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
             }
         }
     }
+    ///endregion
 
+    ///region Ascenso Empleado
     /**
      * <h2>Menú Asceso de empleado</h2>
      *Muentra las opciones con EntradaSalida que tiene el administrador para asender a un Repartidor o empleado Local
@@ -719,6 +730,246 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
             EntradaSalida.SalidaError("Legajo no registrado como Empleado Local", "Error");
         }
     }
+
+    ///endregion
+
+    ///region ModificarEmpleado
+    @Override
+    public Empleado modificarEmpleado(String dni) {
+        int opcion = EntradaSalida.entradaInt("      ELIJA UNA OPCION  \n" +
+                "\n 1 - Modificar Repartidor" +
+                "\n 2 - Modificar Empleado Local" +
+                "\n 3 - Modificar Supervisor" +
+                "\n 0 - Volver\n\n");
+
+        switch (opcion) {
+            case 1:
+                modificarRepartidor(dni);
+                break;
+
+            case 2:
+                modificarEmpleadoLocal(dni);
+                break;
+
+            case 3:
+                modificarSupervisor(dni);
+                break;
+
+            default:
+                break;
+        }
+        return null;
+    }
+
+    public void modificarRepartidor(String dni) {
+        try {
+            Repartidor aModificar = repartidorRepo.buscar(dni);
+            int opcion = EntradaSalida.entradaInt("      ELIJA UNA OPCION  \n" +
+                    "\n 1 - Modificar Nombre" +
+                    "\n 2 - Modificar Apellido" +
+                    "\n 3 - Modificar DNI" +
+                    "\n 4 - Modificar Usuario" +
+                    "\n 0 - Volver\n\n");
+
+            switch (opcion) {
+                case 1:
+                    aModificar.setNombre(EntradaSalida.entradaString("Ingrese nombre\n\n"));
+                    repartidorRepo.modificar(aModificar);
+                    listaEmpleados.remove(aModificar);
+                    listaEmpleados.add(aModificar);
+                    EntradaSalida.SalidaInformacion("Modificación", "Gestio exitosa");
+                    break;
+
+                case 2:
+                    aModificar.setApellido(EntradaSalida.entradaString("Ingrese apellido\n\n"));
+                    repartidorRepo.modificar(aModificar);
+                    listaEmpleados.remove(aModificar);
+                    listaEmpleados.add(aModificar);
+                    EntradaSalida.SalidaInformacion("Modificación", "Gestio exitosa");
+                    break;
+
+                case 3:
+                    aModificar.setDni(EntradaSalida.entradaDNI());
+                    repartidorRepo.modificar(aModificar);
+                    listaEmpleados.remove(aModificar);
+                    listaEmpleados.add(aModificar);
+                    EntradaSalida.SalidaInformacion("Modificación", "Gestio exitosa");
+                    break;
+
+                case 4:
+                    boolean continuar;
+                    do {
+                        continuar = false;
+                        aModificar.setUsername(EntradaSalida.entradaUsermane());
+                        for (Empleado empleado: this.listaEmpleados) {
+                            if (aModificar.getUsername().equals(empleado.getUsername())){
+                                EntradaSalida.SalidaError("Usuario ya existente", "Error");
+                                continuar = true;
+                                break;
+                            }
+                        }
+                    } while (!continuar);
+                    repartidorRepo.modificar(aModificar);
+                    listaEmpleados.remove(aModificar);
+                    listaEmpleados.add(aModificar);
+                    EntradaSalida.SalidaInformacion("Modificación", "Gestio exitosa");
+                    break;
+
+                default:
+                    break;
+            }
+        } catch (InexistenteException e){
+            EntradaSalida.SalidaError("DNI no registrado como Repartidor", "Error");
+        }
+    }
+
+    public void modificarEmpleadoLocal(String dni) {
+        try {
+            EmpleadoLocal aModificar = empleadoLocalRepo.buscar(dni);
+            int opcion = EntradaSalida.entradaInt("      ELIJA UNA OPCION  \n" +
+                    "\n 1 - Modificar Nombre" +
+                    "\n 2 - Modificar Apellido" +
+                    "\n 3 - Modificar DNI" +
+                    "\n 4 - Modificar Usuario" +
+                    "\n 0 - Volver\n\n");
+
+            switch (opcion) {
+                case 1:
+                    aModificar.setNombre(EntradaSalida.entradaString("Ingrese nombre\n\n"));
+                    empleadoLocalRepo.modificar(aModificar);
+                    listaEmpleados.remove(aModificar);
+                    listaEmpleados.add(aModificar);
+                    EntradaSalida.SalidaInformacion("Modificación", "Gestio exitosa");
+                    break;
+
+                case 2:
+                    aModificar.setApellido(EntradaSalida.entradaString("Ingrese apellido\n\n"));
+                    empleadoLocalRepo.modificar(aModificar);
+                    listaEmpleados.remove(aModificar);
+                    listaEmpleados.add(aModificar);
+                    EntradaSalida.SalidaInformacion("Modificación", "Gestio exitosa");
+                    break;
+
+                case 3:
+                    aModificar.setDni(EntradaSalida.entradaDNI());
+                    empleadoLocalRepo.modificar(aModificar);
+                    listaEmpleados.remove(aModificar);
+                    listaEmpleados.add(aModificar);
+                    EntradaSalida.SalidaInformacion("Modificación", "Gestio exitosa");
+                    break;
+
+                case 4:
+                    boolean continuar;
+                    do {
+                        continuar = false;
+                        aModificar.setUsername(EntradaSalida.entradaUsermane());
+                        for (Empleado empleado: this.listaEmpleados) {
+                            if (aModificar.getUsername().equals(empleado.getUsername())){
+                                EntradaSalida.SalidaError("Usuario ya existente", "Error");
+                                continuar = true;
+                                break;
+                            }
+                        }
+                    } while (!continuar);
+                    empleadoLocalRepo.modificar(aModificar);
+                    listaEmpleados.remove(aModificar);
+                    listaEmpleados.add(aModificar);
+                    EntradaSalida.SalidaInformacion("Modificación", "Gestio exitosa");
+                    break;
+
+                default:
+                    break;
+            }
+        } catch (InexistenteException e){
+            EntradaSalida.SalidaError("DNI no registrado como Empleado Local", "Error");
+        }
+    }
+
+    public void modificarSupervisor(String dni) {
+        try {
+            Supervisor aModificar = supervisorRepo.buscar(dni);
+            int opcion = EntradaSalida.entradaInt("      ELIJA UNA OPCION  \n" +
+                    "\n 1 - Modificar Nombre" +
+                    "\n 2 - Modificar Apellido" +
+                    "\n 3 - Modificar DNI" +
+                    "\n 4 - Modificar Usuario" +
+                    "\n 5 - Modificar Zona" +
+                    "\n 6 - Modificar Estado" +
+                    "\n 0 - Volver\n\n");
+
+            switch (opcion) {
+                case 1:
+                    aModificar.setNombre(EntradaSalida.entradaString("Ingrese nombre\n\n"));
+                    supervisorRepo.modificar(aModificar);
+                    listaEmpleados.remove(aModificar);
+                    listaEmpleados.add(aModificar);
+                    EntradaSalida.SalidaInformacion("Modificación", "Gestio exitosa");
+                    break;
+
+                case 2:
+                    aModificar.setApellido(EntradaSalida.entradaString("Ingrese apellido\n\n"));
+                    supervisorRepo.modificar(aModificar);
+                    listaEmpleados.remove(aModificar);
+                    listaEmpleados.add(aModificar);
+                    EntradaSalida.SalidaInformacion("Modificación", "Gestio exitosa");
+                    break;
+
+                case 3:
+                    aModificar.setDni(EntradaSalida.entradaDNI());
+                    supervisorRepo.modificar(aModificar);
+                    listaEmpleados.remove(aModificar);
+                    listaEmpleados.add(aModificar);
+                    EntradaSalida.SalidaInformacion("Modificación", "Gestio exitosa");
+                    break;
+
+                case 4:
+                    boolean continuar;
+                    do {
+                        continuar = false;
+                        aModificar.setUsername(EntradaSalida.entradaUsermane());
+                        for (Empleado empleado: this.listaEmpleados) {
+                            if (aModificar.getUsername().equals(empleado.getUsername())){
+                                EntradaSalida.SalidaError("Usuario ya existente", "Error");
+                                continuar = true;
+                                break;
+                            }
+                        }
+                    } while (!continuar);
+                    supervisorRepo.modificar(aModificar);
+                    listaEmpleados.remove(aModificar);
+                    listaEmpleados.add(aModificar);
+                    EntradaSalida.SalidaInformacion("Modificación", "Gestio exitosa");
+                    break;
+
+                case 5:
+                    aModificar.setZona(EntradaSalida.entradaZona());
+                    supervisorRepo.modificar(aModificar);
+                    listaEmpleados.remove(aModificar);
+                    listaEmpleados.add(aModificar);
+                    EntradaSalida.SalidaInformacion("Modificación", "Gestio exitosa");
+                    break;
+
+                case 6:
+                    EstadosEmpleado nuevoEstado = EntradaSalida.entradaEstadoEmpleado();
+                    if (nuevoEstado == EstadosEmpleado.BAJA) {
+                        EntradaSalida.SalidaError("Para dar de baja ingrese a menú Dar de Baja Empleado", "Error");
+                    } else {
+                        aModificar.setEstado(nuevoEstado);
+                        supervisorRepo.modificar(aModificar);
+                        listaEmpleados.remove(aModificar);
+                        listaEmpleados.add(aModificar);
+                        EntradaSalida.SalidaInformacion("Modificación", "Gestio exitosa");
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        } catch (InexistenteException e){
+            EntradaSalida.SalidaError("DNI no registrado como Supervisor", "Error");
+        }
+    }
+    ///endregion
     @Override
     public void validacionCodigoPaquete(String codigo) throws CodigoPaqueteExistente {
         for (Paquete paquete: paqueteRepo.listar()) {
