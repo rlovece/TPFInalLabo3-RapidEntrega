@@ -37,7 +37,8 @@ public class Main {
 
             switch (opcion){
                 case 1:
-                    /// gestionCliente.menuPrincipal();
+                    ClienteGestion gestionCliente=new ClienteGestion();
+                     gestionCliente.logueo();
                     break;
 
                 case 2:
