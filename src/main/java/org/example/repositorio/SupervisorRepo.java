@@ -81,7 +81,12 @@ public class SupervisorRepo implements IRepositorio<Supervisor> {
         {
             if(s.getId() == nuevo.getId())
             {
-                // ATRIBUTOS
+                s.setNombre(nuevo.getNombre());
+                s.setApellido(nuevo.getApellido());
+                s.setTelefono(nuevo.getTelefono());
+                s.setMail(nuevo.getMail());
+                s.setPassword(nuevo.getPassword());
+                s.setCantEmpleadosACargo(nuevo.getCantEmpleadosACargo());
             }
         }
         guardar();

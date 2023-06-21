@@ -147,8 +147,18 @@ public class Paquete implements Serializable {
                         "\nDomicilio de entrega:         " + domicilioEntrega  +
                         "\nEstado:                       " + estado +
                         "\nRepatidor asignado:           " + nombreRepartidor + " " + apellidoRepartidor + "\n\n";
+
                 return mensaje;
     }
 
+
+    public String toStringListar ()
+    {
+        String mensaje = "ID:"+id+"- CI:"+codigoIdentificacion+"- FI:"+fechaIngreso+"- Remitente:"+ remitente.getApellido() + remitente.getNombre()+
+                "\nTipo:"+tiposPaquete+"- Zona:"+zonaEntrega+"- Estado:" + estado+
+                "\nDestinatario: "+destinatario +" - Domicilio de entrega: " +domicilioEntrega +
+                "-----------------------------------------------------------------------------------------------";
+        return mensaje;
+    }
     ///endregion
 }
