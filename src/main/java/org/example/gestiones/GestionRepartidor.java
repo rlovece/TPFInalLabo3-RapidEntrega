@@ -24,7 +24,14 @@ public class GestionRepartidor implements ManejoEmpleado {
 
     //region Metodos Paquetes
 
-    //ver paquetes asignados
+
+    /**
+     * <h2>Ver Paquetes Asiganados a un Repartidor</h2>
+     * Muestra una lista de los paquetes asignados a un repartidor.
+     *
+     * @param dni Recibe el DNI del Repartidor logueado
+     * @author Angeles Higa
+     */
     public void verPaquetesAsignados(String dni){
         this.paquetes = paqueteRepo.listar();
         boolean tienePaquetes = false;
@@ -48,7 +55,19 @@ public class GestionRepartidor implements ManejoEmpleado {
 
     }
 
-    //cambiar estado de paquete
+
+    /**
+     * <h2>Cambiar el Estado de un Paquete</h2>
+     * Permite cambiar el estado de un paquete que le fue asignado al repartidor, al realizar un envio.
+     * Solicita el ingreso del Codigo de Identificacion del Paquete.
+     * <br><br>
+     * Verifica que el paquete exista.
+     * <br><br>
+     * Verifica que el paquete le haya sido asignado al repartidor logueado.
+     *
+     * @param dni Recibe el DNI del Repartidor logueado
+     * @author Angeles Higa
+     */
     public void cambiarEstadoPaquete(String dni){
         this.paquetes = paqueteRepo.listar();
 
@@ -86,6 +105,18 @@ public class GestionRepartidor implements ManejoEmpleado {
     public void registroEmpleado() {
         //el repartidor no tiene el permiso para dar de alta a nuevos empleados
     }
+
+    /**
+     * <h2>Modificar Datos del Repartidor</h2>
+     * Se muestra un menu con las opciones para modificar los datos personales del repartidor.
+     *
+     * <br><br>
+     * Verifica que el DNI del Repartidor exista en el archivo.
+     *
+     * @param dni Recibe el DNI del Repartidor logueado
+     * @return Empleado modificado
+     * @author Angeles Higa
+     */
 
     @Override
     public Empleado modificarEmpleado(String dni) {
@@ -145,6 +176,13 @@ public class GestionRepartidor implements ManejoEmpleado {
 
     }
 
+    /**
+     * <h2>Ver Datos del Repartidor</h2>
+     * Muestra los datos personales del Repartidor logueado.
+     *
+     * @param dni Recibe el DNI del Repartidor logueado
+     * @author Angeles Higa
+     */
 
     //ver perfil
     public void verPerfil(String dni){
@@ -166,6 +204,14 @@ public class GestionRepartidor implements ManejoEmpleado {
     //endregion
 
     //region Log in
+
+    /**
+     * <h2>Logueo Repartidor</h2>
+     * Se solicita el DNI del Repartidor para poder ingresar. Verifica que el DNI exista en el archivo correspondiente.
+     * <br><br>
+     * Se solicita la contraseña. Verifica que la contraseña sea correcta. De ser correcta se permite ingresar al Menu Principal.
+     * @author Angeles Higa
+     */
 
     public void logueo(){
         this.repartidores = repartidorRepo.listar();
@@ -193,6 +239,18 @@ public class GestionRepartidor implements ManejoEmpleado {
     //endregion
 
     //region Menu Principal
+
+    /**
+     * <h2>Menu Principal de Gestion Repartidor</h2>
+     * Muestra dentro de un ciclo do-while las opciones principales que tiene un Repartidor para realizar su gestion.
+     * Lee el ingreso por teclado con JOptionPane e ingresa al switch correspondiente donde se invocan otros metodos para continuar con la gestion.
+     * El ciclo se repite hasta que el usuario Repartidor cierre sesion con la opcion 0.
+     *
+     * @see EntradaSalida
+     * @param dni - Recibe el DNI del Repartidor logueado
+     * @author Angeles Higa
+     */
+
 
     public void menuPrincipal(String dni){
 

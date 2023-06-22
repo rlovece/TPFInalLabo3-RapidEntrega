@@ -37,10 +37,14 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
      //region Metodos Paquete
 
-
      /**
-      * Metodo que imprime por pantalla la informacion de un paquete, buscado por el codigo de identificacion
-      * */
+      * <h2>Ver Paquete</h2>
+      * Muestra los datos de un paquete.
+      * Verifica que el codigo de identificacion del paquete exista en el archivo.
+      *
+      * @param codigo Recibe el Codigo de Identificacion del paquete
+      * @author Angeles Higa
+      */
      @Override
      public void verUnPaquete(String codigo) {
 
@@ -59,9 +63,17 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
 
      /**
-      * Metodo que imprime por pantalla la informacion de un paquete que pertenezca al cliente que lo solicita
+      * <h2>Ver Paquete de un Cliente</h2>
+      * Muestra los datos de un paquete de un Cliente.
+      * <br><br>
+      * Solicita el DNI del Cliente que solicita la busqueda del paquete. Verifica que el DNI exista en el archivo correspondiente.
+      * <br><br>
+      * Solicita el Codigo de Identificacion del Paquete. Verifica que el Codigo exista en el archivo correspondiente.
+      * <br><br>
+      * Si existe el Paquete, verifica que pertenezca al Cliente.
+      *
       * @author Angeles Higa
-      * */
+      */
 
      public void verUnPaqueteCliente(){
 
@@ -90,15 +102,20 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
      }
 
+
+
      /**
-      * Muestra por pantalla todos los paquetes pertenecientes a un cliente
-      * */
+      * <h2>Ver Paquetes de un Cliente</h2>
+      * Muestra todos los paquetes de un cliente.
+      * <br><br>
+      * Solicita el DNI del Cliente. Verifica que el DNI exista en el archivo correspondiente.
+      *
+      * @author Angeles Higa
+      */
 
      public void verPaquetesDeUnCliente(){
 
           String dni = entradaDNI();
-
-
 
           try{
 
@@ -107,6 +124,7 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
               if(paquetes != null){
 
+                    StringBuilder stringBuilder = new StringBuilder();
 
                     boolean tienePaquetes = false;
 
@@ -114,15 +132,19 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
                          if(paquete.getRemitente().getDni().equalsIgnoreCase(dni)){
 
-                              EntradaSalida.SalidaInformacion(paquete.toString(),"DATOS PAQUETE");
+                              stringBuilder.append(paquete.toStringListarCliente());
 
                               tienePaquetes = true;
                          }
                     }
 
-                    if(!tienePaquetes){
+                    if(tienePaquetes){
+                         EntradaSalida.SalidaInformacion(stringBuilder.toString(),"LISTA DE PAQUETES");
+                    }else{
                          EntradaSalida.SalidaInformacion("El cliente no tiene paquetes registrados","Informacion");
                     }
+
+
                }else{
                    EntradaSalida.SalidaInformacion("No hay paquetes registrados","!");
               }
@@ -135,7 +157,23 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
      }
 
 
-     //cargar paquete
+     /**
+      * <h2>Registrar un Paquete</h2>
+      * Registra un nuevo paquete en el sistema.
+      * Permite cargar un paquete a un cliente nuevo o a un cliene existente.
+      * <br><br>
+      * Solicita el DNI del cliente que solicita el envio de un paquete.
+      * Verifica que el DNI exista en el archivo correspondiente.
+      * <br><br>
+      * Se solicita el ingreso de los datos por teclado con JOptionPane.
+      * <br><br>
+      * Mediante la clase LocalDateTime se le asigna al paquete su fecha de ingreso al sistema.
+      * <br><br>
+      * Mediante el metodo nuevoCodigoPaquete se le asigna el codigo de identificaicon al paquete.
+      *
+      * @see EntradaSalida
+      * @author Angeles Higa
+      */
      @Override
      public void registroPaquete() {
 
@@ -185,6 +223,13 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
      }
 
+     /**
+      * <h2>Ver Paquetes por Estado</h2>
+      * Solicita la eleccion del estado del paquete mediante JOptionPane. Se invoca al metodo para que muestre el listado.
+      *
+      * @see EntradaSalida
+      * @author Angeles Higa
+      */
 
      public void verPaquetesPorEstado(){
 
@@ -195,6 +240,14 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
           verPaquetePorEstado(estadoPaquete);
 
      }
+
+     /**
+      * <h2>Ver Paquete por Estado</h2>
+      * Muestra un listado de paquetes segun el estado seleccionado.
+      *
+      * @param estadosPaquete Recibe el estado de los paquetes seleccionado
+      * @author Angeles Higa
+      */
 
      @Override
      public void verPaquetePorEstado(EstadosPaquete estadosPaquete) {
@@ -231,6 +284,13 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
           return false;
      }
 
+     /**
+      * <h2>Validacion Codigo Paquete</h2>
+      * Valida si el codigo generado automaticamente ya existe para otro paquete dentro del archivo correspondiente.
+      *
+      * @param codigo Recibe el codigo de identifiacion del paquete
+      * @throws CodigoPaqueteExistente
+      */
 
      @Override
      public void validacionCodigoPaquete(String codigo) throws CodigoPaqueteExistente {
@@ -241,6 +301,14 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
                break;
           }
      }
+
+     /**
+      * <h2>Nuevo Codigo Paquete</h2>
+      * Genera un codigo de identificacion de paquete. Verifica que no exista el codigo en el archivo correspondiente.
+      *
+      * @return codigo
+      * @see EntradaSalida
+      */
 
      @Override
      public String nuevoCogigoPaquete() {
@@ -262,9 +330,18 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
      //region Metodos Cliente
 
+     /**
+      * <h2>Registro Cliente</h2>
+      * Solicita el DNI del cliente a dar de alta. Verifica que no exista en el archivo correspondiente.
+      * <br><br>
+      * Si el DNI pertenece a un cliente dado de baja, se lo da de alta nuevamente.
+      * <br><br>
+      * Caso contrario se solicitan los datos por teclado con JOptionPane.
+      * @see EntradaSalida
+      * @author Angeles Higa
+      */
 
 
-     //cargar cliente
      @Override
      public void registroCliente() {
 
@@ -312,8 +389,12 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
      //ver clientes
 
      /**
-      * Me muestra una lista de todos los clientes
-      * */
+      * <h2>Ver Clientes</h2>
+      * Muestra una lista de todos los clientes activos.
+      *
+      *
+      * @author Angeles Higa
+      */
      public void verClientes(){
 
           this.clientes = clientesRepo.listar();
@@ -342,6 +423,15 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
           }
      }
 
+     /**
+      * <h2>Ver Cliente</h2>
+      * Muestra un cliente buscado por DNI.
+      *<br><br>
+      * Solicita el ingreso del DNI buscado por teclado conJOptionPane. Verifica que el DNI exista en el arhcivo correspondiente.
+      *
+      * @author Angeles Higa
+      */
+
      public void verCliente(){
 
           String dni = EntradaSalida.entradaDNI();
@@ -357,6 +447,7 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
                          if(cliente.getDni().equalsIgnoreCase(dni)){
                               EntradaSalida.SalidaInformacion(cliente.toString(),"DATOS CLIENTE");
+                              break;
                          }
 
                     }
@@ -371,7 +462,15 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
           }
      }
 
-     //buscar cliente por DNI y modificarlo
+     /**
+      * <h2>Modificar Cliente</h2>
+      * Muestra las opciones con los atributos a modificar del cliente mediante un bucle do-while.
+      * Se ingresa la opcion deseada por teclado con JOptionPane y se ingresa al switch correspondiente.
+      * Se sale del bucle al ingresar la opcion 0 o al dar de baja al cliente.
+      *
+      * @param clienteAModificar Recibe el objeto a modificar
+      * @author Angeles Higa
+      */
 
      @Override
      public boolean modificarCliente(Cliente clienteAModificar) {
@@ -433,6 +532,15 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
      }
 
+     /**
+      * <h2>Modificar Datos Cliente</h2>
+      *
+      * Solicita el ingreso del DNI buscado por teclado conJOptionPane. Verifica que el DNI exista en el archivo correspondiente.
+      * Invoca al metodo modificarCliente.
+      *
+      * @author Angeles Higa
+      */
+
      public void modificarDatosClientes(){
 
           String dni;
@@ -476,6 +584,18 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
           return null;
      }
 
+     /**
+      * <h2>Modificar Empleado Local</h2>
+      * Muestra las opciones con los atributos a modificar del cliente mediante un bucle do-while.
+      * Se ingresa la opcion deseada por teclado con JOptionPane y se ingresa al switch correspondiente.
+      * Se sale del bucle al ingresar la opcion 0.
+      * <br><br>
+      * Verifica que el DNI del empleado exista en el archivo correspondiente.
+      *
+      *
+      * @param dni - Recibe por parametro el DNI del EmpleadoLocal logueado.
+      * @author Angeles Higa
+      */
      public void modificarDatosEmpleado(String dni){
 
 
@@ -533,13 +653,18 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
      //region Menu Principal EmpleadoLocal
 
-     //logueo
+     /**
+      * <h2>Logueo Empleado Local</h2>
+      * Se solicita el DNI del EmpleadoLocal para poder ingresar. Verifica que el DNI exista en el archivo correspondiente.
+      * <br><br>
+      * Se solicita la contraseña. Verifica que la contraseña sea correcta. De ser correcta se permite ingresar al Menu Principal.
+      * @author Angeles Higa
+      */
 
      public void logueo(){
 
           this.empleadosLocal = empleadoLocalRepo.listar();
 
-          //EntradaSalida.SalidaInformacion("Ingrese su DNI","LOG IN");
           String dni = EntradaSalida.entradaDNI();
 
 
@@ -564,7 +689,16 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
      //menu
 
-
+     /**
+      * <h2>Menu Principal de Gestion Empleado Local</h2>
+      * Muestra dentro de un ciclo do-while las opciones principales que tiene un EmpleadoLocal para realizar su gestion.
+      * Lee el ingreso por teclado con JOptionPane e ingresa al switch correspondiente donde se invocan otros metodos para continuar con la gestion.
+      * El ciclo se repite hasta que el usuario Repartidor cierre sesion con la opcion 0.
+      *
+      * @see EntradaSalida
+      * @param dni - Recibe el DNI del EmpleadoLocal logueado
+      * @author Angeles Higa
+      */
 
      public void menuPrincipal(String dni){
 
@@ -627,6 +761,14 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
           }while(opcion != 0);
 
      }
+
+     /**
+      * <h2>Ver Datos del EmpleadoLocal</h2>
+      * Muestra los datos personales del EmpleadoLocal logueado.
+      *
+      * @param dni Recibe el DNI del EmpleadoLocal logueado
+      * @author Angeles Higa
+      */
 
      public void verPerfil(String dni){
           this.empleadosLocal = empleadoLocalRepo.listar();
