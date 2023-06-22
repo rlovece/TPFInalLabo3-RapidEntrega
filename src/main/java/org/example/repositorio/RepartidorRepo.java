@@ -19,6 +19,13 @@ public class RepartidorRepo implements IRepositorio<Repartidor> {
 
     private List<Repartidor> listaRepartidores;
 
+    /**
+     * <h2>Cargar datos del JSON repartidores</h2>
+     * Utiliza la libreria Jackson. Lee los datos del archivo repartidores y los guarda en una lista de Repartidores.
+     * En caso de que el archivo este vacio, inicializa la lista.
+     *
+     * @author Oriana Dafne Lucero
+     */
     @Override
     public void cargar() {
 
@@ -32,6 +39,13 @@ public class RepartidorRepo implements IRepositorio<Repartidor> {
         }
     }
 
+    /**
+     * <h2>Guardar datos al JSON reparitodres</h2>
+     * Utiliza la libreria Jackson. Guarda los datos de la lista de clase
+     * Repartidor en el archivo supervisores.
+     *
+     * @author Oriana Dafne Lucero
+     */
     @Override
     public void guardar() {
         try
@@ -44,12 +58,23 @@ public class RepartidorRepo implements IRepositorio<Repartidor> {
 
     }
 
+    /**
+     * <h2>Listar Repartidores</h2>
+     * Carga y retorna una lista de repartidores desde los repartidores cargados en el JSON repartidores
+     * @return una lista de Repartidor del archivo JSON.
+     * @author Oriana Dafne Lucero
+     */
     @Override
     public ArrayList<Repartidor> listar() {
         cargar();
         return (ArrayList<Repartidor>) this.listaRepartidores;
     }
 
+    /**
+     * <h2>Agregar un Repartidores al JSON repartidores</h2>
+     * Agrega un repartidores al archivo JSON
+     * @author Oriana Dafne Lucero
+     */
     @Override
     public void agregar(Repartidor... objeto) {
         cargar();
@@ -57,6 +82,12 @@ public class RepartidorRepo implements IRepositorio<Repartidor> {
         guardar();
     }
 
+    /**
+     * <h2>Eliminar un Repartidor del JSON repartidores</h2>
+     * Elimina un Repartidor del archivo.
+     *
+     * @author Oriana Dafne Lucero
+     */
     @Override
     public void eliminar(int id) {
         cargar();
@@ -71,6 +102,12 @@ public class RepartidorRepo implements IRepositorio<Repartidor> {
         guardar();
     }
 
+    /**
+     * <h2>Modificar un Repartidor del JSON repartidores</h2>
+     * Modifica un Repartidor existente, mediante el uso de getters y setters.
+     * @param nuevo Recibe el nuevo objeto Repartidor ya modificado.
+     * @author Oriana Dafne Lucero
+     */
     @Override
     public void modificar(Repartidor nuevo) {
 
@@ -97,6 +134,13 @@ public class RepartidorRepo implements IRepositorio<Repartidor> {
         guardar();
     }
 
+    /**
+     * <h2>Modificar un Repartidor del JSON repartidores</h2>
+     * Busca a un Repartidor por el DNI.
+     * @param dni Recibe el DNI del Repartidor a buscar.
+     * @return Repartidor buscado
+     * @throws InexistenteException en caso de que no exista el DNI ingresado
+     */
     @Override
     public Repartidor buscar(String dni) throws InexistenteException{
         this.listaRepartidores= listar();
@@ -110,6 +154,11 @@ public class RepartidorRepo implements IRepositorio<Repartidor> {
         throw new InexistenteException("Repartidor inexistente");
     }
 
+    /**
+     * <h2>Modificar un Repartidor del JSON repartidores</h2>
+     * Busca el id del ultimo Repartidor registrado.
+     * @return ultimoId registrado en el JSON repartidores
+     */
     @Override
     public int buscarUltimoID() {
         this.listaRepartidores= listar();

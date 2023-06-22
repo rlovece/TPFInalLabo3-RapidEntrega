@@ -1071,6 +1071,8 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
             EntradaSalida.SalidaError("No existe Cliente con ese DNI", "Error");
         }
     }
+
+
     public void modificarUsernameCliente(){
         try {
             Cliente aModificar =clientesRepo.buscar(EntradaSalida.entradaDNI());
