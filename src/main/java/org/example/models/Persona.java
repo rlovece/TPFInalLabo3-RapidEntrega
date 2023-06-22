@@ -94,14 +94,35 @@ public abstract class Persona {
                 + "\nPassword = " + password;
     }
 //    </editor-fold>
-
     // <editor-fold defaultstate="collapsed" desc="Equals & Hashcode">
+
+    /**
+     * <h2>Equals</h2>
+     * <p>El metodo equals compara dos objetos de la clase "Persona" para
+     * determinar si son iguales. Se considera que los objetos son iguales
+     * si son la misma instancia, si ambos son instancias de la clase
+     * "Persona" y si el atributo "dni" de ambos objetos es igual
+     * @return  Retorna un boolean
+     * @param o (Tipo de dayo Object)
+     * @author Cavallo, Pablo David
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Persona persona)) return false;
         return Objects.equals(dni, persona.dni);
     }
+    /**
+     * <h2>Hashcode</h2>
+     *<p>El metodo hashcode toma el valor hash del atributo
+     * dni (si no es nulo) y lo combina con otros valores
+     * usando una fórmula específica. El resultado final
+     * se utiliza para identificar de forma única el objeto
+     * en estructuras de datos que requieren un código
+     * hash, como las tablas hash.
+     * @return Retorna un int
+     * @author Cavallo, Pablo David
+     */
     @Override
     public int hashCode() {
         int resultado = 17;
@@ -109,5 +130,4 @@ public abstract class Persona {
         return resultado;
     }
     //    </editor-fold>
-
 }

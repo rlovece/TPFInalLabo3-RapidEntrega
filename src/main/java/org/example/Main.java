@@ -2,17 +2,10 @@ package org.example;
 
 
 
-import org.example.enums.EstadosEmpleado;
 import org.example.gestiones.*;
 
 
-import org.example.excepciones.InexistenteException;
-
-import org.example.models.EmpleadoLocal;
-import org.example.models.Repartidor;
 import org.example.recursos.EntradaSalida;
-import org.example.repositorio.EmpleadoLocalRepo;
-import org.example.repositorio.RepartidorRepo;
 
 public class Main {
 
@@ -34,7 +27,7 @@ public class Main {
 
             switch (opcion){
                 case 1:
-                    ClienteGestion gestionCliente=new ClienteGestion();
+                    GestionCliente gestionCliente=new GestionCliente();
                      gestionCliente.logueo();
                     break;
 

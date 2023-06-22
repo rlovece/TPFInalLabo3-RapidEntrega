@@ -1,14 +1,11 @@
 package org.example.gestiones;
 
-import org.example.enums.EstadosEmpleado;
 import org.example.enums.EstadosPaquete;
 import org.example.excepciones.CodigoPaqueteExistente;
-import org.example.excepciones.Excepciones;
 import org.example.excepciones.InexistenteException;
 import org.example.interfacesDeManejo.ManejoCliente;
 import org.example.interfacesDeManejo.ManejoPaquete;
 import org.example.models.Cliente;
-import org.example.models.EmpleadoLocal;
 import org.example.models.Paquete;
 import org.example.recursos.EntradaSalida;
 import org.example.repositorio.ClientesRepo;
@@ -17,15 +14,15 @@ import org.example.repositorio.PaqueteRepo;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Scanner;
-
-public class ClienteGestion implements ManejoCliente, ManejoPaquete {
+/**
+ * @author Cavallo, Pablo David
+ */
+public class GestionCliente implements ManejoCliente, ManejoPaquete {
 
     // <editor-fold defaultstate="collapsed" desc="Atributos">
     private ClientesRepo repoClientes = new ClientesRepo();
     private PaqueteRepo repoPaquete = new PaqueteRepo();
     private ArrayList<Cliente> listaClientes;
-
     private ArrayList<Paquete> listaPaquetes;
     //</editor-fold>
 
@@ -36,15 +33,31 @@ public class ClienteGestion implements ManejoCliente, ManejoPaquete {
         //el cliente no puede dar de alta a otros clientes
 
     }
-
-
-
+    /**
+     * <h2>Metodo Ver Perfil</h2>
+     * <p>El método verPerfil recibe un objeto de tipo
+     * Cliente, obtiene su representación en forma de
+     * cadena de texto y la muestra utilizando el método
+     * SalidaInformacion de la clase EntradaSalida.
+     * @see EntradaSalida
+     * @param cliente  (Dato tipo Cliente)
+     * @author Cavallo, Pablo David
+     */
     public void verPerfil(Cliente cliente){
-
         EntradaSalida.SalidaInformacion(cliente.toString(),"MIS DATOS");
-
-
     }
+    /**
+     * <h2>Modificar Cliente</h2>
+     *<p>El metodo modificar Cliente permite al usuario modificar los
+     * atributos de un cliente, mostrando un menú de opciones y utilizando
+     * métodos de entrada/salida para obtener la nueva información del
+     * usuario. Los cambios se guardan en el repositorio de clientes y
+     * se retorna un valor booleano para indicar el éxito de la operación.
+     * @see EntradaSalida
+     * @param clienteAModificar (Dato tipo Cliente)
+     * @return boolean
+     * @author Cavallo, Pablo David
+     */
     @Override
     public boolean modificarCliente(Cliente clienteAModificar) {
 
@@ -100,7 +113,15 @@ public class ClienteGestion implements ManejoCliente, ManejoPaquete {
         return true;
 
     }
-
+    /**
+     * <h2>Modificar Cliente</h2>
+     * <p>El método modificar datos Clientes llama a otro método
+     * para modificar los datos de un cliente y luego muestra un mensaje
+     * de éxito o error según el resultado de la modificación.
+     * @see EntradaSalida
+     * @param clienteAModificar (Dato tipo Cliente)
+     * @author Cavallo, Pablo David
+     */
     public void modificarDatosClientes(Cliente clienteAModificar){
 
         if(modificarCliente(clienteAModificar)){
@@ -115,7 +136,13 @@ public class ClienteGestion implements ManejoCliente, ManejoPaquete {
     //</editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Metodos Paquete">
-
+    /**
+     * <h2>Ver Mis Paquetes</h2>
+     * <p>El método  ver Mis Paquetesbusca los paquetes asociados a un cliente específico
+     * y los muestra utilizando la clase EntradaSalida para generar la salida.
+     * @param cliente (Dato tipo Cliente)
+     * @author Cavallo, Pablo David
+     */
     public void verMisPaquetes(Cliente cliente){
 
         this.listaPaquetes = repoPaquete.listar();
@@ -145,7 +172,17 @@ public class ClienteGestion implements ManejoCliente, ManejoPaquete {
 
         return false;
     }
-
+    /**
+     * <h2>Registro  de Paquetes</h2>
+     * <p> El metodo registro de paquete, registra un nuevo paquete
+     * asociado a un cliente en un sistema, guardando la información
+     * relevante del paquete en un repositorio de paquetes.
+     * @see LocalDate
+     * @see EntradaSalida
+     * @see DateTimeFormatter
+     * @throws InexistenteException extends Exception
+     * @author Cavallo, Pablo David
+     */
     @Override
     public void registroPaquete() {
         Paquete nuevoPaquete = new Paquete();
@@ -178,7 +215,16 @@ public class ClienteGestion implements ManejoCliente, ManejoPaquete {
             EntradaSalida.SalidaAdvertencia(e.getMessage(),"ERROR");
         }
     }
-
+    /**
+     * <h2>Validacion Codigo Paquete</h2>
+     * <P>El metodo validacion Codigo Paquete este método busca en una lista
+     * de paquetes si existe algún paquete con el mismo código de identificación
+     * que se proporciona como argumento. Si encuentra uno, lanza una excepción.
+     * Si no encuentra ningún paquete con el mismo código, no ocurre ninguna
+     * excepción y el método termina su ejecución normalmente.
+     * @throws CodigoPaqueteExistente extends Exception
+     * @author Cavallo, Pablo David
+     */
     @Override
     public void validacionCodigoPaquete(String codigo) throws CodigoPaqueteExistente {
         for (Paquete paquete: repoPaquete.listar()) {
@@ -188,7 +234,17 @@ public class ClienteGestion implements ManejoCliente, ManejoPaquete {
             break;
         }
     }
-
+    /**
+     * <h2>Nuevo Codigo Paquete</h2>
+     * <p>El metodo nuevo Cogigo Paquete esta diseñado para obtener un
+     * nuevo código de paquete, solicitarlo repetidamente hasta que se
+     * cumplan ciertas condiciones de validación y luego devolver
+     * el código válido obtenido.
+     * @see EntradaSalida
+     * @return un String o un null
+     * @throws CodigoPaqueteExistente extends Exception
+     * @author Cavallo, Pablo David
+     */
     @Override
     public String nuevoCogigoPaquete() {
         boolean continuar = false;
@@ -204,30 +260,41 @@ public class ClienteGestion implements ManejoCliente, ManejoPaquete {
         } while (!continuar);
         return null;
     }
-
-    //seguimiento del paquete
+    /**
+     * <h2>Seguimiento del Paquete</h2>
+     * <p>El metodo seguimiento Paquete permite al cliente ingresar
+     * el código de identificación de un paquete y verificar si el
+     * paquete pertenece a ese cliente. En caso afirmativo, se
+     * muestra la información detallada del paquete. En caso
+     * contrario, se muestra un mensaje de advertencia.
+     * @see EntradaSalida
+     * @throws InexistenteException extends Exception
+     * @param cliente (Dato tipo Cliente)
+     * @author Cavllo, Pablo David
+     */
     public void seguimientoPaquete(Cliente cliente){
-
         String codigo = EntradaSalida.entradaString("Ingrese el codigo de identificacion");
-
         try{
-
             Paquete paqueteBuscado = repoPaquete.buscar(codigo);
-
             if(paqueteBuscado.getRemitente().equals(cliente)){
-
                 verUnPaquete(codigo);
-
             }else{
                 EntradaSalida.SalidaAdvertencia("El paquete buscado pertenece a otro cliente","ERROR");
             }
-
         }catch (InexistenteException e){
             EntradaSalida.SalidaInformacion(e.getMessage(),"ERROR");
         }
-
     }
-
+    /**
+     * <h2>Ver un Paquete</h2>
+     * <p>el método Ver un Paquete busca un paquete en un repositorio
+     * utilizando un código de identificación, y si lo encuentra,
+     * muestra la información del paquete. Si no lo encuentra, muestra
+     * un mensaje de error.
+     * @see EntradaSalida
+     * @param codigo (Dato tipo String)
+     * @author Cavallo, Pablo David
+     */
     @Override
     public void verUnPaquete(String codigo) {
         try{
@@ -249,26 +316,24 @@ public class ClienteGestion implements ManejoCliente, ManejoPaquete {
             EntradaSalida.SalidaInformacion(e.getMessage(),"ERROR");
         }
     }
-
     @Override
     public void verPaquetePorEstado(EstadosPaquete estadosPaquete) {
         //el cliente no implementa este metodo
     }
-
-
     //</editor-fold>
 
-
-
-
-
-
-
-    // <editor-fold defaultstate="collapsed" desc="Menu Principal">
-
-
-    //logueo
-
+    // <editor-fold defaultstate="collapsed" desc="Logeo">
+    /**
+     * <h2>Logeo</h2>
+     * <p>El método logueo obtiene una lista de clientes, solicita al
+     * usuario el DNI y la contraseña, verifica si el DNI corresponde a un
+     * cliente existente y si la contraseña es correcta. Dependiendo de los
+     * resultados, se muestra el menú principal del sistema o se muestra un
+     * mensaje de advertencia en caso de errores.
+     * @see EntradaSalida
+     * @throws InexistenteException extends Exception
+     * @author Cavallo, Pablo David
+     */
     public void logueo(){
 
         this.listaClientes = repoClientes.listar();
@@ -293,11 +358,19 @@ public class ClienteGestion implements ManejoCliente, ManejoPaquete {
         }
 
     }
+    //</editor-fold>
 
-    //menu
-
-
-
+    // <editor-fold defaultstate="collapsed" desc="Menu Principal">
+    /**
+     * <h2>Menu Principal</h2>
+     * <p>El metodo menu principal proporciona un menú interactivo para que los clientes
+     * realicen diferentes acciones en función de la opción seleccionada.
+     * Dependiendo de la opción elegida, se llamarán a otros métodos para
+     * llevar a cabo las tareas correspondientes.
+     * @see EntradaSalida
+     * @param cliente (Tipo de dato Cliente)
+     * @author Cavallo, Pablo David
+     */
     public void menuPrincipal(Cliente cliente){
 
         int opcion;
@@ -344,8 +417,5 @@ public class ClienteGestion implements ManejoCliente, ManejoPaquete {
         }while(opcion != 0 && cliente.isEstadoCliente()) ;
 
     }
-
-
-
     //</editor-fold>
 }
