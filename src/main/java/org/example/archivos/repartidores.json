@@ -26,8 +26,7 @@
     "empleadosACargo" : null
   },
   "zona" : "MDP_SUR",
-  "tiposPaquetes" : "PEQUEÑO",
-  "paquetesAsignados" : null
+  "tiposPaquetes" : "PEQUEÑO"
 }, {
   "id" : 2,
   "nombre" : "Martin",
@@ -56,8 +55,7 @@
     "empleadosACargo" : null
   },
   "zona" : "MDP_CENTRO",
-  "tiposPaquetes" : "PEQUEÑO",
-  "paquetesAsignados" : null
+  "tiposPaquetes" : "PEQUEÑO"
 }, {
   "id" : 3,
   "nombre" : "Manuel",
@@ -86,8 +84,7 @@
     "empleadosACargo" : null
   },
   "zona" : "MDP_NORTE",
-  "tiposPaquetes" : "MEDIANO",
-  "paquetesAsignados" : null
+  "tiposPaquetes" : "MEDIANO"
 }, {
   "id" : 5,
   "nombre" : "Matias",
@@ -116,8 +113,7 @@
     "empleadosACargo" : null
   },
   "zona" : "MDP_SUR",
-  "tiposPaquetes" : "MEDIANO",
-  "paquetesAsignados" : null
+  "tiposPaquetes" : "MEDIANO"
 }, {
   "id" : 6,
   "nombre" : "Nahuel",
@@ -146,8 +142,7 @@
     "empleadosACargo" : null
   },
   "zona" : "MIRAMAR",
-  "tiposPaquetes" : "PEQUEÑO",
-  "paquetesAsignados" : null
+  "tiposPaquetes" : "PEQUEÑO"
 }, {
   "id" : 8,
   "nombre" : "Bruno",
@@ -176,8 +171,7 @@
     "empleadosACargo" : null
   },
   "zona" : "MIRAMAR",
-  "tiposPaquetes" : "MEDIANO",
-  "paquetesAsignados" : null
+  "tiposPaquetes" : "MEDIANO"
 }, {
   "id" : 9,
   "nombre" : "Valentin",
@@ -206,8 +200,7 @@
     "empleadosACargo" : null
   },
   "zona" : "PINAMAR",
-  "tiposPaquetes" : "PEQUEÑO",
-  "paquetesAsignados" : null
+  "tiposPaquetes" : "PEQUEÑO"
 }, {
   "id" : 10,
   "nombre" : "Carlos",
@@ -236,8 +229,7 @@
     "empleadosACargo" : null
   },
   "zona" : "NECOCHEA",
-  "tiposPaquetes" : "PEQUEÑO",
-  "paquetesAsignados" : null
+  "tiposPaquetes" : "PEQUEÑO"
 }, {
   "id" : 11,
   "nombre" : "Daniel",
@@ -266,8 +258,7 @@
     "empleadosACargo" : null
   },
   "zona" : "NECOCHEA",
-  "tiposPaquetes" : "MEDIANO",
-  "paquetesAsignados" : null
+  "tiposPaquetes" : "MEDIANO"
 }, {
   "id" : 12,
   "nombre" : "Federico",
@@ -296,8 +287,7 @@
     "empleadosACargo" : null
   },
   "zona" : "PINAMAR",
-  "tiposPaquetes" : "PEQUEÑO",
-  "paquetesAsignados" : null
+  "tiposPaquetes" : "PEQUEÑO"
 }, {
   "id" : 13,
   "nombre" : "Gabriel",
@@ -326,6 +316,5 @@
     "empleadosACargo" : null
   },
   "zona" : "PINAMAR",
-  "tiposPaquetes" : "PEQUEÑO",
-  "paquetesAsignados" : null
+  "tiposPaquetes" : "PEQUEÑO"
 } ]

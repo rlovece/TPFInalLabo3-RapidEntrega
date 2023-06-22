@@ -592,7 +592,8 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
     {
         Paquete paq = new Paquete();
         try{
-             paq = buscarPaquete();
+            // paq = buscarPaquete();
+            paq = repoPaquete.buscar(EntradaSalida.entradaString("Ingrese el codigo del paquete"));
              if(asignarRepartidorDisponible(paq))
              {
                  EntradaSalida.SalidaInformacion("Se asigno el paquete","PAQUETE ASIGNADO");
@@ -722,8 +723,12 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
                     String msj = "Confirmar asignacion automatica a repartidores de supervisor " +
                             supervisor.getNombre() + " " + supervisor.getApellido() + "\n      1 - CONFIRMAR " +
                             "\n      2 - CANCELAR ";
-                    if (1 == EntradaSalida.entradaInt(msj)) {
+                    int opc= EntradaSalida.entradaInt(msj);
+                    if (1 == opc ) {
                         asignarPaquetesAutomaticamente();
+                    }else if(2 == opc)
+                    {
+                        EntradaSalida.SalidaInformacion("Se cancela la asignacion","CANCELADA");
                     }
                 }
                 case 2 -> asignarPorRepartidor();
