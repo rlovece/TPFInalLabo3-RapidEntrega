@@ -12,7 +12,7 @@ public class Repartidor extends Empleado {
     private Supervisor supervisor;
     private Zonas zona;
     private TiposPaquete tiposPaquetes;
-    private ArrayList<Paquete> paquetesAsignados;
+    private transient ArrayList<Paquete> paquetesAsignados;
     /// endregion
 
     /// region Constructores

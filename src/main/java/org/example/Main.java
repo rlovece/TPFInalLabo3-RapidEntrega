@@ -32,20 +32,14 @@ public class Main {
                     "\n 2 - Soy Empleado\n" +
                     "\n 0 - Cerrar Programa\n\n");
 
-            switch (opcion){
-                case 1:
-
+            switch (opcion) {
+                case 1 -> {
                     ClienteGestion clienteGestion = new ClienteGestion();
                     clienteGestion.logueo();
-
-                    break;
-
-                case 2:
-                    menuEmpleadosOpcion();
-                    break;
-
-                default:
-                    break;
+                }
+                case 2 -> menuEmpleadosOpcion();
+                default -> {
+                }
             }
         } while (opcion!=0);
     }

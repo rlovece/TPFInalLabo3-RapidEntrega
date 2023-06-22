@@ -89,7 +89,6 @@ public class RepartidorRepo implements IRepositorio<Repartidor> {
                 s.setPassword(nuevo.getPassword());
                 s.setSupervisor(nuevo.getSupervisor());
                 s.setZona(nuevo.getZona());
-                s.setPaquetesAsignados(nuevo.getPaquetesAsignados());
                 s.setTiposPaquetes(nuevo.getTiposPaquetes());
 
                 break;
@@ -103,12 +102,12 @@ public class RepartidorRepo implements IRepositorio<Repartidor> {
         this.listaRepartidores= listar();
         for(Repartidor s: listaRepartidores)
         {
-            if(s.getDni().equals(dni))
+            if(s.getDni().equalsIgnoreCase(dni))
             {
                 return s;
             }
         }
-        throw new InexistenteException("Codigo inexistente");
+        throw new InexistenteException("Repartidor inexistente");
     }
 
     @Override

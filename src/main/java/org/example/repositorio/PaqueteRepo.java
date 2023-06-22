@@ -79,7 +79,7 @@ public class PaqueteRepo implements IRepositorio<Paquete>{
         cargar();
         for(Paquete s : this.listadoPaquetes)
         {
-            if(s.getId() == nuevo.getId())
+            if(s.getCodigoIdentificacion().equals(nuevo.getCodigoIdentificacion()))
             {
                 s.setRemitente(nuevo.getRemitente());
                 s.setTiposPaquete(nuevo.getTiposPaquete());

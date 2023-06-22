@@ -528,7 +528,12 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
     {
         Repartidor buscado= new Repartidor();
         try{
-            buscado = (Repartidor) buscarEmpleadoAcargo();
+            String dni = EntradaSalida.entradaDNI();
+            buscado = repoRepartidor.buscar(dni);
+            if(buscado.getSupervisor().equals(this.supervisor))
+            {
+                EntradaSalida.SalidaInformacion("Empelado a su cargo","REPARTIDOR");
+            }
             return buscado;
         }catch(InexistenteException e)
         {
@@ -553,21 +558,18 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
      */
     private boolean asignarRepartidorDisponible (Paquete paq)
     {
-        this.listadoPaquetes = new ArrayList<>();
+        ArrayList<Paquete> paquetes = new ArrayList<>();
         ArrayList<Repartidor> disponibles = repoRepartidor.listar();
 
         for(Repartidor r: disponibles)
         {
             if(r.getZona().equals(paq.getZonaEntrega()) && r.getTiposPaquetes().equals(paq.getTiposPaquete()))
             {
-                if(r.getPaquetesAsignados() == null) {
-                    r.setPaquetesAsignados(new ArrayList<>());
-                }
+
                     paq.setRepatidorAsignado(r);
                     paq.setEstado(EstadosPaquete.ASIGNADO_PARA_REPARTO);
-                    this.listadoPaquetes.add(paq);
-                    r.setPaquetesAsignados(this.listadoPaquetes);
-                    repoRepartidor.modificar(r);
+                    paquetes.add(paq);
+                    r.setPaquetesAsignados(paquetes);
                     repoPaquete.modificar(paq);
                     return true;
 
@@ -622,8 +624,6 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
 
         for(Paquete p : listado)
         {
-            if(p.getEstado().equals(estado))
-            {
                 if(p.getTiposPaquete().equals(rep.getTiposPaquetes()) && p.getZonaEntrega().equals(rep.getZona()))
                 {
                     p.setEstado(EstadosPaquete.ASIGNADO_PARA_REPARTO);
@@ -634,16 +634,14 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
                     if(cant == i)
                     {
                         rep.setPaquetesAsignados(paquetes);
-                        repoRepartidor.modificar(rep);
                         return true;
                     }
                 }
-            }
+
         }
         if(0<cant && cant<i)
         {
             rep.setPaquetesAsignados(paquetes);
-            repoRepartidor.modificar(rep);
             return true;
         }
         return false;
@@ -660,8 +658,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
      */
     private void asignarPorRepartidor()
     {
-        try{
-            Repartidor buscar = (Repartidor) buscarEmpleadoAcargo();
+            Repartidor buscar = buscarRepartidorAcargo();
             try {
                 if(buscar.getEstado().equals(EstadosEmpleado.DISPONIBLE)){
 
@@ -674,32 +671,9 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
             {
                 EntradaSalida.SalidaError(e.getMessage(),"ERROR");
             }
-        }catch(InexistenteException e)
-        {
-            EntradaSalida.SalidaError(e.getMessage(),"ERROR");
-        }
     }
 
-    /**
-     * <h2>Validar Estado disponible del Repartidor</h2>
-     * Recibe un Repartidor por paramentro y valida que se encuentre
-     * en estado disponible para asignarle paquetes
-     * @param rep Repartidor a validar
-     * @see Repartidor
-     * @return true si se encuentre en estado disponible
-     * @throws Exception Lanza una excpecion si se encuentra en otro estado
-     * @author Oriana Dafne Lucero
-     */
-    public boolean validarEstadoRepartidor (Repartidor rep) throws Exception {
-        boolean validado=false;
-        if(rep.getEstado()== EstadosEmpleado.DISPONIBLE)
-        {
-            validado=true;
-        }else {
-            throw new Exception("Repartidor no disponible");
-        }
-        return validado;
-    }
+
 
     /**
      * <h2>Asignar paquetes automaticamente</h2>
@@ -713,10 +687,11 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
     private void asignarPaquetesAutomaticamente ()
     {
         int cant = EntradaSalida.entradaInt("Ingrese cantidad de paquetes por repartidor");
-        EstadosPaquete estado = EntradaSalida.entradaEstadosPaquete();
-        for(Repartidor r: repoRepartidor.listar())
+       // EstadosPaquete estado = EntradaSalida.entradaEstadosPaquete();
+        ArrayList<Repartidor> listado = repoRepartidor.listar();
+        for(Repartidor r: listado)
         {
-            if(asignarPaquetesRepartidor(r,cant,estado)){
+            if(asignarPaquetesRepartidor(r,cant,EstadosPaquete.EN_CORREO)){
             String mensaje = "Repartidor legajo: " + r.getLegajo() + " asignado";
             EntradaSalida.SalidaInformacion(mensaje,"ASIGNADO");}
         }
