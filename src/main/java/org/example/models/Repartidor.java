@@ -87,7 +87,7 @@ public class Repartidor extends Empleado {
 
     public String toStringListar ()
     {
-        return "\n    REPARTIDOR     Legajo: " + super.getLegajo() +
+        return "\nREPARTIDOR - Legajo: " + super.getLegajo() +
                 " -  Nombre : " + super.getNombre() +
                 " " + super.getApellido() +
                 "   // SUPERVISOR    Legajo: " + supervisor.getLegajo() +
