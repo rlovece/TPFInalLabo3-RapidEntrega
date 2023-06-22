@@ -75,12 +75,21 @@ public class RepartidorRepo implements IRepositorio<Repartidor> {
     public void modificar(Repartidor nuevo) {
 
         cargar();
-        for(Repartidor r : this.listaRepartidores)
+        for(Repartidor s : this.listaRepartidores)
         {
-            if(r.getId() == nuevo.getId())
+            if(s.getId() == nuevo.getId())
             {
-                r.setNombre(nuevo.getNombre());
-                // ATRIBUTOS
+                s.setNombre(nuevo.getNombre());
+                s.setApellido(nuevo.getApellido());
+                s.setDni(nuevo.getDni());
+                s.setTelefono(nuevo.getTelefono());
+                s.setMail(nuevo.getMail());
+                s.setUsername(nuevo.getUsername());
+                s.setPassword(nuevo.getPassword());
+                s.setSupervisor(nuevo.getSupervisor());
+                s.setZona(nuevo.getZona());
+                s.setPaquetesAsignados(nuevo.getPaquetesAsignados());
+                s.setTiposPaquetes(nuevo.getTiposPaquetes());
                 break;
             }
         }
