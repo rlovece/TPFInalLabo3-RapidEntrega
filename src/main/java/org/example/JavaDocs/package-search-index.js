@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"org.example"},{"l":"org.example.enums"},{"l":"org.example.excepciones"},{"l":"org.example.gestiones"},{"l":"org.example.interfacesDeManejo"},{"l":"org.example.models"},{"l":"org.example.recursos"},{"l":"org.example.repositorio"}];updateSearchResults();
