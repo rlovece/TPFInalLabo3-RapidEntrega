@@ -60,7 +60,7 @@ public class Repartidor extends Empleado {
     }
 
     public void setPaquetesAsignados(ArrayList<Paquete> paquetesAsignados) {
-        this.paquetesAsignados = paquetesAsignados;
+        this.paquetesAsignados.addAll(paquetesAsignados);
     }
 
 /// endregion
