@@ -73,6 +73,7 @@ public class Main {
                 case 2 -> {
                     GestionEmpleadoLocal gestionEmpleadoLocal = new GestionEmpleadoLocal();
                     gestionEmpleadoLocal.logueo();
+
                 }
                 case 3 -> {
                     GestionRepartidor gestionRepartidor = new GestionRepartidor();
