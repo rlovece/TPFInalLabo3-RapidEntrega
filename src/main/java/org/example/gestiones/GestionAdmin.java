@@ -290,10 +290,11 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
         do {
             opcion = EntradaSalida.entradaInt("      ELIJA UNA OPCION  \n" +
                     "\n 1 - Ver Empleado" +
-                    "\n 2 - Cargar Empleado" +
-                    "\n 3 - Dar de Baja Empleado" +
-                    "\n 4 - Ascender Empleado" +
-                    "\n 5 - Modificar Empleado" +
+                    "\n 2 - Lista Completa Empleado" +
+                    "\n 3 - Cargar Empleado" +
+                    "\n 4 - Dar de Baja Empleado" +
+                    "\n 5 - Ascender Empleado" +
+                    "\n 6 - Modificar Empleado" +
                     "\n 0 - Volver\n\n");
             switch (opcion){
                 case 1:
@@ -301,15 +302,23 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
                     break;
 
                 case 2:
-                    registroEmpleado();
+                    listaCompletaEmpleados();
                     break;
 
                 case 3:
-                    bajaEmpleado(EntradaSalida.entradaInt("Ingrese número de legajo"));
+                    registroEmpleado();
                     break;
 
                 case 4:
+                    bajaEmpleado(EntradaSalida.entradaInt("Ingrese número de legajo"));
+                    break;
+
+                case 5:
                     ascenderEmpleado();
+                    break;
+
+                case 6:
+                    modificarEmpleado(EntradaSalida.entradaDNI());
                     break;
 
                 default:
@@ -360,6 +369,20 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
             default:
                 break;
         }
+    }
+
+    /**
+     * <h2>Lista completa Empleads</h2>
+     *Método mostrar la lista completa de empleados.
+     *
+     * @author Ruth Lovece
+     */
+    public void listaCompletaEmpleados(){
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Empleado empleado: this.listaEmpleados) {
+            stringBuilder.append(empleado.toStringListar());
+        }
+        EntradaSalida.SalidaInformacion(String.valueOf(stringBuilder), "Listado completo de empleados");
     }
 
     /**
