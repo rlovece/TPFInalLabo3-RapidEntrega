@@ -224,7 +224,6 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
                 break;
 
             case 2:
-                /// habría que agregar msj alerta
                 paqueteRepo.eliminar(aModificar.getId());
                 break;
 
@@ -236,6 +235,7 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
             default:
                 break;
         }
+        EntradaSalida.SalidaInformacion("Paquete modificado con exito", "Modificacion exitosa");
         return true;
     }
 
@@ -476,6 +476,7 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
             nuevo.setId(supervisorRepo.buscarUltimoID()+1);
             listaEmpleados.add(nuevo);
             supervisorRepo.agregar(nuevo);
+            EntradaSalida.SalidaInformacion("Supervisor registrado con exito", "Registro exitoso");
         }
     }
 
@@ -518,6 +519,7 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
         supervisor.setCantEmpleadosACargo(supervisor.getCantEmpleadosACargo()+1);
         supervisor.getEmpleadosACargo().add(nuevo);
         supervisorRepo.modificar(supervisor);
+        EntradaSalida.SalidaInformacion("Empleado registrado con exito", "Registro exitoso");
     }
 
     /**
@@ -561,6 +563,7 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
         supervisor.setCantEmpleadosACargo(supervisor.getCantEmpleadosACargo()+1);
         supervisor.getEmpleadosACargo().add(nuevo);
         supervisorRepo.modificar(supervisor);
+        EntradaSalida.SalidaInformacion("Empleado registrado con exito", "Registro exitoso");
     }
 
     /**
@@ -650,6 +653,7 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
                 quitarSupervisor((Supervisor) empleado);
                 supervisorRepo.modificar((Supervisor) empleado);
             }
+            EntradaSalida.SalidaInformacion("Empleado eliminado con exito", "Borrado exitoso");
         } catch (InexistenteException e){
             EntradaSalida.SalidaError("Legajo no registrado", "Error");
         }
@@ -820,7 +824,7 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
                     repartidorRepo.modificar(aModificar);
                     listaEmpleados.remove(aModificar);
                     listaEmpleados.add(aModificar);
-                    EntradaSalida.SalidaInformacion("Modificación", "Gestio exitosa");
+                    EntradaSalida.SalidaInformacion("Nombre modificado", "Gestion  exitosa");
                     break;
 
                 case 2:
@@ -828,7 +832,7 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
                     repartidorRepo.modificar(aModificar);
                     listaEmpleados.remove(aModificar);
                     listaEmpleados.add(aModificar);
-                    EntradaSalida.SalidaInformacion("Modificación", "Gestio exitosa");
+                    EntradaSalida.SalidaInformacion("Apellido modificado", "Gestion exitosa");
                     break;
 
                 case 3:
@@ -836,7 +840,7 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
                     repartidorRepo.modificar(aModificar);
                     listaEmpleados.remove(aModificar);
                     listaEmpleados.add(aModificar);
-                    EntradaSalida.SalidaInformacion("Modificación", "Gestio exitosa");
+                    EntradaSalida.SalidaInformacion("DNI modificado", "Gestion exitosa");
                     break;
 
                 case 4:
@@ -855,7 +859,7 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
                     repartidorRepo.modificar(aModificar);
                     listaEmpleados.remove(aModificar);
                     listaEmpleados.add(aModificar);
-                    EntradaSalida.SalidaInformacion("Modificación", "Gestio exitosa");
+                    EntradaSalida.SalidaInformacion("Usuario modificado", "Gestion exitosa");
                     break;
 
                 default:
@@ -882,7 +886,7 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
                     empleadoLocalRepo.modificar(aModificar);
                     listaEmpleados.remove(aModificar);
                     listaEmpleados.add(aModificar);
-                    EntradaSalida.SalidaInformacion("Modificación", "Gestio exitosa");
+                    EntradaSalida.SalidaInformacion("Nombre modificado", "Gestion exitosa");
                     break;
 
                 case 2:
@@ -890,7 +894,7 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
                     empleadoLocalRepo.modificar(aModificar);
                     listaEmpleados.remove(aModificar);
                     listaEmpleados.add(aModificar);
-                    EntradaSalida.SalidaInformacion("Modificación", "Gestio exitosa");
+                    EntradaSalida.SalidaInformacion("Apellido modificado", "Gestion exitosa");
                     break;
 
                 case 3:
@@ -898,7 +902,7 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
                     empleadoLocalRepo.modificar(aModificar);
                     listaEmpleados.remove(aModificar);
                     listaEmpleados.add(aModificar);
-                    EntradaSalida.SalidaInformacion("Modificación", "Gestio exitosa");
+                    EntradaSalida.SalidaInformacion("DNI modificado", "Gestion exitosa");
                     break;
 
                 case 4:
@@ -917,7 +921,7 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
                     empleadoLocalRepo.modificar(aModificar);
                     listaEmpleados.remove(aModificar);
                     listaEmpleados.add(aModificar);
-                    EntradaSalida.SalidaInformacion("Modificación", "Gestio exitosa");
+                    EntradaSalida.SalidaInformacion("Usuario modificado", "Gestion exitosa");
                     break;
 
                 default:
@@ -945,7 +949,7 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
                     supervisorRepo.modificar(aModificar);
                     listaEmpleados.remove(aModificar);
                     listaEmpleados.add(aModificar);
-                    EntradaSalida.SalidaInformacion("Modificación", "Gestio exitosa");
+                    EntradaSalida.SalidaInformacion("Nombre modificado", "Gestion exitosa");
                     break;
 
                 case 2:
@@ -953,7 +957,7 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
                     supervisorRepo.modificar(aModificar);
                     listaEmpleados.remove(aModificar);
                     listaEmpleados.add(aModificar);
-                    EntradaSalida.SalidaInformacion("Modificación", "Gestio exitosa");
+                    EntradaSalida.SalidaInformacion("Apellido modificado", "Gestion exitosa");
                     break;
 
                 case 3:
@@ -961,7 +965,7 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
                     supervisorRepo.modificar(aModificar);
                     listaEmpleados.remove(aModificar);
                     listaEmpleados.add(aModificar);
-                    EntradaSalida.SalidaInformacion("Modificación", "Gestio exitosa");
+                    EntradaSalida.SalidaInformacion("DNI modificado", "Gestion exitosa");
                     break;
 
                 case 4:
@@ -980,7 +984,7 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
                     supervisorRepo.modificar(aModificar);
                     listaEmpleados.remove(aModificar);
                     listaEmpleados.add(aModificar);
-                    EntradaSalida.SalidaInformacion("Modificación", "Gestio exitosa");
+                    EntradaSalida.SalidaInformacion("Usuario modificado", "Gestion exitosa");
                     break;
 
                 case 5:
@@ -992,7 +996,7 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
                         supervisorRepo.modificar(aModificar);
                         listaEmpleados.remove(aModificar);
                         listaEmpleados.add(aModificar);
-                        EntradaSalida.SalidaInformacion("Modificación", "Gestio exitosa");
+                        EntradaSalida.SalidaInformacion("Estado modificado", "Gestion exitosa");
                     }
                     break;
 
