@@ -777,6 +777,16 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
     ///endregion
 
     ///region ModificarEmpleado
+
+    /**
+     * <h2>Modificar Empleado</h2>
+     * Muestra las opciones con los atributos a modificar del cliente mediante un bucle do-while.
+     * Se ingresa la opcion deseada por teclado con JOptionPane y se ingresa al switch correspondiente.
+     * Se sale del bucle al ingresar la opcion 0.
+     *
+     * @param dni Recibe el DNI del Cliente a modificar
+     * @author Ruth Lovece
+     */
     @Override
     public Empleado modificarEmpleado(String dni) {
         int opcion = EntradaSalida.entradaInt("      ELIJA UNA OPCION  \n" +
@@ -804,6 +814,15 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
         return null;
     }
 
+    /**
+     * <h2>Modificar Repartidor</h2>
+     * Muestra las opciones con los atributos a modificar del repartidor mediante un bucle do-while.
+     * Se ingresa la opcion deseada por teclado con JOptionPane y se ingresa al switch correspondiente.
+     * Se sale del bucle al ingresar la opcion 0.
+     *
+     * @param dni Recibe el DNI del repartidor a modificar
+     * @author Ruth Lovece
+     */
     public void modificarRepartidor(String dni) {
         try {
             Repartidor aModificar = repartidorRepo.buscar(dni);
@@ -866,6 +885,15 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
         }
     }
 
+    /**
+     * <h2>Modificar EmpleadoLocal</h2>
+     * Muestra las opciones con los atributos a modificar del empleado local mediante un bucle do-while.
+     * Se ingresa la opcion deseada por teclado con JOptionPane y se ingresa al switch correspondiente.
+     * Se sale del bucle al ingresar la opcion 0.
+     *
+     * @param dni Recibe el DNI del empleado local a modificar
+     * @author Ruth Lovece
+     */
     public void modificarEmpleadoLocal(String dni) {
         try {
             EmpleadoLocal aModificar = empleadoLocalRepo.buscar(dni);
@@ -928,6 +956,15 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
         }
     }
 
+    /**
+     * <h2>Modificar Supervisor</h2>
+     * Muestra las opciones con los atributos a modificar del supervisor mediante un bucle do-while.
+     * Se ingresa la opcion deseada por teclado con JOptionPane y se ingresa al switch correspondiente.
+     * Se sale del bucle al ingresar la opcion 0.
+     *
+     * @param dni Recibe el DNI del supervisor a modificar
+     * @author Ruth Lovece
+     */
     public void modificarSupervisor(String dni) {
         try {
             Supervisor aModificar = supervisorRepo.buscar(dni);
@@ -1071,6 +1108,14 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
             EntradaSalida.SalidaError("No existe Cliente con ese DNI", "Error");
         }
     }
+
+    /**
+     * <h2>Modificar Username Cliente</h2>
+     * Modifica el username del cliente. Se ingresa por teclado el dni del cliente a modificar.
+     * Se verifica que el dni exista en el archivo correspondiente.
+     *
+     * @author Ruth Lovece
+     */
     public void modificarUsernameCliente(){
         try {
             Cliente aModificar =clientesRepo.buscar(EntradaSalida.entradaDNI());
@@ -1093,6 +1138,14 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
         }
     }
 
+
+    /**
+     * <h2>Modificar DNI Cliente</h2>
+     * Modifica el DNI del cliente. Se ingresa por teclado el dni del cliente a modificar.
+     * Se verifica que el dni exista en el archivo correspondiente.
+     *
+     * @author Ruth Lovece
+     */
     public void modificarDNICliente(){
         try {
             Cliente aModificar =clientesRepo.buscar(EntradaSalida.entradaDNI());
@@ -1115,6 +1168,14 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
         }
     }
 
+    /**
+     * <h2>Eliminar Cliente</h2>
+     * Permite eliminar un cliente del archivo. Se ingresa por teclado el dni del cliente a eliminar.
+     * Se verifica que el dni exista en el archivo correspondiente.
+     *
+     * @author Ruth Lovece
+     */
+
     public void elimiarCliente(){
         try {
             Cliente aModificar =clientesRepo.buscar(EntradaSalida.entradaDNI());
@@ -1128,6 +1189,13 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
 
     ///EntradaSalida.SalidaInformacion("Asceso exitoso", "Gestion exitosa");
     ///endregion
+
+    /**
+     * <h2>Validar password</h2>
+     * Valida la contraseña para el ingreso a la Gestion como Administrador.
+     *
+     * @author Ruth Lovece
+     */
 
     static void validarPassword (String contraseña) throws PasswordInvalida {
         if (!contraseña.equals("123Admin")){

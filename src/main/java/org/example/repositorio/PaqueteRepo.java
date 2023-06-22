@@ -20,6 +20,14 @@ public class PaqueteRepo implements IRepositorio<Paquete>{
 
     private List<Paquete> listadoPaquetes;
 
+    /**
+     * <h2>Cargar datos del JSON paquetes</h2>
+     * Utiliza la libreria Jackson. Lee los datos del archivo paquetes y los guarda en una lista de Paquete.
+     * En caso de que el archivo este vacio, inicializa la lista.
+     *
+     * @author Dafne Lucero
+     */
+
     @Override
     public void cargar() {
 
@@ -34,6 +42,13 @@ public class PaqueteRepo implements IRepositorio<Paquete>{
         }
     }
 
+    /**
+     * <h2>Guardar datos al JSON paquetes</h2>
+     * Utiliza la libreria Jackson. Guarda los datos de la lista de Paquete en el archivo paquetes.
+     *
+     * @author Dafne Lucero
+     */
+
     @Override
     public void guardar() {
         try
@@ -46,11 +61,25 @@ public class PaqueteRepo implements IRepositorio<Paquete>{
 
     }
 
+    /**
+     * <h2>Listar paquetes</h2>
+     *
+     * @return una lista de Paquete del archivo JSON.
+     * @author Dafne Lucero
+     */
+
     @Override
     public ArrayList<Paquete> listar() {
         cargar();
         return (ArrayList<Paquete>) this.listadoPaquetes;
     }
+
+    /**
+     * <h2>Agregar un Paquete al JSON paquetes</h2>
+     * Agrega un Paquete al archivo correspondiente.
+     *
+     * @author Dafne Lucero
+     */
 
     @Override
     public void agregar(Paquete... objeto) {
@@ -59,6 +88,12 @@ public class PaqueteRepo implements IRepositorio<Paquete>{
         guardar();
     }
 
+    /**
+     * <h2>Eliminar un Paquete del JSON paquetes</h2>
+     * Elimina un Paquete del archivo.
+     *
+     * @author Dafne Lucero
+     */
     @Override
     public void eliminar(int id) {
         cargar();
@@ -73,6 +108,13 @@ public class PaqueteRepo implements IRepositorio<Paquete>{
         guardar();
     }
 
+    /**
+     * <h2>Modificar un Paquete del JSON paquetes</h2>
+     * Modifica un Paquete existente, mediante el uso de getters y setters.
+     *
+     * @param nuevo Recibe el nuevo objeto ya modificado.
+     * @author Dafne Lucero
+     */
     @Override
     public void modificar(Paquete nuevo) {
 
@@ -93,6 +135,15 @@ public class PaqueteRepo implements IRepositorio<Paquete>{
         guardar();
     }
 
+    /**
+     * <h2>Buscar un Paquete del JSON paquetes</h2>
+     * Busca a un Paquete por el codigo de identificacion.
+     *
+     * @param codigo Recibe el codigo de identificacion del Paquete a buscar
+     * @return Paquete buscado
+     * @throws InexistenteException en caso de que no exista el codigo ingresado
+     */
+
     @Override
     public Paquete buscar(String codigo) throws InexistenteException {
         this.listadoPaquetes= listar();
@@ -105,6 +156,14 @@ public class PaqueteRepo implements IRepositorio<Paquete>{
         }
         throw new InexistenteException("Codigo inexistente");
     }
+
+    /**
+     * <h2>Buscar Ultimo ID de un Paquete del JSON paquetes</h2>
+     * Busca el id del ultimo Paquete registrado.
+     *
+     * @return ultimoId
+     * @throws IndexOutOfBoundsException
+     */
 
     @Override
     public int buscarUltimoID() {

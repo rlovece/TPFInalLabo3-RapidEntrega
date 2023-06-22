@@ -1305,6 +1305,15 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
 
     }
 
+    /**
+     * <h2>Verificar Cliente Existente</h2>
+     * Permite verificar si el DNI de un cliente existe en el archivo correspondiente.
+     * @param dni Recibe el DNI del cliente
+     * @return boolean para verificar si el cliente existe o no
+     * @see Cliente
+     * @author Oriana Dafne Lucero
+     */
+
     private boolean verificarClienteExistente(String dni){
         try{
             repoClientes.buscar(dni);
@@ -1562,6 +1571,13 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
         } while (opcion!=0);
     }
 
+    /**
+     * <h2>Menu Ver Empleados</h2>
+     * Una vez que el Supervisor ingrese a este menu
+     * podrá ver a todos los empleados que tiene a cargo o ver un empleado en particular.
+     * Verifica que el empleado buscado exista.
+     */
+
     public void menuVerEmpleados ()
     {
 
@@ -1591,6 +1607,11 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
         } while (opcion!=0);
     }
 
+    /**
+     * <h2>Menu Paquetes</h2>
+     * Una vez que el Supervisor ingrese a este menu
+     * podrá seleccionar la opcion deseada mediante un bucle do-while para gestionar los paquetes.
+     */
     public void menuPaquetes ()
     {
 
@@ -1635,6 +1656,12 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
 
     }
 
+    /**
+     * <h2>Menu Ver Empleados</h2>
+     * Una vez que el Supervisor ingrese a este menu
+     * podrá ver los paquetes segun la zona, el repartidor, el tipo o ver un paquete en particular.
+     */
+
     public void menuVerPaquetes ()
     {
 
@@ -1670,6 +1697,12 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
         } while (opcion!=0);
     }
 
+
+    /**
+     * <h2>Menu Clientes</h2>
+     * Una vez que el Supervisor ingrese a este menu
+     * podrá seleccionar mediante un bucle do-while la opcion deseada para gestionar clientes.
+     */
     public void menuClientes ()
     {
 

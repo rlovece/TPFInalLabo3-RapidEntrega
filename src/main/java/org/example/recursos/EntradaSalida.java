@@ -105,7 +105,7 @@ public class EntradaSalida {
 
     /**
      * <h2> Entrada de una Zona</h2>
-     * Metodo para ingresar una instancia de Zonas. El método permite sellecionar la zona deseada eliminado
+     * Metodo para ingresar una instancia de Zonas. El método permite selecionar la zona deseada eliminando
      * posibles errores y siendo amigable con el usuario.
      * Para esto utiliza una arreglo de Zonas y luego se muestra el atributo descripción utilizando
      * JComboBox y JOptionPane
@@ -137,6 +137,20 @@ public class EntradaSalida {
         }
         return zonaEntrada;
     }
+
+    /**
+     * <h2> Entrada de un EstadoPaquete</h2>
+     * Metodo para ingresar una instancia de EstadosPaquete. El método permite selecionar el estado del paquete deseado eliminando
+     * posibles errores y siendo amigable con el usuario.
+     * Para esto utiliza una arreglo de EstadosPaquete y luego se muestra el atributo descripción utilizando
+     * JComboBox y JOptionPane
+     *
+     * @see EstadosPaquete
+     * @see JComboBox
+     * @see JOptionPane
+     * @return EstadosPaquete seleccionada
+     * @author Dafne Lucero
+     */
 
     public static EstadosPaquete entradaEstadosPaquete (){
         EstadosPaquete[] estadosPaquetes = EstadosPaquete.values();

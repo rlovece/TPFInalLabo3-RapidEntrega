@@ -134,7 +134,7 @@ public class EmpleadoLocalRepo implements IRepositorio<EmpleadoLocal> {
 
 
     /**
-     * <h2>Modificar un EmpleadoLocal del JSON empleadosLocal</h2>
+     * <h2>Buscar un EmpleadoLocal del JSON empleadosLocal</h2>
      * Busca a un EmpleadoLocal por el DNI.
      *
      * @param dni Recibe el DNI del EmpleadoLocal a buscar.
@@ -159,7 +159,7 @@ public class EmpleadoLocalRepo implements IRepositorio<EmpleadoLocal> {
 
 
     /**
-     * <h2>Modificar un EmpleadoLocal del JSON empleadosLocal</h2>
+     * <h2>Buscar Ultimo ID de un EmpleadoLocal del JSON empleadosLocal</h2>
      * Busca el id del ultimo EmpleadoLocal registrado.
      *
      * @return ultimoId
