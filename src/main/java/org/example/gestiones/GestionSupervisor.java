@@ -1011,7 +1011,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
         repoPaquete.agregar(nuevo);
         if(1== EntradaSalida.entradaInt("Asignar repartidor disponible\n 1 - AHORA \n 2 - LUEGO"))
         {
-            asignarRepartidor(nuevo);
+            nuevo.setRepatidorAsignado(asignarRepartidor(nuevo));
             if(nuevo.getRepatidorAsignado()!=null)
             {
                 EntradaSalida.SalidaInformacion("El repartidor se asigno con exito","REPARTIDOR ASIGNADO");
@@ -1241,7 +1241,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
             return true;
 
         }catch(InexistenteException e){
-            EntradaSalida.SalidaAdvertencia(e.getMessage(),"ERROR");
+           // EntradaSalida.SalidaAdvertencia(e.getMessage(),"ERROR");
         }
         return false;
     }
@@ -1268,6 +1268,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
                       3 - Modificar telefono
                       4 - Modificar mail
                       5 - Modificar contraseña
+                      6 - Dar de baja Cliente
                     """);
 
             switch (opcion) {
@@ -1276,6 +1277,10 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
                 case 3 -> buscado.setTelefono(EntradaSalida.entradaTelefono());
                 case 4 -> buscado.setMail(EntradaSalida.entradaMail());
                 case 5 -> buscado.setPassword(EntradaSalida.entradaGeneracionPassword());
+                case 6 -> {
+                    if(1== EntradaSalida.entradaInt("CONFIRMAR \n 1 - Confirmar baja cliente\n 2 - CANCELAR"))
+                    {buscado.setEstadoCliente(false);}
+                }
                 default -> EntradaSalida.SalidaError("El numero ingresado es erroneo", "ERROR");
             }
             opcion = EntradaSalida.entradaInt("CONTINUAR \n 1 - Continuar modificando Cliente\n 2 - Finalizar");

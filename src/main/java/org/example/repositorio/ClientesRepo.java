@@ -91,7 +91,7 @@ public class ClientesRepo implements IRepositorio<Cliente> {
                 return s;
             }
         }
-        throw new InexistenteException("Codigo inexistente");
+        throw new InexistenteException("Cliente Inexistente");
     }
 
     @Override

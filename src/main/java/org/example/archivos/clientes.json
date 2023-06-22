@@ -1,4 +1,3 @@
-
 [ {
   "id" : 0,
   "nombre" : "Angeles",
@@ -42,5 +41,27 @@
   "username" : "carlos2",
   "password" : "28345234",
   "domicilio" : "Italia 2934",
+  "estadoCliente" : false
+}, {
+  "id" : 4,
+  "nombre" : "Marcos",
+  "apellido" : "Juarez",
+  "dni" : "38441203",
+  "telefono" : "2235578638",
+  "mail" : "marcos.juarez@gmail.com",
+  "username" : "markitos1",
+  "password" : "38441203",
+  "domicilio" : "Italia 2985",
+  "estadoCliente" : false
+}, {
+  "id" : 5,
+  "nombre" : "Renata Paez",
+  "apellido" : "Mayor",
+  "dni" : "28441203",
+  "telefono" : "2234556785",
+  "mail" : "renamayor@gmail.com",
+  "username" : "renata1",
+  "password" : "28441203",
+  "domicilio" : "Moreno 345",
   "estadoCliente" : false
 } ]
