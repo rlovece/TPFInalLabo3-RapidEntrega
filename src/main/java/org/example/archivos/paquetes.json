@@ -154,4 +154,158 @@
     "tiposPaquetes" : "PEQUEÑO",
     "paquetesAsignados" : null
   }
+}, {
+  "id" : 4,
+  "codigoIdentificacion" : "032B6B9B-0",
+  "fechaIngreso" : "22 junio 2023",
+  "remitente" : {
+    "id" : 2,
+    "nombre" : "Oriana",
+    "apellido" : "Martinez",
+    "dni" : "38443212",
+    "telefono" : "2235436785",
+    "mail" : "orianamartinez@gmail.com",
+    "username" : "oriana123",
+    "password" : "38443212",
+    "domicilio" : "Marmol 948",
+    "estadoCliente" : true
+  },
+  "tiposPaquete" : "PEQUEÑO",
+  "zonaEntrega" : "MDP_SUR",
+  "destinatario" : "Pablo Mendoza",
+  "domicilioEntrega" : "San Lorenzo 2343",
+  "estado" : "EN_CORREO",
+  "repatidorAsignado" : null
+}, {
+  "id" : 5,
+  "codigoIdentificacion" : "BA8808B0-E",
+  "fechaIngreso" : "22 junio 2023",
+  "remitente" : {
+    "id" : 2,
+    "nombre" : "Oriana",
+    "apellido" : "Martinez",
+    "dni" : "38443212",
+    "telefono" : "2235436785",
+    "mail" : "orianamartinez@gmail.com",
+    "username" : "oriana123",
+    "password" : "38443212",
+    "domicilio" : "Marmol 948",
+    "estadoCliente" : true
+  },
+  "tiposPaquete" : "MEDIANO",
+  "zonaEntrega" : "MDP_SUR",
+  "destinatario" : "Raquel Muzio",
+  "domicilioEntrega" : "Av. de los Trabajadores 234",
+  "estado" : "EN_CORREO",
+  "repatidorAsignado" : null
+}, {
+  "id" : 6,
+  "codigoIdentificacion" : "0288A28D-0",
+  "fechaIngreso" : "22 junio 2023",
+  "remitente" : {
+    "id" : 3,
+    "nombre" : "Carlos",
+    "apellido" : "Perez",
+    "dni" : "28345234",
+    "telefono" : "2234556896",
+    "mail" : "perezcarlos@hotmail.com",
+    "username" : "carlos2",
+    "password" : "28345234",
+    "domicilio" : "Italia 2934",
+    "estadoCliente" : false
+  },
+  "tiposPaquete" : "PEQUEÑO",
+  "zonaEntrega" : "MDP_NORTE",
+  "destinatario" : "Paula Barrios",
+  "domicilioEntrega" : "Alem 4563",
+  "estado" : "EN_CORREO",
+  "repatidorAsignado" : null
+}, {
+  "id" : 7,
+  "codigoIdentificacion" : "33B4DF66-A",
+  "fechaIngreso" : "22 junio 2023",
+  "remitente" : {
+    "id" : 3,
+    "nombre" : "Carlos",
+    "apellido" : "Perez",
+    "dni" : "28345234",
+    "telefono" : "2234556896",
+    "mail" : "perezcarlos@hotmail.com",
+    "username" : "carlos2",
+    "password" : "28345234",
+    "domicilio" : "Italia 2934",
+    "estadoCliente" : false
+  },
+  "tiposPaquete" : "PEQUEÑO",
+  "zonaEntrega" : "MIRAMAR",
+  "destinatario" : "Facundo Rojas",
+  "domicilioEntrega" : "Calle 23 4563",
+  "estado" : "EN_CORREO",
+  "repatidorAsignado" : null
+}, {
+  "id" : 8,
+  "codigoIdentificacion" : "E4D1FA99-F",
+  "fechaIngreso" : "22 junio 2023",
+  "remitente" : {
+    "id" : 4,
+    "nombre" : "Marcos",
+    "apellido" : "Juarez",
+    "dni" : "38441203",
+    "telefono" : "2235578638",
+    "mail" : "marcos.juarez@gmail.com",
+    "username" : "markitos1",
+    "password" : "38441203",
+    "domicilio" : "Italia 2985",
+    "estadoCliente" : false
+  },
+  "tiposPaquete" : "PEQUEÑO",
+  "zonaEntrega" : "MDP_SUR",
+  "destinatario" : "Felicitas Diaz",
+  "domicilioEntrega" : "San Juan 6534",
+  "estado" : "EN_CORREO",
+  "repatidorAsignado" : null
+}, {
+  "id" : 9,
+  "codigoIdentificacion" : "C0500803-9",
+  "fechaIngreso" : "22 junio 2023",
+  "remitente" : {
+    "id" : 4,
+    "nombre" : "Marcos",
+    "apellido" : "Juarez",
+    "dni" : "38441203",
+    "telefono" : "2235578638",
+    "mail" : "marcos.juarez@gmail.com",
+    "username" : "markitos1",
+    "password" : "38441203",
+    "domicilio" : "Italia 2985",
+    "estadoCliente" : false
+  },
+  "tiposPaquete" : "PEQUEÑO",
+  "zonaEntrega" : "MDP_NORTE",
+  "destinatario" : "Apolo Lucero",
+  "domicilioEntrega" : "Misiones 3452",
+  "estado" : "EN_CORREO",
+  "repatidorAsignado" : null
+}, {
+  "id" : 10,
+  "codigoIdentificacion" : "18FB6A93-E",
+  "fechaIngreso" : "22 junio 2023",
+  "remitente" : {
+    "id" : 5,
+    "nombre" : "Renata Paez",
+    "apellido" : "Mayor",
+    "dni" : "28441203",
+    "telefono" : "2234556785",
+    "mail" : "renamayor@gmail.com",
+    "username" : "renata1",
+    "password" : "28441203",
+    "domicilio" : "Moreno 345",
+    "estadoCliente" : false
+  },
+  "tiposPaquete" : "PEQUEÑO",
+  "zonaEntrega" : "PINAMAR",
+  "destinatario" : "Florencia Mayor",
+  "domicilioEntrega" : "Tucuman 342",
+  "estado" : "EN_CORREO",
+  "repatidorAsignado" : null
 } ]
