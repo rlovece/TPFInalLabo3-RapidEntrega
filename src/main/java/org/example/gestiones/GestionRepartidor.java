@@ -216,7 +216,7 @@ public class GestionRepartidor implements ManejoEmpleado {
     public void logueo(){
         this.repartidores = repartidorRepo.listar();
 
-        String dni = EntradaSalida.entradaDNI();
+        String dni = EntradaSalida.entradaString("Ingrese el DNI");
 
         try{
             Repartidor repartidor = repartidorRepo.buscar(dni);

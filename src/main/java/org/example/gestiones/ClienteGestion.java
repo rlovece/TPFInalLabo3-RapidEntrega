@@ -280,7 +280,7 @@ public class ClienteGestion implements ManejoCliente, ManejoPaquete {
 
         this.listaClientes = repoClientes.listar();
 
-        String dni = EntradaSalida.entradaDNI();
+        String dni = EntradaSalida.entradaString("Ingrese el DNI");
 
         try{
             Cliente cliente = repoClientes.buscar(dni);

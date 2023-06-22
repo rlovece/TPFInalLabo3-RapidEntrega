@@ -665,7 +665,7 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
           this.empleadosLocal = empleadoLocalRepo.listar();
 
-          String dni = EntradaSalida.entradaDNI();
+          String dni = EntradaSalida.entradaString("Ingrese el DNI");
 
 
           try{
