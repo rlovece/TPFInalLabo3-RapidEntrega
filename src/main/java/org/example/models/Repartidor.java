@@ -20,11 +20,10 @@ public class Repartidor extends Empleado {
     public Repartidor() {
     }
 
-    public Repartidor(Supervisor supervisor, Zonas zona, TiposPaquete tiposPaquetes, ArrayList<Paquete> paquetesAsignados) {
+    public Repartidor(Supervisor supervisor, Zonas zona, TiposPaquete tiposPaquetes) {
         this.supervisor = supervisor;
         this.zona = zona;
         this.tiposPaquetes = tiposPaquetes;
-        this.paquetesAsignados = paquetesAsignados;
     }
 
     /// endregion

@@ -84,8 +84,7 @@
     "empleadosACargo" : null
   },
   "zona" : "MDP_NORTE",
-  "tiposPaquetes" : "PEQUEÑO",
-  "paquetesAsignados" : null
+  "tiposPaquetes" : "PEQUEÑO"
 }, {
   "id" : 5,
   "nombre" : "Matias",
