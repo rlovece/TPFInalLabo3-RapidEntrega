@@ -64,4 +64,37 @@
   "password" : "28441203",
   "domicilio" : "Moreno 345",
   "estadoCliente" : false
+}, {
+  "id" : 6,
+  "nombre" : "Tedd",
+  "apellido" : "Moss",
+  "dni" : "35456456",
+  "telefono" : "2234563454",
+  "mail" : "tedd.mos@gmail.com",
+  "username" : "tedd123",
+  "password" : "35456456",
+  "domicilio" : "Paraguay 234",
+  "estadoCliente" : false
+}, {
+  "id" : 7,
+  "nombre" : "Margarita",
+  "apellido" : "Lorenzo",
+  "dni" : "37984323",
+  "telefono" : "2236554786",
+  "mail" : "margarita@yahoo.com.ar",
+  "username" : "margaritas2",
+  "password" : "37984323",
+  "domicilio" : "Jujuy 3409",
+  "estadoCliente" : false
+}, {
+  "id" : 8,
+  "nombre" : "Franco",
+  "apellido" : "Linares",
+  "dni" : "29345673",
+  "telefono" : "2234567895",
+  "mail" : "franco.linares@gmail.com",
+  "username" : "frnaquito1",
+  "password" : "29345673",
+  "domicilio" : "Bolivar 3421",
+  "estadoCliente" : false
 } ]

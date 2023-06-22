@@ -100,7 +100,6 @@ public class EntradaSalida {
         if (seleccion != JOptionPane.CLOSED_OPTION) {
             entrada = (TiposPaquete) comboBox.getSelectedItem();
         }
-        System.out.println(entrada);
         return entrada;
     }
 
