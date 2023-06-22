@@ -68,8 +68,7 @@ public class Supervisor extends Empleado {
 
     public String toStringListar()
     {
-        String mensaje = "SUPERVISOR ID: " +this.getId() + " - Legajo: " + this.getLegajo()+" - Nombre: " +this.getNombre()+ " - Apellido: " +this.getApellido()+
-                "\n     DNI: " +this.getDni()+ " - Telefono: " +this.getTelefono() + " - Mail: " + this.getMail();
+        String mensaje = "\nSUPERVISOR - Legajo: " + this.getLegajo()+" - Nombre: " +this.getNombre()+ "   " +this.getApellido();
 
         return mensaje;
     }

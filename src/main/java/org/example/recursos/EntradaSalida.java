@@ -517,7 +517,7 @@ public class EntradaSalida {
             throw new UsernameInvalido("Username sin letras");
         } catch (NumberFormatException e) {
             if (username.length()<5) {
-                throw new UsernameInvalido("Password con menos de 6 caracteres");
+                throw new UsernameInvalido("El usuario debe contener minimo 5 caracteres");
             }
         }
 

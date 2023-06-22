@@ -27,12 +27,7 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
 
     //endregion ()
 
-    public GestionAdmin() {
-        this.listaEmpleados.addAll(supervisorRepo.listar());
-        this.listaEmpleados.addAll(repartidorRepo.listar());
-        this.listaEmpleados.addAll(empleadoLocalRepo.listar());
-    }
-
+    public GestionAdmin() {}
 
     //region Logueo
     /**
@@ -52,6 +47,9 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
         try {
             String password = EntradaSalida.entradaString("Ingrese la contraseña");
             validarPassword(password);
+            this.listaEmpleados.addAll(supervisorRepo.listar());
+            this.listaEmpleados.addAll(repartidorRepo.listar());
+            this.listaEmpleados.addAll(empleadoLocalRepo.listar());
             menuPrincipal();
             return true;
         } catch (NullPointerException e) {
@@ -286,7 +284,6 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
      */
     public void menuManejoEmpleados(){
         int opcion = 0;
-        String codigoPaquete = null;
         do {
             opcion = EntradaSalida.entradaInt("      ELIJA UNA OPCION  \n" +
                     "\n 1 - Ver Empleado" +
@@ -590,7 +587,7 @@ public class GestionAdmin implements ManejoPaquete, ManejoEmpleado {
                     break;
                 }
             }
-        } while (!continuar);
+        } while (continuar);
 
         EntradaSalida.SalidaInformacion("Se asigno su DNI como contraseña","CONTRASEÑA\n\n");
         nuevo.setPassword(nuevo.getDni());
