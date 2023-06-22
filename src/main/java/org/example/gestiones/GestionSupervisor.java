@@ -37,6 +37,15 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
 
     /// region Metodos Supervisor
 
+    /**
+     * <h2>Asignar Supervisor</h2>
+     * Asigna el atributo supervisor de la clase y sus empleados a cargo.
+     * Generada para usar luego de {@link GestionSupervisor#logueo()}  donde
+     * se valida un supervisor registrado.
+     * @param sup Supervisor que se asginara
+     * @see GestionSupervisor#logueo()
+     * @author Oriana Dafne Lucero
+     */
     private void asignarSupervisor(Supervisor sup)
     {
         this.supervisor= sup;
@@ -46,9 +55,9 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
     /**
      * <h2>Buscar supervisor por LEGAJO</h2>
      * Busca y retorna un Supervisor desde su numero de legajo
-     * @param legajo Se debe ingresar el numero de legajo del supervisor buscado
+     * @param legajo Se debe ingresar el número de legajo del supervisor buscado
      * @return un objeto Supervisor
-     * Creado para ser usado en metodo {@link GestionSupervisor#buscarSupervisor()}
+     * Creado para ser usado en método {@link GestionSupervisor#buscarSupervisor()}
      */
     private Supervisor buscarSupervisorLegajo(int legajo)
     {
@@ -68,7 +77,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
      * Busca y retorna un Supervisor desde su numero de ID
      * @param id Se debe ingresar el ID del supervisor buscado
      * @return un objeto Supervisor
-     * Creado para ser usado en metodo {@link GestionSupervisor#buscarSupervisor()}
+     * Creado para ser usado en método {@link GestionSupervisor#buscarSupervisor()}
      */
     private Supervisor buscarSupervisorID (int id)
     {
@@ -116,8 +125,9 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
 
     /**
      * <h2>Cambiar contraseña</h2>
-     * El supervisor podra cambiar su contraseña ingresando su numero de DNI
-     * @return true si se cambio la contrseña / false si no encontro el Supervisor por DNI
+     * El supervisor podrá cambiar su contraseña ingresando su numero de DNI
+     * @return true si se cambió la contraseña / false si no encontro el Supervisor por DNI
+     * @author Oriana Dafne Lucero
      */
     private boolean cambiarContrasenia()
     {
@@ -356,7 +366,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
      * Llama a los metodos {@link GestionSupervisor#modificarRepartidor()}} y
      * {@link GestionSupervisor#modificarEmpleadoLocal()} y a los repositorios
      * para guardar las modificaciones realizadas en los archivos
-     * @return true si el empleado se modifico en el archivo
+     * @return true si el empleado se modificó en el archivo
      */
     private boolean modificarEmpleadoAcargo () {
 
@@ -383,7 +393,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
     }
     ///endregion
 
-    ///region Metodos EmpleadoLocal
+    ///region Métodos EmpleadoLocal
 
     /**
      * <h2>Modificar empleado de local</h2>
@@ -509,6 +519,16 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
         return rep;
     }
 
+
+    /**
+     * <h2>Buscar un Repartidor a cargo</h2>
+     * Busca un repartidor a cargo del supervisor indicado en el atributo de esta clase
+     * debe elegir la opcion de buscarlo por ID, legajo o DNI, llama a los metodos
+     * {@link GestionSupervisor#buscarRepartidorAcargoID(int)}  {@link GestionSupervisor#buscarRepartidorAcargoLegajo(int)}
+     * y {@link GestionSupervisor#buscarRepartidorAcargoDNI(String)}
+     * @return objeto clase Repartidor con el empleado buscado
+     * @throws InexistenteException si no lo encuentra lanza una excepcion
+     */
     private Repartidor buscarRepartidorAcargo () throws InexistenteException {
         Repartidor buscado= new Repartidor();
 
@@ -534,12 +554,12 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
     }
 
     /**
-     * <h2>Buscar empleado a cargo por LEGAJO</h2>
-     * Busca un empleado a cargo del supervisor asignado a traves de su legajo
-     * Se llama al metodo {@link GestionSupervisor#empleadosAcargo()} para
+     * <h2>Buscar repartidor a cargo por LEGAJO</h2>
+     * Busca un repartidor a cargo del supervisor asignado a traves de su legajo
+     * Se llama al metodo {@link GestionSupervisor#repartidoresAcargo()} para
      * asegurar que solo se busque dentro de los empleados del supervisor
-     * @param legajo del empleado buscado
-     * @return objeto clase Empleado
+     * @param legajo del repartidor buscado
+     * @return objeto clase Repartidor
      */
     private Repartidor buscarRepartidorAcargoLegajo (int legajo)
     {
@@ -555,12 +575,12 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
     }
 
     /**
-     * <h2>Buscar empleado a cargo por ID</h2>
-     * Busca un empleado a cargo del supervisor asignado a traves de su ID
-     * Se llama al metodo {@link GestionSupervisor#empleadosAcargo()} para
+     * <h2>Buscar repartidor a cargo por ID</h2>
+     * Busca un repartidor a cargo del supervisor asignado a traves de su ID
+     * Se llama al metodo {@link GestionSupervisor#repartidoresAcargo()}  para
      * asegurar que solo se busque dentro de los empleados del supervisor
-     * @param id del empleado buscado
-     * @return objeto clase Empleado
+     * @param id del repartidor buscado
+     * @return objeto clase Repartidor
      */
     private Repartidor buscarRepartidorAcargoID (int id)
     {
@@ -575,12 +595,12 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
     }
 
     /**
-     * <h2>Buscar empleado a cargo por DNI</h2>
-     * Busca un empleado a cargo del supervisor asignado a traves de su DNI
-     * Se llama al metodo {@link GestionSupervisor#empleadosAcargo()} para
+     * <h2>Buscar repartidor a cargo por DNI</h2>
+     * Busca un repartidor a cargo del supervisor asignado a traves de su DNI
+     * Se llama al metodo {@link GestionSupervisor#repartidoresAcargo()}  para
      * asegurar que solo se busque dentro de los empleados del supervisor
-     * @param dni Ingresar el DNI del empleado
-     * @return objeto clase Empleado
+     * @param dni Ingresar el DNI del repartidor
+     * @return objeto clase Repartidor
      */
     private Repartidor buscarRepartidorAcargoDNI (String dni)
     {
@@ -601,8 +621,9 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
 
     /**
      * <h2>Asignar un paquete</h2>
-     * Busca un paquete y le asigna un repartidor disponible. Indica por mensajes
-     * si se pudo asignar correctamente. Llama a los metodos {@link GestionSupervisor#buscarPaquete()}
+     * Busca un paquete y permite buscar un repartidor por ID, DNI o Legajo para que se asigne
+     * Indica por mensajes si se pudo asignar correctamente. Llama a los metodos
+     * {@link GestionSupervisor#buscarPaquete()} y {@link GestionSupervisor#asignarRepartidor(Paquete)}
      * @see Repartidor
      * @see Paquete
      * @author Oriana Dafne Lucero
@@ -627,6 +648,15 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
         }
     }
 
+    /**
+     * <h2>Asignar Repartidor</h2>
+     * Busca un paquete y permite buscar un repartidor por ID, DNI o Legajo para que se asigne
+     * Indica por mensajes si se pudo asignar correctamente. Llama a los metodos
+     * {@link GestionSupervisor#buscarPaquete()} y {@link GestionSupervisor#asignarRepartidor(Paquete)}
+     * @see Repartidor
+     * @see Paquete
+     * @author Oriana Dafne Lucero
+     */
     private Repartidor asignarRepartidor(Paquete paq)
     {
         Repartidor buscar = new Repartidor();
@@ -665,11 +695,12 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
     }
 
     /**
-     * <h2>Asignar paquetes a un repartidor</h2>
-     * Recibe un Repartidor y le asigna un listado de paquetes del estado indicado
-     * por parametros que coincidan en su zona y tipo de paquetes que reparta.
-     * Creado para ser usado en {@link GestionSupervisor#asignarPorRepartidor()}
+     * <h2>Asignar a repartidor</h2>
+     * Recibe un Repartidor y un listado de paquetes y los asigna al repartidor
+     * Ambos parametros deben estar validados con anterioridad
+     *Generado para ser usado en {@link GestionSupervisor#asignarPaquetesRepartidor(Repartidor, int, EstadosPaquete)}
      * @param rep Repartidor al que se le asignaran los paquetes
+     * @param listado de paquetes a asignarle previamente validados
      * @see Repartidor
      * @see Paquete
      * @author Oriana Dafne Lucero
@@ -689,6 +720,19 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
 
     }
 
+    /**
+     * <h2>Asignar paquetes repartidor</h2>
+     * Recibe un Repartidor, una cantidad de paquetes a asignar y un estado de paquetes
+     * Filtra el listado de paquetes del archivo segun el estado y cantidad asignads
+     * y llama al metodo {@link GestionSupervisor#asignarArepartidor(Repartidor, ArrayList)}
+     * para asignarle dichos paquetes
+     * @param rep Repartidor al que se le asignaran los paquetes
+     * @param cant cantidad de paquetes maxima a asignar
+     * @param estado Enum del estado de los paquetes a asignar
+     * @see Repartidor
+     * @see Paquete
+     * @author Oriana Dafne Lucero
+     */
     private boolean asignarPaquetesRepartidor(Repartidor rep, int cant, EstadosPaquete estado)
     {
         ArrayList<Paquete> listado = repoPaquete.listar();
@@ -915,6 +959,13 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
         return true;
     }
 
+    /**
+     * <h2>Cambiar Remitente</h2>
+     * Permite buscar un cliente y asignarlo como nuevo remitente
+     * del paquete informado por parametro
+     * @param paq Paquete al que se modificara el remitente
+     * @author Oriana Danfe Lucero
+     */
     private void cambiarRemitente (Paquete paq)
     {
         int continuar =0;
@@ -991,6 +1042,13 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
 
     }
 
+    /**
+     * <h2>Cargar Paquete</h2>
+     * Recibe un paquete con remitente validado con anterioridad y solicita los datos
+     * para ser dado de alta en el sistema . El ID, Codigo de identificacion y Fecha
+     * de ingreso del paquete se asignan automaticamente
+     * @param nuevo Paquete que sera cargado
+     */
     private void cargarPaquete (Paquete nuevo)
     {
         int cliente=0;
@@ -1191,11 +1249,6 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
         }else {
             throw new InexistenteException("Paquete inexistente");
         }
-    }
-
-    private void mostrarListadoPaquetes (ArrayList<Paquete> listado)
-    {
-        listado.toString();
     }
     /// endregion
 
