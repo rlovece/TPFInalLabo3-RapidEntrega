@@ -1,7 +1,5 @@
 package org.example;
 
-
-
 import org.example.enums.EstadosEmpleado;
 import org.example.gestiones.*;
 
@@ -10,9 +8,10 @@ import org.example.excepciones.InexistenteException;
 
 import org.example.models.EmpleadoLocal;
 import org.example.models.Repartidor;
+
+import org.example.gestiones.*;
+
 import org.example.recursos.EntradaSalida;
-import org.example.repositorio.EmpleadoLocalRepo;
-import org.example.repositorio.RepartidorRepo;
 
 public class Main {
 
@@ -29,7 +28,6 @@ public class Main {
         do {
             opcion = EntradaSalida.entradaInt("""
                           ELIJA UNA OPCION \s
-
                      1 - Soy Cliente
                      2 - Soy Empleado
 
