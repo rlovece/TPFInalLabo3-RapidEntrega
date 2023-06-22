@@ -191,6 +191,7 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
           if(opcion == 1){ //cliente nuevo
                registroCliente();
+               EntradaSalida.SalidaInformacion("Cliente registrado con exito!","");
           }
 
           String dni = EntradaSalida.entradaDNI();
@@ -634,7 +635,8 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
                               empleadoAModificar.setMail(EntradaSalida.entradaMail());
                               break;
                          case 5:// contraseña
-                              empleadoAModificar.setPassword("Ingrese la nueva contraseña");
+                              EntradaSalida.SalidaInformacion("Ingrese la nueva contraseña","");
+                              empleadoAModificar.setPassword(EntradaSalida.entradaGeneracionPassword());
                               break;
                     }
 
