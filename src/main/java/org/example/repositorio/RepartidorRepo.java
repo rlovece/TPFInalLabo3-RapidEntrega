@@ -79,6 +79,7 @@ public class RepartidorRepo implements IRepositorio<Repartidor> {
         {
             if(s.getId() == nuevo.getId())
             {
+
                 s.setNombre(nuevo.getNombre());
                 s.setApellido(nuevo.getApellido());
                 s.setDni(nuevo.getDni());
@@ -90,6 +91,7 @@ public class RepartidorRepo implements IRepositorio<Repartidor> {
                 s.setZona(nuevo.getZona());
                 s.setPaquetesAsignados(nuevo.getPaquetesAsignados());
                 s.setTiposPaquetes(nuevo.getTiposPaquetes());
+
                 break;
             }
         }

@@ -17,6 +17,13 @@ public class EmpleadoLocalRepo implements IRepositorio<EmpleadoLocal> {
 
     private List<EmpleadoLocal> empleadosLocal;
 
+    /**
+     * <h2>Cargar datos del JSON empleadosLocal</h2>
+     * Utiliza la libreria Jackson. Lee los datos del archivo empleadosLocal y los guarda en una lista de EmpleadoLocal.
+     * En caso de que el archivo este vacio, inicializa la lista.
+     *
+     * @author Angeles Higa
+     */
     @Override
     public void cargar() {
         try{
@@ -26,6 +33,13 @@ public class EmpleadoLocalRepo implements IRepositorio<EmpleadoLocal> {
             this.empleadosLocal = new ArrayList<>();
         }
     }
+
+    /**
+     * <h2>Guardar datos al JSON empleadosLocal</h2>
+     * Utiliza la libreria Jackson. Guarda los datos de la lista de EmpleadoLocal en el archivo empleadosLocal.
+     *
+     * @author Angeles Higa
+     */
 
     @Override
     public void guardar() {
@@ -37,12 +51,25 @@ public class EmpleadoLocalRepo implements IRepositorio<EmpleadoLocal> {
 
     }
 
+    /**
+     * <h2>Listar empleadosLocal</h2>
+     *
+     * @return una lista de EmpleadoLocal del archivo JSON.
+     * @author Angeles Higa
+     */
+
     @Override
     public ArrayList<EmpleadoLocal> listar() {
         cargar();
         return (ArrayList<EmpleadoLocal>) this.empleadosLocal;
     }
 
+    /**
+     * <h2>Agregar un EmpleadoLocal al JSON empleadosLocal</h2>
+     * Agrega un EmpleadoLocal al archivo.
+     *
+     * @author Angeles Higa
+     */
     @Override
     public void agregar(EmpleadoLocal... objeto) {
         cargar();
@@ -52,6 +79,12 @@ public class EmpleadoLocalRepo implements IRepositorio<EmpleadoLocal> {
         guardar();
     }
 
+    /**
+     * <h2>Eliminar un EmpleadoLocal del JSON empleadosLocal</h2>
+     * Elimina un EmpleadoLocal del archivo.
+     *
+     * @author Angeles Higa
+     */
     @Override
     public void eliminar(int id) {
         cargar();
@@ -68,6 +101,13 @@ public class EmpleadoLocalRepo implements IRepositorio<EmpleadoLocal> {
     }
 
 
+    /**
+     * <h2>Modificar un EmpleadoLocal del JSON empleadosLocal</h2>
+     * Modifica un EmpleadoLocal existente, mediante el uso de getters y setters.
+     *
+     * @param objeto Recibe el nuevo objeto ya modificado.
+     * @author Angeles Higa
+     */
     @Override
     public void modificar(EmpleadoLocal objeto) {
         cargar();
@@ -93,6 +133,14 @@ public class EmpleadoLocalRepo implements IRepositorio<EmpleadoLocal> {
     }
 
 
+    /**
+     * <h2>Modificar un EmpleadoLocal del JSON empleadosLocal</h2>
+     * Busca a un EmpleadoLocal por el DNI.
+     *
+     * @param dni Recibe el DNI del EmpleadoLocal a buscar.
+     * @return EmpleadoLocal buscado
+     * @throws InexistenteException en caso de que no exista el DNI ingresado
+     */
     @Override
     public EmpleadoLocal buscar(String dni) throws InexistenteException{
 
@@ -110,6 +158,13 @@ public class EmpleadoLocalRepo implements IRepositorio<EmpleadoLocal> {
     }
 
 
+    /**
+     * <h2>Modificar un EmpleadoLocal del JSON empleadosLocal</h2>
+     * Busca el id del ultimo EmpleadoLocal registrado.
+     *
+     * @return ultimoId
+     * @throws IndexOutOfBoundsException
+     */
 
     @Override
     public int buscarUltimoID() {
