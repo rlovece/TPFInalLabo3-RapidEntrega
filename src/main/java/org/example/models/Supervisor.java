@@ -65,6 +65,14 @@ public class Supervisor extends Empleado {
                 "\n  Empleados a cargo:    " + cantEmpleadosACargo;
         return mensaje;
     }
+
+    public String toStringListar()
+    {
+        String mensaje = "SUPERVISOR ID: " +this.getId() + " - Legajo: " + this.getLegajo()+" - Nombre: " +this.getNombre()+ " - Apellido: " +this.getApellido()+
+                "\n     DNI: " +this.getDni()+ " - Telefono: " +this.getTelefono() + " - Mail: " + this.getMail();
+
+        return mensaje;
+    }
     /// endregion
 
 }

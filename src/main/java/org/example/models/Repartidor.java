@@ -66,7 +66,7 @@ public class Repartidor extends Empleado {
 
 /// endregion
 
-/// region Metodos
+    /// region Metodos
 
     @Override
     public String toString() {
@@ -87,11 +87,12 @@ public class Repartidor extends Empleado {
 
     public String toStringListar ()
     {
-        String mensaje = "REPARTIDOR ID: " +this.getId() + " - Legajo: " + this.getLegajo()+" - Nombre: " +this.getNombre()+ " - Apellido: " +this.getApellido()+
-                "\n     DNI: " +this.getDni()+ " - Telefono: " +this.getTelefono() + " - Mail: " + this.getMail() +
-                "\n     Jornada: " + this.getJornada() + " - Supervisor: "+ supervisor.getNombre() + " " + supervisor.getApellido();
-
-        return mensaje;
+        return "\n    REPARTIDOR     Legajo: " + super.getLegajo() +
+                " -  Nombre : " + super.getNombre() +
+                " " + super.getApellido() +
+                "   // SUPERVISOR    Legajo: " + supervisor.getLegajo() +
+                " - Nombre : " + this.supervisor.getNombre() +
+                " " + this.supervisor.getApellido();
     }
 
 

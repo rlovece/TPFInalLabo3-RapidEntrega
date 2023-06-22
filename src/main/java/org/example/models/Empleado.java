@@ -60,4 +60,9 @@ public class Empleado extends Persona{
                 ", jornada='" + jornada + '\'' +
                 '}';
     }
+
+    public String toStringListar()
+    {
+        return "\n EMPLEADO  - Legajo: " +legajo + " Nombre: " + super.getNombre()+ " Apellido: " +super.getApellido();
+    }
 }
