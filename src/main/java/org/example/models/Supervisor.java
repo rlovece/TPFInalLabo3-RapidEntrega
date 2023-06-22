@@ -19,9 +19,8 @@ public class Supervisor extends Empleado {
     public Supervisor ()
     {}
 
-    public Supervisor(int cantEmpleadosACargo, ArrayList<Empleado> empleadosACargo) {
+    public Supervisor(int cantEmpleadosACargo) {
         this.cantEmpleadosACargo = cantEmpleadosACargo;
-        this.empleadosACargo = empleadosACargo;
     }
 
 
