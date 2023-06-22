@@ -25,6 +25,7 @@ public class Main {
 
     public static void menuIncial(){
         int opcion = 0;
+        EntradaSalida.SalidaInformacion("BIENVENIDO A RAPID ENTREGA"," - ");
         do {
             opcion = EntradaSalida.entradaInt("""
                           ELIJA UNA OPCION \s

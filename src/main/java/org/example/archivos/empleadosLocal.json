@@ -22,8 +22,7 @@
     "legajo" : 2,
     "jornada" : "LaS de 8 a 16",
     "estado" : "DISPONIBLE",
-    "cantEmpleadosACargo" : 0,
-    "empleadosACargo" : null
+    "cantEmpleadosACargo" : 0
   }
 }, {
   "id" : 3,
@@ -49,8 +48,7 @@
     "legajo" : 2,
     "jornada" : "LaS de 8 a 16",
     "estado" : "DISPONIBLE",
-    "cantEmpleadosACargo" : 0,
-    "empleadosACargo" : null
+    "cantEmpleadosACargo" : 0
   }
 }, {
   "id" : 4,
@@ -76,18 +74,17 @@
     "legajo" : 1,
     "jornada" : "LaS de 8 a 16",
     "estado" : "DISPONIBLE",
-    "cantEmpleadosACargo" : 0,
-    "empleadosACargo" : null
+    "cantEmpleadosACargo" : 0
   }
 }, {
   "id" : 5,
   "nombre" : "Mario",
-  "apellido" : "Nuñez",
-  "dni" : "32123123",
-  "telefono" : "2231561241",
-  "mail" : "mario@gmail.com",
-  "username" : "mnuñez",
-  "password" : "32123123",
+  "apellido" : "Lopez",
+  "dni" : "35123123",
+  "telefono" : "2231534241",
+  "mail" : "marioL@gmail.com",
+  "username" : "mlopez",
+  "password" : "35123123",
   "legajo" : 11,
   "jornada" : "LaV de 8 a 12",
   "estado" : "DISPONIBLE",
@@ -103,8 +100,7 @@
     "legajo" : 1,
     "jornada" : "LaS de 8 a 16",
     "estado" : "DISPONIBLE",
-    "cantEmpleadosACargo" : 0,
-    "empleadosACargo" : null
+    "cantEmpleadosACargo" : 0
   }
 }, {
   "id" : 6,
@@ -130,8 +126,7 @@
     "legajo" : 3,
     "jornada" : "LaS de 8 a 16",
     "estado" : "DISPONIBLE",
-    "cantEmpleadosACargo" : 0,
-    "empleadosACargo" : null
+    "cantEmpleadosACargo" : 0
   }
 }, {
   "id" : 7,
@@ -157,8 +152,7 @@
     "legajo" : 3,
     "jornada" : "LaS de 8 a 16",
     "estado" : "DISPONIBLE",
-    "cantEmpleadosACargo" : 0,
-    "empleadosACargo" : null
+    "cantEmpleadosACargo" : 0
   }
 }, {
   "id" : 8,
@@ -184,8 +178,7 @@
     "legajo" : 1,
     "jornada" : "LaS de 8 a 16",
     "estado" : "DISPONIBLE",
-    "cantEmpleadosACargo" : 0,
-    "empleadosACargo" : null
+    "cantEmpleadosACargo" : 0
   }
 } ]
 
