@@ -22,6 +22,13 @@ public class SupervisorRepo implements IRepositorio<Supervisor> {
 
     private List<Supervisor> listaSupervisores;
 
+    /**
+     * <h2>Cargar datos del JSON supervisores</h2>
+     * Utiliza la libreria Jackson. Lee los datos del archivo supervisores y los guarda en una lista de Supervisores.
+     * En caso de que el archivo este vacio, inicializa la lista.
+     *
+     * @author Oriana Dafne Lucero
+     */
     @Override
     public void cargar() {
 
@@ -35,6 +42,13 @@ public class SupervisorRepo implements IRepositorio<Supervisor> {
         }
     }
 
+    /**
+     * <h2>Guardar datos al JSON supervisores</h2>
+     * Utiliza la libreria Jackson. Guarda los datos de la lista de clase
+     * Supervisor en el archivo supervisores.
+     *
+     * @author Oriana Dafne Lucero
+     */
     @Override
     public void guardar() {
         try
@@ -47,12 +61,23 @@ public class SupervisorRepo implements IRepositorio<Supervisor> {
 
     }
 
+    /**
+     * <h2>Listar Supervisores</h2>
+     * Carga y retorna una lista de supervisores desde los supervisores cargados en el JSON supervisores
+     * @return una lista de Supervisor del archivo JSON.
+     * @author Oriana Dafne Lucero
+     */
     @Override
     public ArrayList<Supervisor> listar() {
         cargar();
         return (ArrayList<Supervisor>) this.listaSupervisores;
     }
 
+    /**
+     * <h2>Agregar un Supervisores al JSON supervisores</h2>
+     * Agrega un supervisores al archivo JSON
+     * @author Oriana Dafne Lucero
+     */
     @Override
     public void agregar(Supervisor... objeto) {
         cargar();
@@ -60,6 +85,12 @@ public class SupervisorRepo implements IRepositorio<Supervisor> {
         guardar();
     }
 
+    /**
+     * <h2>Eliminar un Supervisor del JSON supervisores</h2>
+     * Elimina un Supervisor del archivo.
+     *
+     * @author Oriana Dafne Lucero
+     */
     @Override
     public void eliminar(int id) {
         cargar();
@@ -74,14 +105,18 @@ public class SupervisorRepo implements IRepositorio<Supervisor> {
         guardar();
     }
 
+    /**
+     * <h2>Modificar un Supervisor del JSON supervisores</h2>
+     * Modifica un Supervisor existente, mediante el uso de getters y setters.
+     * @param nuevo Recibe el nuevo objeto Supervisor ya modificado.
+     * @author Oriana Dafne Lucero
+     */
     @Override
     public void modificar(Supervisor nuevo) {
 
         cargar();
-        for(Supervisor s : this.listaSupervisores)
-        {
-            if(s.getId() == nuevo.getId())
-            {
+        for (Supervisor s : this.listaSupervisores) {
+            if (s.getId() == nuevo.getId()) {
                 s.setNombre(nuevo.getNombre());
                 s.setApellido(nuevo.getApellido());
                 s.setDni(nuevo.getDni());
@@ -95,6 +130,13 @@ public class SupervisorRepo implements IRepositorio<Supervisor> {
         guardar();
     }
 
+    /**
+     * <h2>Modificar un Supervisor del JSON supervisores</h2>
+     * Busca a un Supervisor por el DNI.
+     * @param dni Recibe el DNI del Supervisor a buscar.
+     * @return Supervisor buscado
+     * @throws InexistenteException en caso de que no exista el DNI ingresado
+     */
     @Override
     public Supervisor buscar(String dni) throws InexistenteException{
         this.listaSupervisores = listar();
@@ -107,6 +149,11 @@ public class SupervisorRepo implements IRepositorio<Supervisor> {
         throw new InexistenteException("Supervisor Inexistente");
     }
 
+    /**
+     * <h2>Modificar un Supervisor del JSON supervisores</h2>
+     * Busca el id del ultimo Supervisor registrado.
+     * @return ultimoId registrado en el JSON supervisores
+     */
     @Override
     public int buscarUltimoID() {
         this.listaSupervisores= listar();

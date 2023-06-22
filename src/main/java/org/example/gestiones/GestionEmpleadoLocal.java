@@ -637,6 +637,7 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
                          case 5:// contraseña
                               EntradaSalida.SalidaInformacion("Ingrese la nueva contraseña","");
                               empleadoAModificar.setPassword(EntradaSalida.entradaGeneracionPassword());
+
                               break;
                     }
 
@@ -644,7 +645,7 @@ public class GestionEmpleadoLocal implements ManejoPaquete, ManejoCliente, Manej
 
                }while(opcion != 0);
 
-               empleadoLocalRepo.agregar(empleadoAModificar);
+               empleadoLocalRepo.modificar(empleadoAModificar);
 
           }catch (InexistenteException e){
                EntradaSalida.SalidaAdvertencia(e.getMessage(),"ERROR");
