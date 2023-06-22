@@ -162,12 +162,12 @@ public class Paquete implements Serializable {
         return mensaje;
     }
 
-    /*public String toStringListar() {
+    public String toStringListarCliente() {
         return "\nPaquete # " + this.getCodigoIdentificacion() +
                 " - Fecha ingreso: " + this.getFechaIngreso() +
                 " - Destinatario: " + this.getDestinatario();
 
-    }*/
+    }
 
 
     ///endregion

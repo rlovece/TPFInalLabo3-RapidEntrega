@@ -27,14 +27,23 @@ public class GestionRepartidor implements ManejoEmpleado {
     //ver paquetes asignados
     public void verPaquetesAsignados(String dni){
         this.paquetes = paqueteRepo.listar();
+        boolean tienePaquetes = false;
 
-        for(Paquete paquete : this.paquetes){
+        if(this.paquetes != null){
+            for(Paquete paquete : this.paquetes){
 
-            if(paquete.getRepatidorAsignado().getDni().equalsIgnoreCase(dni)){
+                if(paquete.getRepatidorAsignado() != null && paquete.getRepatidorAsignado().getDni().equalsIgnoreCase(dni)){
 
-                EntradaSalida.SalidaInformacion(paquete.toString(),"PAQUETES ASIGNADOS");
+                    EntradaSalida.SalidaInformacion(paquete.toString(),"PAQUETES ASIGNADOS");
 
+                }
             }
+
+            if(!tienePaquetes){
+                EntradaSalida.SalidaInformacion("No tiene paquetes asignados","");
+            }
+        }else{
+            EntradaSalida.SalidaInformacion("No hay paquetes registrados","");
         }
 
     }

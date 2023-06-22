@@ -126,7 +126,7 @@ public class ClienteGestion implements ManejoCliente, ManejoPaquete {
 
             if(paquete.getRemitente().equals(cliente)){
 
-                stringBuilder.append(paquete.toStringListar());
+                stringBuilder.append(paquete.toStringListarCliente());
 
                 tienePaquetes = true;
             }

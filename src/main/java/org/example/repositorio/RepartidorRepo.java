@@ -80,7 +80,11 @@ public class RepartidorRepo implements IRepositorio<Repartidor> {
             if(r.getId() == nuevo.getId())
             {
                 r.setNombre(nuevo.getNombre());
-                // ATRIBUTOS
+                r.setApellido(nuevo.getApellido());
+                r.setTelefono(nuevo.getTelefono());
+                r.setMail(nuevo.getMail());
+                r.setPassword(nuevo.getPassword());
+
                 break;
             }
         }
