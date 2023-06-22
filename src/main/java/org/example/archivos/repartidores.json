@@ -22,8 +22,7 @@
     "legajo" : 15,
     "jornada" : "Las de 8 a 16",
     "estado" : "DISPONIBLE",
-    "cantEmpleadosACargo" : 0,
-    "empleadosACargo" : null
+    "cantEmpleadosACargo" : 0
   },
   "zona" : "MDP_SUR",
   "tiposPaquetes" : "PEQUEÑO"
@@ -51,8 +50,7 @@
     "legajo" : 1,
     "jornada" : "LaS de 8 a 16",
     "estado" : "DISPONIBLE",
-    "cantEmpleadosACargo" : 0,
-    "empleadosACargo" : null
+    "cantEmpleadosACargo" : 0
   },
   "zona" : "MDP_CENTRO",
   "tiposPaquetes" : "PEQUEÑO"
@@ -80,8 +78,7 @@
     "legajo" : 1,
     "jornada" : "LaS de 8 a 16",
     "estado" : "DISPONIBLE",
-    "cantEmpleadosACargo" : 0,
-    "empleadosACargo" : null
+    "cantEmpleadosACargo" : 0
   },
   "zona" : "MDP_NORTE",
   "tiposPaquetes" : "PEQUEÑO"
@@ -109,8 +106,7 @@
     "legajo" : 1,
     "jornada" : "LaS de 8 a 16",
     "estado" : "DISPONIBLE",
-    "cantEmpleadosACargo" : 0,
-    "empleadosACargo" : null
+    "cantEmpleadosACargo" : 0
   },
   "zona" : "MDP_SUR",
   "tiposPaquetes" : "MEDIANO"
@@ -138,8 +134,7 @@
     "legajo" : 4,
     "jornada" : "Las de 12 a 20",
     "estado" : "DISPONIBLE",
-    "cantEmpleadosACargo" : 0,
-    "empleadosACargo" : null
+    "cantEmpleadosACargo" : 0
   },
   "zona" : "MIRAMAR",
   "tiposPaquetes" : "PEQUEÑO"
@@ -167,8 +162,7 @@
     "legajo" : 4,
     "jornada" : "Las de 12 a 20",
     "estado" : "DISPONIBLE",
-    "cantEmpleadosACargo" : 0,
-    "empleadosACargo" : null
+    "cantEmpleadosACargo" : 0
   },
   "zona" : "MIRAMAR",
   "tiposPaquetes" : "MEDIANO"
@@ -196,8 +190,7 @@
     "legajo" : 4,
     "jornada" : "Las de 12 a 20",
     "estado" : "DISPONIBLE",
-    "cantEmpleadosACargo" : 0,
-    "empleadosACargo" : null
+    "cantEmpleadosACargo" : 0
   },
   "zona" : "PINAMAR",
   "tiposPaquetes" : "PEQUEÑO"
@@ -225,8 +218,7 @@
     "legajo" : 3,
     "jornada" : "LaS de 8 a 16",
     "estado" : "DISPONIBLE",
-    "cantEmpleadosACargo" : 0,
-    "empleadosACargo" : null
+    "cantEmpleadosACargo" : 0
   },
   "zona" : "NECOCHEA",
   "tiposPaquetes" : "PEQUEÑO"
@@ -254,8 +246,7 @@
     "legajo" : 3,
     "jornada" : "LaS de 8 a 16",
     "estado" : "DISPONIBLE",
-    "cantEmpleadosACargo" : 0,
-    "empleadosACargo" : null
+    "cantEmpleadosACargo" : 0
   },
   "zona" : "NECOCHEA",
   "tiposPaquetes" : "MEDIANO"
@@ -283,8 +274,7 @@
     "legajo" : 3,
     "jornada" : "LaS de 8 a 16",
     "estado" : "DISPONIBLE",
-    "cantEmpleadosACargo" : 0,
-    "empleadosACargo" : null
+    "cantEmpleadosACargo" : 0
   },
   "zona" : "PINAMAR",
   "tiposPaquetes" : "PEQUEÑO"
@@ -312,8 +302,7 @@
     "legajo" : 15,
     "jornada" : "Las de 8 a 16",
     "estado" : "DISPONIBLE",
-    "cantEmpleadosACargo" : 0,
-    "empleadosACargo" : null
+    "cantEmpleadosACargo" : 0
   },
   "zona" : "PINAMAR",
   "tiposPaquetes" : "PEQUEÑO"

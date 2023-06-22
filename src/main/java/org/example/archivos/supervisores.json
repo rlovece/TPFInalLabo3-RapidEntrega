@@ -10,7 +10,6 @@
   "jornada" : "LaS de 8 a 16",
   "estado" : "DISPONIBLE",
   "cantEmpleadosACargo" : 0,
-  "empleadosACargo" : null,
   "id" : 1
 }, {
   "nombre": "María",
@@ -24,7 +23,6 @@
   "jornada": "Las de 12 a 20",
   "estado": "DISPONIBLE",
   "cantEmpleadosACargo": 0,
-  "empleadosACargo": null,
   "id": 2
 },{
   "nombre" : "Antonio",
@@ -38,7 +36,6 @@
   "jornada" : "LaS de 8 a 16",
   "estado" : "DISPONIBLE",
   "cantEmpleadosACargo" : 0,
-  "empleadosACargo" : null,
   "id" : 3
 },{
   "nombre": "Juan",
@@ -52,7 +49,6 @@
   "jornada": "Las de 8 a 16",
   "estado": "DISPONIBLE",
   "cantEmpleadosACargo": 0,
-  "empleadosACargo": null,
   "id": 5
 },{
   "nombre": "Laura",
@@ -66,7 +62,6 @@
   "jornada": "Las de 9 a 17",
   "estado": "DISPONIBLE",
   "cantEmpleadosACargo": 0,
-  "empleadosACargo": null,
   "id": 6
 }
 ]
