@@ -14,12 +14,42 @@
     "domicilio" : "San Juan 345",
     "estadoCliente" : true
   },
-  "tiposPaquete" : "GRANDE",
-  "zonaEntrega" : "MDP_SUR",
+  "tiposPaquete" : "PEQUEÑO",
+  "zonaEntrega" : "MDP_CENTRO",
   "destinatario" : "Armando Mendoza",
   "domicilioEntrega" : "Rosales 1234",
-  "estado" : "EN_CORREO",
-  "repatidorAsignado" : null
+  "estado" : "ASIGNADO_PARA_REPARTO",
+  "repatidorAsignado" : {
+    "id" : 2,
+    "nombre" : "Martin",
+    "apellido" : "Antonio",
+    "dni" : "35266421",
+    "telefono" : "2234562142",
+    "mail" : "martu@gmail.com",
+    "username" : "mantonio",
+    "password" : "35266421",
+    "legajo" : 8,
+    "jornada" : "LaS 8 a 12",
+    "estado" : "DISPONIBLE",
+    "supervisor" : {
+      "id" : 1,
+      "nombre" : "Agustin",
+      "apellido" : "Perez",
+      "dni" : "33123456",
+      "telefono" : "2291451232",
+      "mail" : "agus@gmail.com",
+      "username" : "aperez",
+      "password" : "33123456",
+      "legajo" : 1,
+      "jornada" : "LaS de 8 a 16",
+      "estado" : "DISPONIBLE",
+      "cantEmpleadosACargo" : 0,
+      "empleadosACargo" : null
+    },
+    "zona" : "MDP_CENTRO",
+    "tiposPaquetes" : "PEQUEÑO",
+    "paquetesAsignados" : null
+  }
 }, {
   "id" : 2,
   "codigoIdentificacion" : "CAF1D7CA-4",
@@ -40,8 +70,38 @@
   "zonaEntrega" : "MDP_NORTE",
   "destinatario" : "Beatriz Pinzon Solano",
   "domicilioEntrega" : "Francia 3456",
-  "estado" : "EN_CORREO",
-  "repatidorAsignado" : null
+  "estado" : "ASIGNADO_PARA_REPARTO",
+  "repatidorAsignado" : {
+    "id" : 2,
+    "nombre" : "Martin",
+    "apellido" : "Antonio",
+    "dni" : "35266421",
+    "telefono" : "2234562142",
+    "mail" : "martu@gmail.com",
+    "username" : "mantonio",
+    "password" : "35266421",
+    "legajo" : 8,
+    "jornada" : "LaS 8 a 12",
+    "estado" : "DISPONIBLE",
+    "supervisor" : {
+      "id" : 1,
+      "nombre" : "Agustin",
+      "apellido" : "Perez",
+      "dni" : "33123456",
+      "telefono" : "2291451232",
+      "mail" : "agus@gmail.com",
+      "username" : "aperez",
+      "password" : "33123456",
+      "legajo" : 1,
+      "jornada" : "LaS de 8 a 16",
+      "estado" : "DISPONIBLE",
+      "cantEmpleadosACargo" : 0,
+      "empleadosACargo" : null
+    },
+    "zona" : "MDP_CENTRO",
+    "tiposPaquetes" : "PEQUEÑO",
+    "paquetesAsignados" : null
+  }
 }, {
   "id" : 3,
   "codigoIdentificacion" : "7025E22D-D",
@@ -62,28 +122,36 @@
   "zonaEntrega" : "MDP_SUR",
   "destinatario" : "Patricia Fernandez",
   "domicilioEntrega" : "Av. Luro 4553",
-  "estado" : "EN_CORREO",
-  "repatidorAsignado" : null
-}, {
-  "id" : 4,
-  "codigoIdentificacion" : "37D4E751-0",
-  "fechaIngreso" : "21 junio 2023",
-  "remitente" : {
-    "id" : 0,
-    "nombre" : "Angeles",
-    "apellido" : "Higa",
-    "dni" : "39657616",
-    "telefono" : "2235754080",
-    "mail" : "angeles.higa@gmail.com",
-    "username" : "angie123",
-    "password" : "39657616",
-    "domicilio" : "Av. Martin Garcia 730",
-    "estadoCliente" : true
-  },
-  "tiposPaquete" : "GRANDE",
-  "zonaEntrega" : "MIRAMAR",
-  "destinatario" : "Lucia",
-  "domicilioEntrega" : "Av. Colon 123",
-  "estado" : "EN_CORREO",
-  "repatidorAsignado" : null
+  "estado" : "ASIGNADO_PARA_REPARTO",
+  "repatidorAsignado" : {
+    "id" : 2,
+    "nombre" : "Martin",
+    "apellido" : "Antonio",
+    "dni" : "35266421",
+    "telefono" : "2234562142",
+    "mail" : "martu@gmail.com",
+    "username" : "mantonio",
+    "password" : "35266421",
+    "legajo" : 8,
+    "jornada" : "LaS 8 a 12",
+    "estado" : "DISPONIBLE",
+    "supervisor" : {
+      "id" : 1,
+      "nombre" : "Agustin",
+      "apellido" : "Perez",
+      "dni" : "33123456",
+      "telefono" : "2291451232",
+      "mail" : "agus@gmail.com",
+      "username" : "aperez",
+      "password" : "33123456",
+      "legajo" : 1,
+      "jornada" : "LaS de 8 a 16",
+      "estado" : "DISPONIBLE",
+      "cantEmpleadosACargo" : 0,
+      "empleadosACargo" : null
+    },
+    "zona" : "MDP_CENTRO",
+    "tiposPaquetes" : "PEQUEÑO",
+    "paquetesAsignados" : null
+  }
 } ]
