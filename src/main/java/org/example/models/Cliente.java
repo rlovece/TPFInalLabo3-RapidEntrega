@@ -44,13 +44,13 @@ public class Cliente extends Persona implements Serializable {
     public String toString() {
 
         return "          C L I E N T E\n" +
-                "\nID:                 " + this.getId() +
-                "\nNombre:               " + this.getNombre() +
-                "\nApellido:             " + this.getApellido() +
-                "\nDNI:                  " + this.getDni() +
-                "\nTelefono:             " + this.getTelefono() +
-                "\nMail:                 " + this.getMail() +
-                "\nDomicilio:            " + this.getDomicilio()  + "\n";
+                "\n  ID:                   " + this.getId() +
+                "\n  Nombre:               " + this.getNombre() +
+                "\n  Apellido:             " + this.getApellido() +
+                "\n  DNI:                  " + this.getDni() +
+                "\n  Telefono:             " + this.getTelefono() +
+                "\n  Mail:                 " + this.getMail() +
+                "\n  Domicilio:            " + this.getDomicilio()  + "\n";
     }
 
     public String toStringListar() {

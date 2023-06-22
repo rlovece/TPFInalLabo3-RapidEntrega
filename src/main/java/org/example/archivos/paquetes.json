@@ -3,6 +3,7 @@
   "codigoIdentificacion" : "73947ACB-F",
   "fechaIngreso" : "21 junio 2023",
   "remitente" : {
+    "id" : 2,
     "nombre" : "Oriana",
     "apellido" : "Martinez",
     "dni" : "38443212",
@@ -11,8 +12,7 @@
     "username" : "oriana123",
     "password" : "38443212",
     "domicilio" : "San Juan 345",
-    "estadoCliente" : true,
-    "id" : 2
+    "estadoCliente" : true
   },
   "tiposPaquete" : "GRANDE",
   "zonaEntrega" : "MDP_SUR",
@@ -25,6 +25,7 @@
   "codigoIdentificacion" : "CAF1D7CA-4",
   "fechaIngreso" : "21 junio 2023",
   "remitente" : {
+    "id" : 1,
     "nombre" : "Lucina",
     "apellido" : "Higa",
     "dni" : "37376621",
@@ -33,13 +34,34 @@
     "username" : "luchi.na",
     "password" : "37376621",
     "domicilio" : "Lopez y Planes 667",
-    "estadoCliente" : true,
-    "id" : 1
+    "estadoCliente" : true
   },
   "tiposPaquete" : "PEQUEÑO",
   "zonaEntrega" : "MDP_NORTE",
   "destinatario" : "Beatriz Pinzon Solano",
   "domicilioEntrega" : "Francia 3456",
+  "estado" : "EN_CORREO",
+  "repatidorAsignado" : null
+}, {
+  "id" : 3,
+  "codigoIdentificacion" : "7025E22D-D",
+  "fechaIngreso" : "21 junio 2023",
+  "remitente" : {
+    "id" : 1,
+    "nombre" : "Lucina",
+    "apellido" : "Higa",
+    "dni" : "37376621",
+    "telefono" : "2235638998",
+    "mail" : "lucinahiga@gmail.com",
+    "username" : "luchi.na",
+    "password" : "37376621",
+    "domicilio" : "Lopez y Planes 667",
+    "estadoCliente" : true
+  },
+  "tiposPaquete" : "FRAGIL_Y_MEDIANO",
+  "zonaEntrega" : "MDP_SUR",
+  "destinatario" : "Patricia Fernandez",
+  "domicilioEntrega" : "Av. Luro 4553",
   "estado" : "EN_CORREO",
   "repatidorAsignado" : null
 } ]

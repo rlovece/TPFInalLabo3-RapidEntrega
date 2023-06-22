@@ -210,18 +210,21 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
      * Supervisor en esta clase, llama a {@link GestionSupervisor#empleadosAcargo}
      * para asignar dicha lista si se encuentra cargado el supervisor
      */
-    private void verEmpleadosAcargo ()
-    {
-        if(this.supervisor!=null)
-        {
+    private void verEmpleadosAcargo () {
+
+        StringBuilder listadoEmp = new StringBuilder();
+        if (this.supervisor != null) {
             empleadosAcargo();
-            for (Empleado e: this.supervisor.getEmpleadosACargo())
+            for (Empleado e : this.supervisor.getEmpleadosACargo())
             {
-                EntradaSalida.SalidaInformacion(e.toString(),"     E M P L E A D O ");
+
+                listadoEmp.append(e.toStringListar());
+
             }
-        }else {
-            EntradaSalida.SalidaError("No tiene un supervisor asignado","ERROR SUPERVISOR");
+        } else {
+            EntradaSalida.SalidaError("No tiene un supervisor asignado", "ERROR SUPERVISOR");
         }
+        EntradaSalida.SalidaInformacion(listadoEmp.toString(), "     E M P L E A D O S");
     }
 
     /**
@@ -1176,13 +1179,16 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
         nuevo.setDni(dni);
         nuevo.setTelefono(EntradaSalida.entradaTelefono());
         nuevo.setMail(EntradaSalida.entradaMail());
+        nuevo.setDomicilio(EntradaSalida.entradaString("Ingrese la direccion"));
         nuevo.setUsername(EntradaSalida.entradaUsermane());
         EntradaSalida.SalidaInformacion("Se asigno su DNI como contraseña", "CONTRASEÑA");
         nuevo.setPassword(dni);
 
 
+
             if (!verificarClienteExistente(dni)) {
                 repoClientes.agregar(nuevo);
+                EntradaSalida.SalidaInformacion("El cliente se registro correctamente","CLIENTE DADO DE ALTA");
             } else {
                 EntradaSalida.SalidaError("El cliente ya existe en el registro", "ERROR Cliente Existente");
             }
@@ -1392,30 +1398,19 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
                      0 - Salir
                     """);
 
-            switch (opcion){
-                case 1:
-                    menuEmpleados(sup);
-                    break;
-
-                case 2:
-                    menuPaquetes(sup);
-                    break;
-                case 3:
-                    menuClientes(sup);
-                    break;
-
-                case 4:
-                    if(cambiarContrasenia())
-                    {
-                        EntradaSalida.SalidaInformacion("Constraseña cambiada existosamente","CAMBIO CONTRASEÑA");
-                    }else {
-                        EntradaSalida.SalidaError("No se pudo cambiar la constraseña","ERROR");
+            switch (opcion) {
+                case 1 -> menuEmpleados(sup);
+                case 2 -> menuPaquetes(sup);
+                case 3 -> menuClientes(sup);
+                case 4 -> {
+                    if (cambiarContrasenia()) {
+                        EntradaSalida.SalidaInformacion("Constraseña cambiada existosamente", "CAMBIO CONTRASEÑA");
+                    } else {
+                        EntradaSalida.SalidaError("No se pudo cambiar la constraseña", "ERROR");
                     }
-                    break;
-
-
-                default:
-                    break;
+                }
+                default -> {
+                }
             }
         } while (opcion!=0);
     }
@@ -1585,93 +1580,4 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
     }
 
     ///endregion
-
-    /// region METODOS DESCARTADOS
-    /*
-
-    public boolean modificarPaquete(int id) {
-
-        Paquete aModificar = buscarPaqueteID(id);
-        if(aModificar != null)
-        {
-            aModificar = modificarDatosPaquete(aModificar);
-            repoPaquete.modificar(aModificar);
-            return true;
-        }else {
-            try{
-                aModificar = buscarPaquete();
-                aModificar = modificarDatosPaquete(aModificar);
-                repoPaquete.modificar(aModificar);
-                return true;
-            }catch(InexistenteException e)
-            {
-                EntradaSalida.SalidaError(e.getMessage(),"PAQUETE INEXISTENTE");
-                return false;
-            }
-        }
-    }
-
-    Empleado modificarAtributosEmpleado(Empleado e)
-    {
-        if(1== EntradaSalida.entradaInt( " Modificar legajo:  \n 1 - Si \n 2 - No"))
-        {
-            e.setLegajo(EntradaSalida.entradaInt("Ingrese el numero de legajo"));
-        }
-        if(1== EntradaSalida.entradaInt( " Modificar jornada:  \n 1 - Si \n 2 - No"))
-        {
-            e.setJornada(EntradaSalida.entradaString("Ingrese la jornada"));
-        }
-        return e;
-    }
-
-
-    private Repartidor buscarRepartidorID (int id)
-    {
-        this.listadoRepartidores= repoRepartidor.listar();
-        for(Repartidor r : this.listadoRepartidores)
-        {
-            if(r.getId()==id)
-            {
-                return r;
-            }
-        }
-        return null;
-    }
-
-    private Repartidor buscarRepartidorLegajo (int legajo)
-    {
-        this.listadoRepartidores= repoRepartidor.listar();
-        for(Repartidor r : this.listadoRepartidores)
-        {
-            if(r.getLegajo()==legajo)
-            {
-                return r;
-            }
-        }
-        return null;
-    }
-    private Repartidor buscarRepartidor() throws InexistenteException {
-        Repartidor buscado = new Repartidor();
-        int opcion = EntradaSalida.entradaInt("""
-                   BUSCAR REPARTIDOR \s
-                  1 - Por DNI
-                  2 - Por ID
-                  3 - Por Legajo\
-                """);
-        switch (opcion) {
-            case 1 -> buscado = repoRepartidor.buscar((EntradaSalida.entradaDNI()));
-            case 2 -> buscado = buscarRepartidorID(EntradaSalida.entradaInt("Ingrese el numerdo de ID"));
-            case 3 -> buscado = buscarRepartidorLegajo(EntradaSalida.entradaInt("Ingrese el numero de legajo"));
-            default -> EntradaSalida.SalidaError("El numero ingresado es erroneo", "ERROR");
-        }
-        if(buscado!=null)
-        {
-            return buscado;
-        }else {
-            throw new InexistenteException("Repartidor inexistente");
-        }
-    }
-    */
-
-    /// endregion
 }
