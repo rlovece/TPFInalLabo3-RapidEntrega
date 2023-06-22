@@ -86,7 +86,7 @@
     "empleadosACargo" : null
   },
   "zona" : "MDP_NORTE",
-  "tiposPaquetes" : "MEDIANO",
+  "tiposPaquetes" : "PEQUEÑO",
   "paquetesAsignados" : null
 }, {
   "id" : 5,
