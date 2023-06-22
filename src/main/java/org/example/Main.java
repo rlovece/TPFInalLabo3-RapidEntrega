@@ -37,7 +37,7 @@ public class Main {
 
             switch (opcion) {
                 case 1 -> {
-                    ClienteGestion clienteGestion = new ClienteGestion();
+                    GestionCliente clienteGestion = new GestionCliente();
                     clienteGestion.logueo();
                 }
                 case 2 -> menuEmpleadosOpcion();
