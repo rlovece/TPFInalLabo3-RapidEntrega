@@ -10,7 +10,6 @@ public class Repartidor extends Empleado {
 
     /// region Atributos
     private Supervisor supervisor;
-
     private Zonas zona;
     private TiposPaquete tiposPaquetes;
     private ArrayList<Paquete> paquetesAsignados;

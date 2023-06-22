@@ -546,17 +546,20 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
      */
     public ArrayList<Repartidor> filtrarRepartidoresDisponibles ()
     {
-        ArrayList<Repartidor> repartidoresDisponibles = new ArrayList<>();
-        empleadosAcargo();
-        for (Empleado r: this.supervisor.getEmpleadosACargo())
+        ArrayList<Repartidor> repartidoresDisponibles = repoRepartidor.listar();
+
+        if(repartidoresDisponibles!=null){
+        for (Repartidor r: repartidoresDisponibles)
         {
-            if(r.getClass() == Repartidor.class)
-            {
-                if(r.getEstado() == EstadosEmpleado.DISPONIBLE)
+
+                if(r.getEstado().equals(EstadosEmpleado.DISPONIBLE))
                 {
                     repartidoresDisponibles.add((Repartidor) r);
                 }
-            }
+
+        }}
+        else {
+            EntradaSalida.SalidaInformacion("No hay repartidores disponibles","NO SE ENCONTRARON REPARTIDORES");
         }
         return repartidoresDisponibles;
     }
@@ -577,22 +580,23 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
      */
     private boolean asignarRepartidorDisponible (Paquete paq)
     {
-        Repartidor asignado = new Repartidor();
+        this.listadoPaquetes = new ArrayList<>();
+
         for(Repartidor r: filtrarRepartidoresDisponibles())
         {
-            if(r.getZona() == paq.getZonaEntrega() && r.getTiposPaquetes() == paq.getTiposPaquete())
+            if(r.getZona().equals(paq.getZonaEntrega()) && r.getTiposPaquetes().equals(paq.getTiposPaquete()))
             {
-                if(r.getPaquetesAsignados().size() <=10)
-                {
+                if(r.getPaquetesAsignados() == null) {
+                    r.setPaquetesAsignados(new ArrayList<>());
+                }
                     paq.setRepatidorAsignado(r);
                     paq.setEstado(EstadosPaquete.ASIGNADO_PARA_REPARTO);
-                    this.listadoPaquetes = new ArrayList<>();
                     this.listadoPaquetes.add(paq);
                     r.setPaquetesAsignados(this.listadoPaquetes);
                     repoRepartidor.modificar(r);
                     repoPaquete.modificar(paq);
                     return true;
-                }
+
             }
         }
         EntradaSalida.SalidaError("No se pudo asignar repartidor","ERROR");
@@ -638,7 +642,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
      */
     private void asignarPaquetesRepartidor (Repartidor rep, int cant, EstadosPaquete estado)
     {
-        this.listadoPaquetes = new ArrayList<>();
+        this.listadoPaquetes = repoPaquete.listar();
         this.listadoPaquetes = filtrarPaquetesPorZona(filtrarPaquetesPorEstado(this.listadoPaquetes,estado),rep.getZona());
         this.listadoPaquetes = filtrarPaquetesPorTipo(this.listadoPaquetes,rep.getTiposPaquetes());
         int i=0;
@@ -647,13 +651,13 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
         {
             if(p.getRepatidorAsignado()==null)
             {
-                if(cant <= i)
+                if(cant < i)
                 {
                     p.setRepatidorAsignado(rep);
                     p.setEstado(EstadosPaquete.ASIGNADO_PARA_REPARTO);
                     repoPaquete.modificar(p);
                     asignados.add(p);
-                    cant++;
+                    i++;
                 }
             }
         }
@@ -743,13 +747,14 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
      */
     void asignarPaquetes (Supervisor supervisor)
     {
-        int opcion = EntradaSalida.entradaInt("""
+        int opcion=0;
+        do{
+            opcion = EntradaSalida.entradaInt("""
                       ASIGNACION DE PAQUETES\s
                   1 - Asignacion automatica a repartidores
                   2 . Asignacion de paquetes a un repartidor
                   3 . Asignacion de un paquete\
                 """);
-        do{
             switch (opcion) {
                 case 1 -> {
                     String msj = "Confirmar asignacion automatica a repartidores de supervisor " +
