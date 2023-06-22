@@ -447,7 +447,6 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
      * @see Repartidor
      * @author Oriana Dafne Lucero
      */
-
     private Repartidor modificarDatosRepartidor (Repartidor rep)
     {
         int continuar =0;
@@ -1072,8 +1071,6 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
      */
     private void cargarPaquete (Paquete nuevo)
     {
-        int cliente=0;
-
         nuevo.setId((repoPaquete.buscarUltimoID())+1);
         nuevo.setCodigoIdentificacion(nuevoCogigoPaquete());
 
@@ -1149,7 +1146,6 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
         for(Paquete p : filtrarPaquetesPorEstado(repoPaquete.listar(),estado))
         {
             listado.append(p.toStringListar());
-
         }
         String mensaje= "PAQUETES EN ESTADO: "+ estadosPaquete;
         EntradaSalida.SalidaInformacion(listado.toString(),mensaje);
@@ -1378,8 +1374,10 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
         do {
             opcion = EntradaSalida.entradaInt("""
                               MODIFICAR\s
+                              
                          1 - Datos personales
                          2 - Direccion\
+                         
                         """);
 
             switch (opcion) {
@@ -1455,10 +1453,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
         }
     }
     @Override
-    public void registroEmpleado() {
-
-    }
-
+    public void registroEmpleado() {}
     /// endregion
 
 
@@ -1499,7 +1494,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
      * Una vez que el Supervisor se logue en el sistema llegara por parametro
      * para ser asignado al atributo Supervisor y permitir gestionar dentro del menu
      * Empleados - Clientes - Paquetes - Cambio de ocntraseña
-     * @param sup Supervisor logueado en el sistema
+     * @param sup Supervisor logueado en el sistema par ser asignado
      */
     public void menuGestionSupervisor(Supervisor sup){
 
@@ -1509,6 +1504,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
         do {
             opcion = EntradaSalida.entradaInt("""
                           SELECCIONE UNA OPCION \s
+                          
                      1 - Gestionar Empleados
                      2 - Gestionar Paquetes
                      3 - Gestionar Clientes
@@ -1534,6 +1530,11 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
         } while (opcion!=0);
     }
 
+     /**
+     * <h2>Menu Empleados</h2>
+     * Una vez que el Supervisor ingrese a este menu
+     * podrá ver empleados a cargo o modificar empleados
+     */
     public void menuEmpleados(){
 
         int opcion = 0;
@@ -1568,6 +1569,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
         do {
             opcion = EntradaSalida.entradaInt("""
                           SELECCIONE UNA OPCION \s
+                          
                      1 - Buscar un empleado
                      2 - Ver todos los empleados a cargo
 
@@ -1596,6 +1598,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
         do {
             opcion = EntradaSalida.entradaInt("""
                           SELECCIONE UNA OPCION \s
+                          
                      1 - Ver paquetes
                      2 - Alta nuevo paquete
                      3 - Modificar Paquete

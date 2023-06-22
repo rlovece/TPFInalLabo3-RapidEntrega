@@ -27,10 +27,15 @@ public class Main {
     public static void menuIncial(){
         int opcion = 0;
         do {
-            opcion = EntradaSalida.entradaInt("      ELIJA OPCION  \n" +
-                    "\n 1 - Soy Cliente" +
-                    "\n 2 - Soy Empleado\n" +
-                    "\n 0 - Cerrar Programa\n\n");
+            opcion = EntradaSalida.entradaInt("""
+                          ELIJA UNA OPCION \s
+
+                     1 - Soy Cliente
+                     2 - Soy Empleado
+
+                     0 - Cerrar Programa
+
+                    """);
 
             switch (opcion) {
                 case 1 -> {
@@ -48,7 +53,7 @@ public class Main {
         int opcion = 0;
         do {
             opcion = EntradaSalida.entradaInt("""
-                          ELIJA OPCION \s
+                          ELIJA UNA OPCION \s
 
                      1 - Soy Supervisor
                      2 - Soy Empleado de Local
