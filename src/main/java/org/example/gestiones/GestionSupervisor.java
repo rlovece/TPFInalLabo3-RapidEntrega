@@ -855,6 +855,27 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
 
     }
 
+    /**
+     * <h2>Desasignacion Repartidores</h2>
+     * Busca todos los paquetes que hayan quedado en Estado ASIGNADO_PARA_REPARTO
+     * y los duevle al estado EN_CORREO, borrandoles tambien el repartidor asignado
+     * Solo usar al finalizar el dia en caso de que hayan quedados paquetes pendientes
+     * @see EstadosPaquete
+     */
+    private void desasignacionRep ()
+    {
+        ArrayList<Paquete> paquetes = repoPaquete.listar();
+        for (Paquete p : paquetes)
+        {
+            if(p.getEstado().equals(EstadosPaquete.ASIGNADO_PARA_REPARTO))
+            {
+                p.setEstado(EstadosPaquete.EN_CORREO);
+                p.setRepatidorAsignado(null);
+                repoPaquete.modificar(p);
+            }
+        }
+    }
+
     /// endregion
 
     /// region Metodos Paquete
@@ -1579,6 +1600,7 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
                      2 - Alta nuevo paquete
                      3 - Modificar Paquete
                      4 - Asignar paquetes
+                     5 - Desasignar repartidores
 
                      0 - Salir
                     """);
@@ -1595,6 +1617,14 @@ public class GestionSupervisor implements ManejoCliente, ManejoPaquete, ManejoEm
                     }
                 }
                 case 4 -> asignarPaquetes();
+                case 5 ->
+                { if(1== EntradaSalida.entradaInt("CONFIRMAR \n 1 - Confirmar devolucion de paquetes a correo\n 2 - CANCELAR")) {
+                    desasignacionRep();
+                    EntradaSalida.SalidaInformacion("Se realizo la devolucion de paquetes a correo" ,"DEVOLUCION EXITOSA");
+                }else {
+                    EntradaSalida.SalidaInformacion("Se cancelo devolucion de paquetes a correo" ,"CANCELADA");
+                }
+                }
                 default -> {
                 }
             }
